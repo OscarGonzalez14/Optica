@@ -48,8 +48,9 @@
 
           <th><p align="center">Valor de la Venta</p></th>
           <th><p align="center">Abonos Anteriores</p></th>
+          <th><p align="center">Saldo Actual</p></th>
           <th><p align="center">Abono Actual</p></th>
-          <th><p align="center">Saldo</p></th> 
+          <th><p align="center"> NuevoSaldo</p></th> 
           <th><p align="center">Forma de Pago</p></th>
 
           </tr>
@@ -58,9 +59,36 @@
         <tbody id="listarAbono"></tbody>
 
       </table>
+
+<div class="row">
+  <div class="col-sm-4">
+  <div class="input-group">
+  <span class="input-group-addon">Marca de Aro</span>
+  <input id="marca_aro" type="text" class="form-control" name="marca_aro" >
+  </div>
+  </div>
+  <div class="col-sm-4">
+      <div class="input-group">
+  <span class="input-group-addon">Modelo</span>
+  <input id="modelo_aro" type="text" class="form-control" name="modelo_aro" >
+  </div>
+  </div>
+  <div class="col-sm-4">
+      <div class="input-group">
+  <span class="input-group-addon">Color</span>
+  <input id="color_aro" type="text" class="form-control" name="color_aro" >
+  </div>
+  </div>
+</div>
+
+<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input id="id_credito" type="hidden" name="id_credito">
+<input id="id_paciente" type="hidden" name="id_paciente">
+
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-dismiss="modal">Registrar Abono</button>
+<button type="button" onClick="registrarAbono()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
       </div>
     </div>
 

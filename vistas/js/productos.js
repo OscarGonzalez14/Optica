@@ -1135,8 +1135,7 @@ obj.value es el valor del campo de texto*/
 			
 		success:function(data){
 
-			//var cedula = $("#cod_pac").val("");
-		    var nombre_pac = $("#nombre_pac").val("");
+	    var nombre_pac = $("#nombre_pac").val("");
 
             
             detalles = [];

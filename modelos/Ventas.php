@@ -6,21 +6,21 @@
   class Ventas extends Conectar{
 
 
-      public function get_filas_venta(){
+public function get_filas_venta(){
 
-            $conectar= parent::conexion();
+      $conectar= parent::conexion();
            
-             $sql="select * from ventas";
+        $sql="select * from ventas";
              
-             $sql=$conectar->prepare($sql);
+        $sql=$conectar->prepare($sql);
 
-             $sql->execute();
+        $sql->execute();
 
-             $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+        $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
-             return $sql->rowCount();
+        return $sql->rowCount();
         
-        }
+  }
 
 
 		 public function get_ventas(){
@@ -72,7 +72,7 @@
        $conectar=parent::conexion();
            parent::set_names();
 
-          $sql="select p.telefono,p.nombres, p.empresa, c.id_credito,c.monto,c.saldo,v.tipo_pago from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente join ventas as v where c.id_credito=(select max(id_credito) from creditos) and v.numero_venta=c.numero_venta;";
+          $sql="select p.telefono,p.nombres, p.empresa, c.id_credito,c.monto,c.saldo,v.tipo_pago,p.id_paciente from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente join ventas as v where c.id_credito=(select max(id_credito) from creditos) and v.numero_venta=c.numero_venta;";
 
 
           //echo $sql; exit();
@@ -392,6 +392,93 @@ public function agrega_detalle_venta(){
 
   	  }
 
+//////////////////////REGISTRAR ABONOS
+
+public function agrega_detalle_abono(){
+
+       
+  //echo json_encode($_POST['arrayCompra']);
+  $str = '';
+  $abonoi = array();
+  $abonoi = json_decode($_POST['arrayAbonos']);
+
+
+   
+   $conectar=parent::conexion();
+
+
+  foreach ($abonoi as $k => $v) {
+      
+       $abono = $v->abono;
+
+       $id_credito = $_POST["id_credito"];
+       $id_usuario = $_POST["id_usuario"];
+       $id_paciente = $_POST["id_paciente"];
+       
+
+        $sql="insert into abonos
+        values(null,?,?,?,?);";
+
+
+        $sql=$conectar->prepare($sql);
+
+        $sql->bindValue(1,$abono);
+        $sql->bindValue(2,$id_paciente);
+        $sql->bindValue(3,$id_usuario);
+        $sql->bindValue(4,$id_paciente);       
+       
+        $sql->execute();
+         
+        $sql3="select * from creditos where id_credito=?;";
+
+
+             
+             $sql3=$conectar->prepare($sql3);
+
+             $sql3->bindValue(1,$id_credito);
+             $sql3->execute();
+
+             $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
+
+                  foreach($resultado as $b=>$row){
+
+                    $re["saldo_act"] = $row["saldo"];
+
+                  }
+
+                //la cantidad total es la resta del stock menos la cantidad de productos vendido
+                $saldo_total = $row["saldo"] - $abono;
+
+             
+               //si existe el producto entonces actualiza el stock en producto
+              
+               if(is_array($resultado)==true and count($resultado)>0) {
+                     
+                  //actualiza el stock en la tabla producto
+
+                 $sql4 = "update creditos set 
+                      
+                      saldo=?
+                      where 
+                      id_credito=?
+                 ";
+
+
+                $sql4 = $conectar->prepare($sql4);
+                $sql4->bindValue(1,$saldo_total);
+                $sql4->bindValue(2,$id_credito);
+                $sql4->execute();
+
+               } //cierre la condicional
+
+
+       }//cierre del foreach
+      
+}
+
+
+
+  //////////////FIN REGISTRAR ABONOS    
 
   	  public function get_ventas_por_id($id_ventas){
 

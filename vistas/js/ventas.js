@@ -132,6 +132,7 @@ function abono_inicial(){
 						tipo_pago : data.tipo_pago,
 						abono 	 : 0,
 						saldo 	 : 0,
+						saldo_ant : data.saldo,	
 						nletras  : 1,
 						mletras	 : 1,
 						abono_ant : '00.00',
@@ -157,8 +158,8 @@ function listarAbono(){
   
   	for(var i=0; i<abonoi.length; i++){
 
-	var saldo = abonoi[i].saldo = abonoi[i].monto - abonoi[i].saldo;	  
-	saldo = abonoi[i].saldo = abonoi[i].monto - abonoi[i].saldo;
+	var saldo = abonoi[i].saldo = abonoi[i].saldo_ant - abonoi[i].saldo;	  
+	saldo = abonoi[i].saldo = abonoi[i].saldo_ant - abonoi[i].saldo;
 
 	var mletras = abonoi[i].mletras = abonoi[i].monto / abonoi[i].nletras;	  
 	mletras = abonoi[i].mletras = abonoi[i].monto /abonoi[i].nletras;
@@ -166,6 +167,7 @@ function listarAbono(){
     var filas ="<tr>"+
     "<td name='monto[]'>"+"<p align='center'>"+abonoi[i].moneda+" "+abonoi[i].monto+"</p>"+"</td>"+
     "<td name='abono_ant[]' align='center'>"+abonoi[i].abono_ant+"</td>"+
+    "<td name='saldo_ant[]' align='center'>"+abonoi[i].saldo_ant+"</td>"+
     "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonoi[i].saldo+"</span> </td>"+
     "<td align='center'><span name='tipo_pago[]' id=tipo_pago"+i+">"+abonoi[i].tipo_pago+"</span> </td>"+"</tr>";
@@ -189,12 +191,12 @@ function listarAbono(){
 
   function recalculo(idx){
   	console.log(abonoi[idx].abono);
-  	console.log((abonoi[idx].monto - abonoi[idx].abono));
+  	console.log((abonoi[idx].saldo_ant - abonoi[idx].abono));
 
   	console.log(abonoi[idx].nletras);
   	console.log((abonoi[idx].monto / abonoi[idx].nletras));
 
-    var saldo =abonoi[idx].saldo = abonoi[idx].monto - abonoi[idx].abono;
+    var saldo =abonoi[idx].saldo = abonoi[idx].saldo_ant - abonoi[idx].abono;
     var mletras =abonoi[idx].mletras = abonoi[idx].monto / abonoi[idx].nletras;
 
 
@@ -211,7 +213,63 @@ function listarAbono(){
 
 	  
   }
+////REGiSTRAR ABONOS
 
+function registrarAbono(){
+    
+    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
+
+    var id_usuario = $("#id_usuario").val();
+    var id_paciente = $("#id_paciente").val();
+    var id_credito =$("#id_credito").val();
+
+
+    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
+
+    $.ajax({
+		url:"../ajax/ventas.php?op=registrar_abono",
+		method:"POST",
+		data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito},
+		cache: false,
+		dataType:"html",
+		error:function(x,y,z){
+			d_pacole.log(x);
+			console.log(y);
+			console.log(z);
+		},    
+      
+			
+		success:function(data){
+
+	    var nombre_pac = $("#saldo").val("");
+
+            
+            abonoi = [];
+            //$('#listProdVentas').html('');
+            
+              //muestra un mensaje de exito
+          setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 
+          
+          //refresca la pagina, se llama a la funtion explode
+          setTimeout ("explode();", 2000); 
+         	
+		}
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del paciente
+	
+  }
+
+   
+
+  //*****************************************************************************
+   /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
+       function explode(){
+
+	    location.reload();
+}
+///FIN REGISTRA ABONOS
   	
 
  $(document).on('click', '.abono_ini', function(){
@@ -231,7 +289,38 @@ function listarAbono(){
 				$("#nombres").html(data.nombres);
 				$("#empresa").html(data.empresa);
 				$("#c_numeros").html(data.monto);
-				//$("#c_numeros").html(data.monto);
+				$("#id_paciente").val(data.id_paciente);
+				$("#id_credito").val(data.id_credito);
+
+                 
+                 //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada
+				//alert(data);
+				
+			}
+		})
+	});
+
+ //ver detalle Aros Ultima Venta
+
+  $(document).on('click', '.abono_ini', function(){
+	 	//toma el valor del id
+
+		$.ajax({
+			url:"../ajax/ventas.php?op=ver_ultima_venta_aros",
+			method:"POST",
+			//data:{numero_venta:numero_venta},
+			cache:false,
+			dataType:"json",
+			success:function(data)
+			{
+
+
+				$("#marca_aro").val(data.marca);
+				$("#marca_aro").attr('disabled','disabled');
+				$("#modelo_aro").val(data.modelo);
+				$("#modelo_aro").attr('disabled','disabled');
+				$("#color_aro").val(data.color);
+				$("#color_aro").attr('disabled','disabled');
                  
                  //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada
 				//alert(data);

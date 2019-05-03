@@ -170,6 +170,8 @@
 					$output["empresa"] = $row["empresa"];
 					$output["saldo"] = $row["saldo"];
 					$output["tipo_pago"] = $row["tipo_pago"];
+					$output["id_paciente"] = $row["id_paciente"];
+					$output["id_credito"] = $row["id_credito"];
 														
 				}
 		
@@ -207,12 +209,65 @@
 
   	break;
 
+  	case "ver_ultima_venta_aros":
+
+  	   $datos= $ventas->get_det_ultima_venta_aros();	
+
+      if(is_array($datos)==true and count($datos)>0){
+
+				foreach($datos as $row)
+				{
+					
+					$output["marca"] = $row["marca"];
+					$output["modelo"] = $row["modelo"];
+					$output["color"] = $row["color"];
+													
+				}
+		
+		      
+		          echo json_encode($output);
+
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                $errors[]="no existe";
+
+	        }
+
+
+	         //inicio de mensaje de error
+
+				if (isset($errors)){
+			
+					?>
+					<div class="alert alert-danger" role="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Error!</strong> 
+							<?php
+								foreach ($errors as $error) {
+										echo $error;
+									}
+								?>
+					</div>
+					<?php
+			      }
+
+  	break;
+
   	 case "ver_detalle_venta":
 
   	   $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"]);	
 
 
   	 break;
+
+  	case "registrar_abono";
+
+
+	$ventas->agrega_detalle_abono();
+
+     break;
 
 
  case "consulta_cantidad_venta":
