@@ -169,10 +169,8 @@
 					$output["nombres"] = $row["nombres"];
 					$output["empresa"] = $row["empresa"];
 					$output["saldo"] = $row["saldo"];
-					//$output["telefono"] = $row["telefono"];
-					
-
-									
+					$output["tipo_pago"] = $row["tipo_pago"];
+														
 				}
 		
 		      

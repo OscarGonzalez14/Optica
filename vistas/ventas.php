@@ -55,11 +55,6 @@
 
 }
 
-#date{
-
-  background: #E0E0E0;
-
-}
 #line1{
 
   background: black;
@@ -140,7 +135,7 @@
      
   <div class="col-xs-3">
       <div class="form-group">
-      <label for="sel1">Tipo de Venta:</label>
+      <label for="sel1">Tipo de Pago:</label>
       <select class="form-control" name="tipo_pago" id="tipo_pago"></select>
       </div>
       

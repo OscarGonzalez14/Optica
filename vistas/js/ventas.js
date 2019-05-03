@@ -129,12 +129,13 @@ function abono_inicial(){
 						nombres  : data.nombres,				
 						empresa	 : data.empresa,						
 						saldo    : data.saldo,
+						tipo_pago : data.tipo_pago,
 						abono 	 : 0,
 						saldo 	 : 0,
 						nletras  : 1,
 						mletras	 : 1,
 						abono_ant : '00.00',
-						moneda	 : '$ '  
+						moneda	 : '$ '					  
 													
 					};
 
@@ -162,13 +163,12 @@ function listarAbono(){
 	var mletras = abonoi[i].mletras = abonoi[i].monto / abonoi[i].nletras;	  
 	mletras = abonoi[i].mletras = abonoi[i].monto /abonoi[i].nletras;
 
-    var filas ="<tr>"+"<td><input type='text' class='nletras' name='nletras' id=nletras"+i+" onkeyup='setLetras(event, this, "+(i)+");' value='"+abonoi[i].nletras+"'></td>"+
- 	"<td align'center'> <span name='mletras[]' id=mletras"+i+">"+abonoi[i].moneda+" "+abonoi[i].mletras+"</span> </td>"+
-    "<td name='monto[]'>"+"<p align='center'>"+abonoi[i].monto+"</p>"+"</td>"+
-    "<td td name='abono_ant[]'>"+abonoi[i].abono_ant+"</td>"+
-    "<td><input type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
-    "<td> <span name='saldo[]' id=saldo"+i+">"+abonoi[i].saldo+"</span> </td>"+"</tr>"+
-    "<tr>"+"<td>"+abonoi[i].moneda+"<td>"+"</tr>";
+    var filas ="<tr>"+
+    "<td name='monto[]'>"+"<p align='center'>"+abonoi[i].moneda+" "+abonoi[i].monto+"</p>"+"</td>"+
+    "<td name='abono_ant[]' align='center'>"+abonoi[i].abono_ant+"</td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
+    "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonoi[i].saldo+"</span> </td>"+
+    "<td align='center'><span name='tipo_pago[]' id=tipo_pago"+i+">"+abonoi[i].tipo_pago+"</span> </td>"+"</tr>";
 	}
 
 	
@@ -198,8 +198,9 @@ function listarAbono(){
     var mletras =abonoi[idx].mletras = abonoi[idx].monto / abonoi[idx].nletras;
 
 
- 	saldoFinal = abonoi[idx].saldo;	    
-    $('#saldo'+idx).html(saldoFinal);
+ 	saldoFinal = abonoi[idx].saldo;
+ 	saldoFinalRed=saldoFinal.toFixed(2);	    
+    $('#saldo'+idx).html(saldoFinalRed);
 
      Mletras = abonoi[idx].mletras;
      monto_letras=Mletras.toFixed(2);	    
@@ -229,7 +230,8 @@ function listarAbono(){
 				$("#telefono").html(data.telefono);
 				$("#nombres").html(data.nombres);
 				$("#empresa").html(data.empresa);
-				
+				$("#c_numeros").html(data.monto);
+				//$("#c_numeros").html(data.monto);
                  
                  //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada
 				//alert(data);
@@ -253,7 +255,7 @@ function listarAbono(){
 			{
 				
 
-				$("#paciente").html(data.nombres);
+				$("#nombres").html(data.nombres);
 				$("#numero_venta").html(data.numero_venta);
 				$("#telefono").html(data.telefono);
 				$("#fecha_venta").html(data.fecha_venta);

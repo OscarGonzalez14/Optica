@@ -59,7 +59,7 @@
 		      //echo $sql; exit();
 
 		      $sql=$conectar->prepare($sql);
-  
+          $sql->bindValue(1,$numero_venta);
 		      $sql->execute();
 		      return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -72,7 +72,8 @@
        $conectar=parent::conexion();
            parent::set_names();
 
-          $sql="select p.telefono,p.nombres, p.empresa, c.id_credito,c.monto,c.saldo from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where c.id_credito=(select max(id_credito) from creditos);";
+          $sql="select p.telefono,p.nombres, p.empresa, c.id_credito,c.monto,c.saldo,v.tipo_pago from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente join ventas as v where c.id_credito=(select max(id_credito) from creditos) and v.numero_venta=c.numero_venta;";
+
 
           //echo $sql; exit();
 
@@ -84,6 +85,27 @@
        
             
     }
+
+    public function get_det_ultima_venta_aros(){
+
+       $conectar=parent::conexion();
+           parent::set_names();
+
+          $sql="select d.producto,d.numero_venta,p.modelo,p.marca,p.color from detalle_ventas as d, producto as p where d.id_producto=p.id_producto and d.numero_venta=(select max(d.numero_venta)from detalle_ventas) and p.categoria='aros';";
+
+
+          //echo $sql; exit();
+
+          $sql=$conectar->prepare($sql);
+
+          $sql->execute();
+          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+       
+            
+    }
+
+
 
 		public function get_detalle_ventas_paciente($numero_venta){
 
@@ -183,14 +205,14 @@ $html.="<tr class='filas'>
 
 		                   if(empty($numero_venta["numero"]))
 		                {
-		                  echo 'V000001';
+		                  echo '0000001';
 		                }else
 		          
 		                  {
 		                    $num     = substr($numero_venta["numero"] , 1);
 		                    $dig     = $num + 1;
 		                    $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
-		                    echo 'V'.$fact;
+		                    echo '0'.$fact;
 		                    //echo 'F'.$new_cod;
 		                  } 
 

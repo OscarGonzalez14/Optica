@@ -41,7 +41,7 @@
 
         <tbody>
                             
-          <td> <h5 id="paciente"></h5><input type="hidden" name="paciente" id="paciente"></td>
+          <td> <h5 id="nombres"></h5><input type="hidden" name=nombres" id="nombres"></td>
           <td> <h5 id="telefono"></h5><input type="hidden" name="telefono" id="telefono"></td>
           <td><h5 id="numero_venta"></h5><input type="hidden" name="numero_venta" id="numero_venta"></td>
           <td><h5 id="fecha_venta"></h5><input type="hidden" name="fecha_venta" id="fecha_venta"></td>
