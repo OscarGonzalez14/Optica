@@ -64,7 +64,7 @@
   <div class="col-sm-4">
   <div class="input-group">
   <span class="input-group-addon">Marca de Aro</span>
-  <input id="marca_aro" type="text" class="form-control" name="marca_aro" >
+  <input id="marca_aro" type="text" class="form-control" name="marca_aro" placeholder="---">
   </div>
   </div>
   <div class="col-sm-4">
@@ -88,7 +88,7 @@
 
       </div>
       <div class="modal-footer">
-<button type="button" onClick="registrarAbono()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+    <button type="button" onClick="registrarAbono()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
       </div>
     </div>
 
