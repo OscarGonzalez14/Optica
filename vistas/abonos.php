@@ -5,19 +5,10 @@
 
     if(isset($_SESSION["id_usuario"])){
 
-     require_once("../modelos/Compras.php");
-     require_once("../modelos/Categorias.php");
-     require_once("../modelos/Usuarios.php");
+     require_once("../modelos/Creditos.php");
 
-      require_once("../modelos/Ventas.php");
      
-       $venta = new Ventas();
-    
-     
-      $compra = new Compras();
-      $categoria = new Categoria();
-
-      $cat = $categoria->get_categorias();
+       $venta = new Creditos();
     
 ?>
 
@@ -50,32 +41,63 @@
     <?php require_once("modal/lista_productos_ventas_modal.php");?>
     <?php require_once("modal/lista_lentes_ventas_modal.php");?>
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
-      <?php require_once("modal/abono_inicial.php");?>
+      <?php require_once("modal/abonos_pacientes.php");?>
 <div class="row">
+<h5 align="center">ABONOS</h5>
   <div class="col-sm-12"></div>
 </div>
 
  <div class="row">
  <div class="col-sm-1"></div>
   <div class="col-sm-2">
-    <a href="abonosmetro.php"><h3><button class="btn btn-blue btn-block" id="metro"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Metrocentro</button></h3></a>
+    <a href="#"><h3><button class="btn btn-blue btn-block" id="metro" onClick="lista_creditos()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Metrocentro</button></h3></a>
    </div>
 
    <div class="col-sm-2">
      <a href="abonosmetro.php"><h3><button class="btn btn-blue btn-block" id="metro"  ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Empresarial</button></h3></a>
    </div>
 
-      <div class="col-sm-2">
+      <div class="col-sm-3">
      <a href="abonosmetro.php"><h3><button class="btn btn-dark btn-block" id="metro" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h3></a>
    </div>
 
       <div class="col-sm-3">
      <a href="abonosmetro.php"><h3><button class="btn btn-blue btn-block" id="metro" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Créditos Personales</button></h3></a>
    </div>
- <div class="col-sm-2"></div>
-
+ <div class="col-sm-1"></div>
  
- </div>     
+ </div><!--FIN ROW 1-->  
+
+
+ <!--ROW 2-->   
+<div class="row">
+
+  <div class="col-sm-12">
+  <h4 align="center" id="titulo"></h4>
+   <table id="creditos_data" class="table table-bordered table-striped">
+     <thead>
+       <tr>
+         <th>Paciente</th>
+         <th>Monto Crédito</th>
+         <th>Saldo</th>
+         <th>Telefono</th>
+         <th>Empresa</th>
+          <th>Abonar</th>
+         <th>Cancelar</th>
+        <th>Imprimir</th>
+
+
+
+
+       </tr>
+     </thead>
+     <tbody>
+     </tbody>
+   </table> 
+  </div>
+
+</div>
+
 </div><!-- /.content-wrapper -->
  
  <script>
@@ -93,15 +115,6 @@ h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
  </script>
   
-  <!--FIN DE CONTENIDO-->
-
-       <!--VISTA MODAL PARA AGREGAR PROVEEDOR-->
-    <?php require_once("modal/lista_proveedores_modal.php");?>
-    <!--VISTA MODAL PARA AGREGAR PROVEEDOR-->
-    
-     <!--VISTA MODAL PARA AGREGAR PRODUCTO-->
-    <?php require_once("modal/lista_productos_modal.php");?>
-
 
    
   <?php  } else {
@@ -115,13 +128,7 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
    <?php require_once("footer.php");?>
 
 
-   
-    <!--AJAX PROVEEDORES-->
-<script type="text/javascript" src="js/paciente.js"></script>
-
-   <!--AJAX PRODUCTOS-->
-<script type="text/javascript" src="js/productos.js"></script>
-<script type="text/javascript" src="js/ventas.js"></script>
+<script type="text/javascript" src="js/creditos.js"></script>
 
 
 

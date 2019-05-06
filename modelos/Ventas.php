@@ -18,9 +18,8 @@ public function get_filas_venta(){
 
         $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        return $sql->rowCount();
-        
-  }
+        return $sql->rowCount();  
+}
 
 
 		 public function get_ventas(){
