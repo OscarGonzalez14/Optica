@@ -50,7 +50,7 @@
  <div class="row">
  <div class="col-sm-1"></div>
   <div class="col-sm-2">
-    <a href="#"><h3><button class="btn btn-blue btn-block" id="metro" onClick="lista_creditos()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Metrocentro</button></h3></a>
+    <a href="#"><h3><button class="btn btn-blue btn-block abonos" id="metro" onClick="lista_creditos()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Metrocentro</button></h3></a>
    </div>
 
    <div class="col-sm-2">

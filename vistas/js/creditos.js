@@ -1,4 +1,3 @@
-
 var tabla_creditos;
 
 //Función que se ejecuta al inicio
@@ -91,9 +90,9 @@ function lista_creditos()
 
 function calcularc()
 {
-  abono_ant=document.f1.abono_ant.value;
+  saldo_act=document.f1.saldo_act.value;
   abono=document.f1.abono.value;
-  saldo_n=parseFloat(abono_ant)-parseFloat(abono);
+  saldo_n=parseFloat(saldo_act)-parseFloat(abono);
   document.f1.n_saldo.value=saldo_n;
 }
 
@@ -175,8 +174,9 @@ function registrarAbono(){
         $("#id_paciente").val(data.id_paciente);
         $("#id_credito").val(data.id_credito);
         $("#monto").val(data.monto);
-        $("#abono_ant").val(data.saldo);
-         $("#tipo_pago").html(data.tipo_pago);
+        $("#abono_ant").val(data.monto_abono);
+        $("#tipo_pago").html(data.tipo_pago);
+        $("#saldo_act").val(data.saldo);
 
         $('#detalle_abonos').modal('show');
                  //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada

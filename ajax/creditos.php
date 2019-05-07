@@ -59,6 +59,8 @@ switch ($_GET["op"]) {
 					$output["saldo"] = $row["saldo"];
 					$output["id_paciente"] = $row["id_paciente"];
 					$output["tipo_pago"] = $row["tipo_pago"];
+					$output["id_credito"] = $row["id_credito"];
+					$output["monto_abono"] = $row["monto_abono"];
 									
 				}
 		

@@ -56,9 +56,9 @@
 
         <tbody>
           <tr>
-            <td><input class="form-control" type="text" name="monto" id="monto" ></td>
-            <td></td>
-            <td><input class="form-control" type="text" name="abono_ant" id="abono_ant" onkeyup="calcularc()"></td>
+            <td><input class="form-control" type="text" name="monto" id="monto" readonly></td>
+            <td><input class="form-control" type="text" name="abono_ant" id="abono_ant" readonly></td>
+            <td><input class="form-control" type="text" name="saldo_act" id="saldo_act" onkeyup="calcularc()" readonly></td>
             <td><input class="form-control" type="text" name="abono" id="abono" onkeyup="calcularc()"></td>
             <td><input class="form-control" type="text" name="n_saldo" id="n_saldo" onkeyup="calcularc()"></td>
             <td><h5 id="tipo_pago" align="center"></h5><input type="hidden" name="tipo_pago" id="tipo_pago"></td>

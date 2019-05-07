@@ -424,7 +424,7 @@ public function agrega_detalle_abono(){
         $sql->bindValue(1,$abono);
         $sql->bindValue(2,$id_paciente);
         $sql->bindValue(3,$id_usuario);
-        $sql->bindValue(4,$id_paciente);       
+        $sql->bindValue(4,$id_credito);
        
         $sql->execute();
          
