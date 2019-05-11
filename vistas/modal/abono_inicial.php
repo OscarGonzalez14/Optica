@@ -80,6 +80,28 @@
   </div>
   </div>
 </div>
+<br>
+<div class="row">
+  <div class="col-sm-4">
+  <div class="input-group">
+  <span class="input-group-addon">Diseño de Lente</span>
+  <input id="dis_lente" type="text" class="form-control" name="dis_lente" placeholder="---">
+  </div>
+  </div>
+  <div class="col-sm-4">
+      <div class="input-group">
+  <span class="input-group-addon">Tipo de AR</span>
+  <input id="tipo_ar" type="text" class="form-control" name="tipo_ar" >
+  </div>
+  </div>
+  <div class="col-sm-4">
+      <div class="input-group">
+  <span class="input-group-addon">Marca de Photosensible</span>
+  <input id="photo" type="text" class="form-control" name="photo" >
+  </div>
+  </div>
+</div>
+
 
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input id="id_credito" type="hidden" name="id_credito">

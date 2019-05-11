@@ -26,7 +26,7 @@ public function get_filas_venta(){
 
 		 $conectar= parent::conexion();
        
-         $sql="select * from ventas";
+         $sql="select * from ventas order by fecha_venta DESC";
 
          //echo $sql;
          
@@ -104,6 +104,24 @@ public function get_filas_venta(){
             
     }
 
+ public function get_det_ultima_venta_lentes(){
+
+       $conectar=parent::conexion();
+           parent::set_names();
+
+          $sql="select d.producto,d.numero_venta,p.modelo,p.marca,p.color from detalle_ventas as d, producto as p where d.id_producto=p.id_producto and d.numero_venta=(select max(d.numero_venta)from detalle_ventas) and p.categoria='lentes';";
+
+
+          //echo $sql; exit();
+
+          $sql=$conectar->prepare($sql);
+
+          $sql->execute();
+          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+       
+            
+    }
 
 
 		public function get_detalle_ventas_paciente($numero_venta){
@@ -413,18 +431,20 @@ public function agrega_detalle_abono(){
        $id_credito = $_POST["id_credito"];
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
+       $forma_pago = $_POST["forma_pago"];
        
 
         $sql="insert into abonos
-        values(null,?,?,?,?);";
+        values(null,?,?,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
 
         $sql->bindValue(1,$abono);
-        $sql->bindValue(2,$id_paciente);
-        $sql->bindValue(3,$id_usuario);
-        $sql->bindValue(4,$id_credito);
+        $sql->bindValue(2,$forma_pago);
+        $sql->bindValue(3,$id_paciente);
+        $sql->bindValue(4,$id_usuario);
+        $sql->bindValue(5,$id_credito);
        
         $sql->execute();
          

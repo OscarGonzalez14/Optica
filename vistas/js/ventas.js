@@ -170,7 +170,10 @@ function listarAbono(){
     "<td name='saldo_ant[]' align='center'>"+abonoi[i].saldo_ant+"</td>"+
     "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonoi[i].saldo+"</span> </td>"+
-    "<td align='center'><span name='tipo_pago[]' id=tipo_pago"+i+">"+abonoi[i].tipo_pago+"</span> </td>"+"</tr>";
+    "<td align='center'>"+
+        "<select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+    "</td>"
+    +"</tr>";
 	}
 
 	
@@ -222,14 +225,15 @@ function registrarAbono(){
     var id_usuario = $("#id_usuario").val();
     var id_paciente = $("#id_paciente").val();
     var id_credito =$("#id_credito").val();
-
+    var forma_pago =$("#forma_pago").val();
+    //var abono = $("#abono").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-
+if(forma_pago!=""){
     $.ajax({
 		url:"../ajax/ventas.php?op=registrar_abono",
 		method:"POST",
-		data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito},
+		data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -257,8 +261,12 @@ function registrarAbono(){
 
 	});	
 
-	 //cierre del condicional de validacion de los campos del paciente
+	}else{
+
+	} //cierre del condicional de validacion de los campos del paciente
 	
+	 	 bootbox.alert("Debe llenar todos los campos");
+	 	 return false;
   }
 
    
@@ -271,7 +279,7 @@ function registrarAbono(){
 }
 ///FIN REGISTRA ABONOS
   	
-
+////DETALLES DE ABONO INICIAL******************************
  $(document).on('click', '.abono_ini', function(){
 	 	//toma el valor del id
 
@@ -328,7 +336,31 @@ function registrarAbono(){
 			}
 		})
 	});
+//ver detalle LENTE Ultima Venta
 
+  $(document).on('click', '.abono_ini', function(){
+	 	//toma el valor del id
+
+		$.ajax({
+			url:"../ajax/ventas.php?op=ver_ultima_venta_lentes",
+			method:"POST",
+			//data:{numero_venta:numero_venta},
+			cache:false,
+			dataType:"json",
+			success:function(data)
+			{
+
+
+				$("#dis_lente").val(data.modelo);
+				$("#dis_lente").attr('disabled','disabled');
+			
+                 
+                 //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada
+				//alert(data);
+				
+			}
+		})
+	});
 	  //VER DETALLE paciente-VENTA
 	 $(document).on('click', '.detalle', function(){
 	 	//toma el valor del id

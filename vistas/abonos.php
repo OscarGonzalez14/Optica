@@ -37,11 +37,8 @@
 </style>     
 <div class="content-wrapper">        
         <!-- Main content -->
-    <?php require_once("modal/lista_pacientes_modal.php");?>
-    <?php require_once("modal/lista_productos_ventas_modal.php");?>
-    <?php require_once("modal/lista_lentes_ventas_modal.php");?>
-    <?php require_once("modal/lista_acc_ventas_modal.php");?>
-      <?php require_once("modal/abonos_pacientes.php");?>
+
+    <?php require_once("modal/abonos_pacientes.php");?>
 <div class="row">
 <h5 align="center">ABONOS</h5>
   <div class="col-sm-12"></div>
@@ -54,7 +51,7 @@
    </div>
 
    <div class="col-sm-2">
-     <a href="abonosmetro.php"><h3><button class="btn btn-blue btn-block" id="metro"  ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Empresarial</button></h3></a>
+<h3><button class="btn btn-blue btn-block" id="empresarial" onClick="lista_creditos_empresarial()" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Empresarial</button></h3>
    </div>
 
       <div class="col-sm-3">
@@ -77,13 +74,14 @@
    <table id="creditos_data" class="table table-bordered table-striped">
      <thead>
        <tr>
-         <th>Paciente</th>
-         <th>Monto Crédito</th>
-         <th>Saldo</th>
-         <th>Telefono</th>
-         <th>Empresa</th>
-          <th>Abonar</th>
-         <th>Cancelar</th>
+        <th>Paciente</th>
+        <th>Monto Crédito</th>
+        <th>Saldo</th>
+        <th>Telefono</th>
+        <th>Empresa</th>
+        <th>Sucursal</th>
+        <th>Abonar</th>        
+        <th>Cancelar</th>
         <th>Imprimir</th>
 
 

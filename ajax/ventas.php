@@ -28,7 +28,7 @@
 				 
 				if($row["subtotal"] > 150){
 					$est = 'Imprimir';
-					$icon="<i class='glyphicon glyphicon-print'></i>";
+					$icon=" ";
 					$event = "registrarVenta()";
 					$atrib = "btn btn-blue btn-md glyphicon estado";
 				 
@@ -37,7 +37,7 @@
 				else{
 					if($row["subtotal"] < 150){
 						$est = 'Pendiente';
-						$icon="<i class='glyphicon glyphicon-usd'></i>";
+						$icon=" ";
 						$atrib = "btn btn-danger btn-md glyphicon estado";
 					}	
 				}
@@ -136,11 +136,11 @@
 	
 	echo $html;
 
-	}elseif($_POST['id_tipo']=='Crédito'){
+	}elseif($_POST['id_tipo']=='Credito'){
 	
 	$html= "
 		<option value=''>Selecione</option>
-		<option value='Empresarial'>Empresarial</option>
+		<option value='Descuento en Planilla'> Descuento en Planilla</option>
 	 	<option value='Cargo Automático'>Cargo Automático</option>
 	 	<option value='Creditos Personales'>Créditos Personales</option>";
 	
@@ -221,6 +221,52 @@
 					$output["marca"] = $row["marca"];
 					$output["modelo"] = $row["modelo"];
 					$output["color"] = $row["color"];
+													
+				}
+		
+		      
+		          echo json_encode($output);
+
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                $errors[]="no existe";
+
+	        }
+
+
+	         //inicio de mensaje de error
+
+				if (isset($errors)){
+			
+					?>
+					<div class="alert alert-danger" role="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Error!</strong> 
+							<?php
+								foreach ($errors as $error) {
+										echo $error;
+									}
+								?>
+					</div>
+					<?php
+			      }
+
+  	break;
+
+
+case "ver_ultima_venta_lentes":
+
+  	   $datos= $ventas->get_det_ultima_venta_lentes();	
+
+      if(is_array($datos)==true and count($datos)>0){
+
+				foreach($datos as $row)
+				{
+									
+					$output["modelo"] = $row["modelo"];
+
 													
 				}
 		

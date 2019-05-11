@@ -216,12 +216,12 @@
 
          <li class="treeview">
           <a href="abonos.php">
-            <i class="fa fa-usd" aria-hidden="true"></i> <span>Abonos</span>
+            <i class="fa fa-usd" aria-hidden="true"></i> <span> Creditos y Cobros</span>
            
           </a>
 
           <ul class="treeview-menu">
-            <li><a href="abonos.php"><i class="fa fa-circle-o"></i> Abonos</a></li>
+            <li><a href="abonos.php"><i class="fa fa-circle-o"></i> Creditos y Cobros</a></li>
 
            
           </ul>

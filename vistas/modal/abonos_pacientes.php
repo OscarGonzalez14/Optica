@@ -45,7 +45,7 @@
           <tr>
 
           <th><p align="center">Monto</p></th>
-          <th><p align="center">Abonos Anteriores</p></th>
+          <th><p align="center">Abono Anttext</p></th>
           <th><p align="center">Saldo Actual</p></th>
           <th><p align="center">Abono Actual</p></th>
           <th><p align="center"> NuevoSaldo</p></th> 
@@ -64,23 +64,9 @@
             <td><h5 id="tipo_pago" align="center"></h5><input type="hidden" name="tipo_pago" id="tipo_pago"></td>
           </tr>
         </tbody>
-      <!--  <tr>
-          <td></td>
-        </tr>
 
-        <tr>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td></td>
-        </tr>-->
-
-        
-
-
-      </table>
-      </form>
+  </table>
+  </form>
 
 <div class="row">
   <div class="col-sm-4">
@@ -110,7 +96,7 @@
 
       </div>
       <div class="modal-footer">
-    <button type="button" onClick="registrarAbono()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+    <button type="button" onClick="registrar_abono_pacientes()" class="btn btn-dark pull-right btn-block"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
       </div>
     </div>
 

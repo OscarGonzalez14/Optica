@@ -17,6 +17,27 @@ switch ($_GET["op"]) {
 	foreach ($datos as $row) {
 
 		$sub_array= array();
+
+				$est = '';
+				$atrib = '';
+				$event = '';
+
+				 
+				if($row["saldo"] == 0){
+					$est = 'Factura';
+					$icon="<span class='glyphicon glyphicon-print'></span>";
+					$event = "registrarVenta()";
+					$atrib = "btn btn-blue btn-md ";
+				 
+
+				}
+				else{
+					if($row["saldo"] > 0){
+						$est = 'Pendiente';
+						$icon="<span class='glyphicon glyphicon-usd'></span>";
+						$atrib = "btn btn-default";
+					}	
+				}
 		//$sub_array[] = $row["id_paciente"];
 		$sub_array[] = $row["nombres"];
 		$sub_array[] = $row["monto"];
@@ -26,7 +47,8 @@ switch ($_GET["op"]) {
 
 		$sub_array[] = '<button class="btn btn-blue abonos" id="'.$row["id_paciente"].'"><i class="fa fa-usd"></i> Abonar</i></button>';
 		$sub_array[] = '<button class="btn btn-dark"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>';
-		$sub_array[] = '<button class="btn btn-default"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Factura</button>';
+
+		$sub_array[] = '<button type="button" name="estado" onClick="'.$event.'" class="'.$atrib.'">'.$icon." ".$est.'</button>';
 
 
 		$data[]= $sub_array;
@@ -40,6 +62,58 @@ switch ($_GET["op"]) {
  		echo json_encode($results);
 	break;
 
+case 'pacientes_empresarial':
+
+	$datos=$creditos->get_pacientes_empresarial();
+
+	$data = Array();
+
+	foreach ($datos as $row) {
+
+		$sub_array= array();
+				$event='';
+				$est = '';
+				$atrib = '';
+				 
+				if($row["saldo"] == 0){
+					$est = 'Factura';
+					$icon="<span class='glyphicon glyphicon-print'></span>";
+					$event = "registrarVenta()";
+					$atrib = "btn btn-blue btn-md";
+				 
+
+				}
+				else{
+					if($row["saldo"] > 0){
+						$est = 'Pendiente';
+						$icon="<span class='glyphicon glyphicon-usd'></span>";
+						$atrib = "btn btn-default";
+					}	
+				}
+		//$sub_array[] = $row["id_paciente"];
+		$sub_array[] = $row["nombres"];
+		$sub_array[] = $row["monto"];
+		$sub_array[] = $row["saldo"];
+		$sub_array[] = $row["telefono"];
+		$sub_array[] = $row["empresa"];
+		$sub_array[] = $row["sucursal"];
+
+		$sub_array[] = '<button class="btn btn-blue abonos" id=""><i class="fa fa-usd"></i> Abonar</i></button>';
+		$sub_array[] = '<button class="btn btn-dark"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>';
+
+		$sub_array[] = '<button type="button" name="estado" onClick="'.$event.'" class="'.$atrib.'">'.$icon." ".$est.'</button>';
+
+
+		$data[]= $sub_array;
+
+	}
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+	break;
 
 	case "listar_creditos_paciente":
 
@@ -92,6 +166,14 @@ switch ($_GET["op"]) {
 					</div>
 					<?php
 			      }
+
+     case "agregar_abono_pacientes";
+
+	    $creditos->agrega_abono_paciente();
+
+
+
+     break;
 
 	
 }

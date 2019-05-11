@@ -127,7 +127,7 @@
       <label for="sel1">Tipo de Venta:</label>
         <select class="form-control" id="tipo_venta" name="tipo_venta">
             <option value="">Seleccione</option>
-            <option value="Crédito">Crédito</option>
+            <option value="Credito">Crédito</option>
             <option value="Contado-Metrocentro">Contado-Metrocentro</option>
         </select>
       </div>

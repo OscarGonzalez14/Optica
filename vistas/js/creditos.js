@@ -1,9 +1,9 @@
 var tabla_creditos;
+var tabla_creditos_empresarial;
 
 //Función que se ejecuta al inicio
 function init(){
   
-  //lista_credito();
 
   
 }
@@ -88,6 +88,88 @@ function lista_creditos()
   }).DataTable();
 }
 
+
+function lista_creditos_empresarial()
+{
+  $('#titulo').html('Clientes Empresarial');
+  tabla_creditos_empresarial=$('#creditos_data').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [              
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+    "ajax":
+        {
+          url: '../ajax/creditos.php?op=pacientes_empresarial',
+          type : "get",
+          dataType : "json",            
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
+ 
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "Buscar:",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          },
+       
+          "oAria": {
+       
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+       
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+       
+          }
+
+         }//cerrando language
+         
+  }).DataTable();
+}
+
+
 function calcularc()
 {
   saldo_act=document.f1.saldo_act.value;
@@ -96,60 +178,11 @@ function calcularc()
   document.f1.n_saldo.value=saldo_n;
 }
 
-function registrarAbono(){
-    
-    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
-
-    var id_usuario = $("#id_usuario").val();
-    var id_paciente = $("#id_paciente").val();
-    var id_credito =$("#id_credito").val();
-
-
-    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-
-    $.ajax({
-    url:"../ajax/ventas.php?op=registrar_abono",
-    method:"POST",
-    data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito},
-    cache: false,
-    dataType:"html",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    },    
-      
-      
-    success:function(data){
-
-      var nombre_pac = $("#saldo").val("");
-
-            
-            abonoi = [];
-            //$('#listProdVentas').html('');
-            
-              //muestra un mensaje de exito
-          setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 
-          
-          //refresca la pagina, se llama a la funtion explode
-          setTimeout ("explode();", 2000); 
-          
-    }
-
-  }); 
-
-   //cierre del condicional de validacion de los campos del paciente
-  
-  }
 
    
 
   //*****************************************************************************
-   /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
-       function explode(){
 
-      location.reload();
-}
 ///FIN REGISTRA ABONOS
     
 
@@ -216,5 +249,45 @@ function registrarAbono(){
   });
 
 
+function registrar_abono_pacientes(){
+
+    var id_usuario = $("#id_usuario").val();
+    var id_paciente = $("#id_paciente").val();
+    var id_credito =$("#id_credito").val();
+    var abono = $("#abono").val();
+
+    console.log(id_usuario);
+    console.log(abono);
+
+    $.ajax({
+    url:"../ajax/creditos.php?op=agregar_abono_pacientes",
+    method:"POST",
+    data:{'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'abono':abono},
+    cache: false,
+    dataType:"html",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+      
+    success:function(data){
+
+      var abono = $("#abono").val("");
+
+      setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 
+          
+          //refresca la pagina, se llama a la funtion explode
+      setTimeout ("explode();", 2000);           
+    }
+
+  }); 
+
+ }
+
+function explode(){
+    $('#detalle_abonos').modal('hide');
+    lista_creditos();
+}
 
 init();
