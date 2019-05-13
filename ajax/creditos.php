@@ -45,7 +45,7 @@ switch ($_GET["op"]) {
 		$sub_array[] = $row["telefono"];
 		$sub_array[] = $row["empresa"];
 
-		$sub_array[] = '<button class="btn btn-blue abonos" id="'.$row["id_paciente"].'"><i class="fa fa-usd"></i> Abonar</i></button>';
+		$sub_array[] = '<button class="btn btn-blue abonos" id="'.$row["id_paciente"].'" ><i class="fa fa-usd"></i> Abonar</i></button>';
 		$sub_array[] = '<button class="btn btn-dark"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>';
 
 		$sub_array[] = '<button type="button" name="estado" onClick="'.$event.'" class="'.$atrib.'">'.$icon." ".$est.'</button>';
@@ -98,7 +98,7 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["empresa"];
 		$sub_array[] = $row["sucursal"];
 
-		$sub_array[] = '<button class="btn btn-blue abonos" id=""><i class="fa fa-usd"></i> Abonar</i></button>';
+		$sub_array[] = '<button class="btn btn-blue abonarp" id="" onClick="abonoPaciente('.$row["id_paciente"].','.$row["id_credito"].')"><i class="fa fa-usd"></i> Abonar</i></button>';
 		$sub_array[] = '<button class="btn btn-dark"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>';
 
 		$sub_array[] = '<button type="button" name="estado" onClick="'.$event.'" class="'.$atrib.'">'.$icon." ".$est.'</button>';
@@ -167,13 +167,40 @@ case 'pacientes_empresarial':
 					<?php
 			      }
 
-     case "agregar_abono_pacientes";
-
-	    $creditos->agrega_abono_paciente();
+	case "buscar_abonos_paciente":
 
 
 
-     break;
+	$datos=$creditos->abonos_paciente_numerov_idp($_POST["id_paciente"], $_POST["id_credito"]);
 
+	      if(is_array($datos)==true and count($datos)>0){
+
+				foreach($datos as $row)
+				{
+					$output["id_paciente"] = $row["id_paciente"];
+					$output["id_paciente"] = $row["id_paciente"];
+					$output["monto"] = $row["monto"];
+					$output["saldo"] = $row["saldo"];
+					$output["nombres"] = $row["nombres"];
+					$output["empresa"] = $row["empresa"];
+					$output["telefono"] = $row["telefono"];
+					$output["tipo_pago"] = $row["tipo_pago"];
+					$output["numero_venta"] = $row["numero_venta"];
+					$output["monto_abono"] = $row["monto_abono"];
+					
+				}
+		
+		     
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                 $output["error"]="El numero de venta seleccionado está inactivo, intenta con otro";
+
+	        }
+
+	        echo json_encode($output);
+
+	break; 
 	
 }

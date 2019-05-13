@@ -38,7 +38,9 @@
 <div class="content-wrapper">        
         <!-- Main content -->
 
-    <?php require_once("modal/abonos_pacientes.php");?>
+
+<?php require_once("modal/abonos_pacientes.php");?>
+<?php require_once("modal/detalle_abonos_pac.php");?>
 <div class="row">
 <h5 align="center">ABONOS</h5>
   <div class="col-sm-12"></div>

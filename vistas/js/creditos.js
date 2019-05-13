@@ -290,4 +290,174 @@ function explode(){
     lista_creditos();
 }
 
+var abonosp = [];
+
+  
+function abonoPaciente(id_paciente, id_credito){
+
+  
+        $.ajax({
+        url:"../ajax/creditos.php?op=buscar_abonos_paciente",
+        method:"POST",
+
+        data:{id_paciente:id_paciente, id_credito:id_credito},
+        cache: false,
+        dataType:"json",
+
+        success:function(data){
+                       
+        
+          var objects = {
+            codPac   : data.codigo_paciente,
+            numero_venta : data.numero_venta,
+            monto    : data.monto,  
+            abono_ant : data.monto_abono,
+            saldo    : data.saldo,
+            abono    : 0,
+            saldo    : 0,
+            saldo_ant : data.saldo, 
+            moneda   : '$ '           
+                          
+          };
+
+          abonosp.push(objects);
+          listar_abono();
+
+
+          }//fin success    
+
+        });//fin de ajax
+      $('#detalle_abonos_pac').modal('show');   
+        
+      }
+      // fin de funcion
+
+function listar_abono(){
+
+    $('#listarAbono').html('');
+    var filas = "";
+  
+    for(var i=0; i<abonosp.length; i++){
+
+  var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;    
+  saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
+
+  var mletras = abonosp[i].mletras = abonosp[i].monto / abonosp[i].nletras;    
+  mletras = abonosp[i].mletras = abonosp[i].monto /abonosp[i].nletras;
+
+    var filas ="<tr>"+
+    "<td name='monto[]'>"+"<p align='center'>"+abonosp[i].moneda+" "+abonosp[i].monto+"</p>"+"</td>"+
+    "<td name='abono_ant[]' align='center'>"+abonosp[i].abono_ant+"</td>"+
+    "<td name='saldo_ant[]' align='center'>"+abonosp[i].saldo_ant+"</td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono+"'></td>"+
+    "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonosp[i].saldo+"</span> </td>"+
+    "<td align='center'>"+
+        "<select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+    "</td>"
+    +"</tr>";
+  }
+
+  
+  $('#listarAbono').html(filas);
+  }
+
+  function setAbono(event, obj, idx){
+    event.preventDefault();
+    abonosp[idx].abono = parseFloat(obj.value);
+    recalculo(idx);
+  }
+
+    function setLetras(event, obj, idx){
+    event.preventDefault();
+    abonosp[idx].nletras = parseInt(obj.value);
+    recalculo(idx);
+  }
+
+  function recalculo(idx){
+    console.log(abonosp[idx].abono);
+    console.log((abonosp[idx].saldo_ant - abonosp[idx].abono));
+
+    console.log(abonosp[idx].nletras);
+    console.log((abonosp[idx].monto / abonosp[idx].nletras));
+
+    var saldo =abonosp[idx].saldo = abonosp[idx].saldo_ant - abonosp[idx].abono;
+    var mletras =abonosp[idx].mletras = abonosp[idx].monto / abonosp[idx].nletras;
+
+
+  saldoFinal = abonosp[idx].saldo;
+  saldoFinalRed=saldoFinal.toFixed(2);      
+    $('#saldo'+idx).html(saldoFinalRed);
+
+     Mletras = abonosp[idx].mletras;
+     monto_letras=Mletras.toFixed(2);     
+    $('#mletras'+idx).html(monto_letras);
+
+  //$("#cantidad_"+idx).val(cantidad_venta);
+  calcularTotales();
+
+    
+  }
+////REGiSTRAR ABONOS
+
+function registrarAbono(){
+    
+    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
+
+    var id_usuario = $("#id_usuario").val();
+    var id_paciente = $("#id_paciente").val();
+    var id_credito =$("#id_credito").val();
+    var forma_pago =$("#forma_pago").val();
+    //var abono = $("#abono").val();
+
+    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
+if(forma_pago!=""){
+    $.ajax({
+    url:"../ajax/ventas.php?op=registrar_abono",
+    method:"POST",
+    data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago},
+    cache: false,
+    dataType:"html",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },    
+      
+      
+    success:function(data){
+
+      var nombre_pac = $("#saldo").val("");
+
+            
+            abonoi = [];
+            //$('#listProdVentas').html('');
+            
+              //muestra un mensaje de exito
+          setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 
+          
+          //refresca la pagina, se llama a la funtion explode
+          setTimeout ("explode();", 2000); 
+          
+    }
+
+  }); 
+
+  }else{
+
+  } //cierre del condicional de validacion de los campos del paciente
+  
+     bootbox.alert("Debe llenar todos los campos");
+     return false;
+  }
+
+   
+
+  //*****************************************************************************
+   /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
+       function explode(){
+
+      location.reload();
+}
+///FIN REGISTRA ABONOS
+
 init();

@@ -19,7 +19,7 @@ class Creditos extends Conectar
 public function get_pacientes_empresarial()
   {
     $conectar=parent::conexion();
-    $sql="select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,v.sucursal from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' order by id_credito asc;
+    $sql="select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' order by id_credito asc;
     ";
     $sql=$conectar->prepare($sql);
     $sql->execute();
@@ -105,9 +105,30 @@ public function agrega_abono_paciente(){
       
 }
 
-public function abonos_empresarial(){
+//METODO PARA VER SI EXISTEN ABONOS ANTERIORES
+public function comprobar_abonos_ant($id_credito){
 
-  $sql=" select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,c.numero_venta from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=17 and c.numero_venta='0000007' order by id_credito asc;;";
+  $conectar= parent::conexion();
+
+  $sql="select a.id_abono,a.monto_abono,c.id_credito from abonos as a inner join creditos as c on c.id_credito=a.id_credito where a.id_abono=(select max(id_abono) from abonos) and c.id_credito=?;";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_credito);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function abonos_paciente_numerov_idp($id_paciente,$id_credito){
+
+  $conectar = parent::conexion();
+
+  $sql="select a.id_abono,p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,c.numero_venta,a.monto_abono from abonos as a inner join creditos as c on a.id_credito=c.id_credito inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v  where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and   p.id_paciente=? and c.id_credito=? and a.id_abono=(select max(id_abono) from abonos);";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$id_credito);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
   //////////////FIN REGISTRAR ABONOS   

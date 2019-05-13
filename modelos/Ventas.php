@@ -407,6 +407,7 @@ public function agrega_detalle_venta(){
            $sql7->bindValue(5,$id_usuario);
            $sql7->execute();
 
+          
   	  }
 
 //////////////////////REGISTRAR ABONOS
