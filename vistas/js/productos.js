@@ -1028,7 +1028,7 @@ obj.value es el valor del campo de texto*/
  	importeFinal = detalles[idx].moneda+" "+importe;	    
     $('#importe'+idx).html(importeFinal);
 
- 	//$("#cantidad_"+idx).val(cantidad_venta);
+ 
 	calcularTotales();
 
 	  
@@ -1052,8 +1052,8 @@ for(var i=0; i<detalles.length; i++){
           subtotalFinal = subtotal;
 
           var su = subtotal;
-          su=su.toFixed(2);
-          var or=parseFloat(su);
+          sub=su.toFixed(2);
+          var or=parseFloat(sub);
           var total = Math.round(or+subtotal);
 
           //concatenar para poner la moneda con el total

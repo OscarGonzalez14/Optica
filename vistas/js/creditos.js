@@ -4,9 +4,16 @@ var tabla_creditos_empresarial;
 //Función que se ejecuta al inicio
 function init(){
   
-
   
 }
+
+function actualizar(){
+
+  location.reload();
+
+  lista_creditos_empresarial();
+
+ } 
 
 function lista_creditos()
 {
@@ -306,7 +313,18 @@ function abonoPaciente(id_paciente, id_credito){
 
         success:function(data){
                        
-        
+        $("#nombre_pac").val(data.nombres);
+        $("#nombre_pac").attr('disabled','disabled');
+        $("#telefonos").val(data.telefono);
+        $("#telefonos").attr('disabled','disabled');
+        $("#fecha").val(data.fecha);
+        $("#fecha").attr('disabled','disabled');
+        $("#empresas").val(data.empresa);
+        $("#empresas").attr('disabled','disabled');
+        $("#id_credito").val(data.id_credito);
+        $("#id_paciente").val(data.id_paciente);
+
+
           var objects = {
             codPac   : data.codigo_paciente,
             numero_venta : data.numero_venta,
@@ -321,7 +339,7 @@ function abonoPaciente(id_paciente, id_credito){
           };
 
           abonosp.push(objects);
-          listar_abono();
+          listar_abono_pac();
 
 
           }//fin success    
@@ -332,14 +350,14 @@ function abonoPaciente(id_paciente, id_credito){
       }
       // fin de funcion
 
-function listar_abono(){
+function listar_abono_pac(){
 
-    $('#listarAbono').html('');
+$('#listarAbono').html('');
     var filas = "";
   
     for(var i=0; i<abonosp.length; i++){
 
-  var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;    
+var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;    
   saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
 
   var mletras = abonosp[i].mletras = abonosp[i].monto / abonosp[i].nletras;    
@@ -347,12 +365,12 @@ function listar_abono(){
 
     var filas ="<tr>"+
     "<td name='monto[]'>"+"<p align='center'>"+abonosp[i].moneda+" "+abonosp[i].monto+"</p>"+"</td>"+
-    "<td name='abono_ant[]' align='center'>"+abonosp[i].abono_ant+"</td>"+
-    "<td name='saldo_ant[]' align='center'>"+abonosp[i].saldo_ant+"</td>"+
+    "<td name='abono_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].abono_ant+"</td>"+
+    "<td name='saldo_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].saldo_ant+"</td>"+
     "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonosp[i].saldo+"</span> </td>"+
     "<td align='center'>"+
-        "<select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+        "<select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
     "</td>"
     +"</tr>";
   }
@@ -360,8 +378,7 @@ function listar_abono(){
   
   $('#listarAbono').html(filas);
   }
-
-  function setAbono(event, obj, idx){
+function setAbono(event, obj, idx){
     event.preventDefault();
     abonosp[idx].abono = parseFloat(obj.value);
     recalculo(idx);
@@ -397,9 +414,8 @@ function listar_abono(){
 
     
   }
-////REGiSTRAR ABONOS
-
-function registrarAbono(){
+ 
+ function registrar_abono_pacientes(){
     
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
 
@@ -410,11 +426,11 @@ function registrarAbono(){
     //var abono = $("#abono").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(forma_pago!=""){
+if(forma_pago != 0){
     $.ajax({
-    url:"../ajax/ventas.php?op=registrar_abono",
+    url:"../ajax/creditos.php?op=registrar_abono_pacientes",
     method:"POST",
-    data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago},
+    data:{'array_abonos_pacientes':JSON.stringify(abonosp),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago},
     cache: false,
     dataType:"html",
     error:function(x,y,z){
@@ -426,10 +442,10 @@ if(forma_pago!=""){
       
     success:function(data){
 
-      var nombre_pac = $("#saldo").val("");
+      var abono = $("#abono").val("");
 
             
-            abonoi = [];
+            abonosp = [];
             //$('#listProdVentas').html('');
             
               //muestra un mensaje de exito
@@ -449,7 +465,6 @@ if(forma_pago!=""){
      bootbox.alert("Debe llenar todos los campos");
      return false;
   }
-
    
 
   //*****************************************************************************
@@ -459,5 +474,53 @@ if(forma_pago!=""){
       location.reload();
 }
 ///FIN REGISTRA ABONOS
+
+//VER DETALLE DE CREDITOS
+$(document).on('click', '.abonarp', function(){
+    //toma el valor del id
+    var numero_venta = $(this).attr("id");
+
+    $.ajax({
+      url:"../ajax/creditos.php?op=buscar_detalle_credito_aros",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        
+        $("#marca_aros").val(data.marca);
+        $("#marca_aros").attr('disabled','disabled');
+        $("#modelo_aro").val(data.modelo);
+        $("#modelo_aro").attr('disabled','disabled');
+        $("#color_aro").val(data.color );
+        $("#color_aro").attr('disabled','disabled');
+          
+      }
+    })
+  });
+
+  $(document).on('click', '.abonarp', function(){
+    //toma el valor del id
+    var numero_venta = $(this).attr("id");
+
+    $.ajax({
+      url:"../ajax/creditos.php?op=buscar_detalle_credito_lentes",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+
+        $("#modelo_lente").val(data.modelo);
+        $("#modelo_lente").attr('disabled','disabled');
+          
+      }
+    })
+  });
+
+  
+
 
 init();

@@ -98,7 +98,7 @@ case 'pacientes_empresarial':
 		$sub_array[] = $row["empresa"];
 		$sub_array[] = $row["sucursal"];
 
-		$sub_array[] = '<button class="btn btn-blue abonarp" id="" onClick="abonoPaciente('.$row["id_paciente"].','.$row["id_credito"].')"><i class="fa fa-usd"></i> Abonar</i></button>';
+		$sub_array[] = '<button class="btn btn-blue abonarp" id="'.$row["numero_venta"].'" onClick="abonoPaciente('.$row["id_paciente"].','.$row["id_credito"].')"><i class="fa fa-usd"></i> Abonar</i></button>';
 		$sub_array[] = '<button class="btn btn-dark"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>';
 
 		$sub_array[] = '<button type="button" name="estado" onClick="'.$event.'" class="'.$atrib.'">'.$icon." ".$est.'</button>';
@@ -169,16 +169,18 @@ case 'pacientes_empresarial':
 
 	case "buscar_abonos_paciente":
 
+	$comprobar_abonos=$creditos->comprobar_abonos_ant($_POST["id_paciente"] ,$_POST["id_credito"]);
 
+	if(is_array($comprobar_abonos)==true and count($comprobar_abonos)>0){
 
-	$datos=$creditos->abonos_paciente_numerov_idp($_POST["id_paciente"], $_POST["id_credito"]);
+		$datos=$creditos->abonos_paciente_numerov_idp($_POST["id_paciente"], $_POST["id_credito"]);
 
 	      if(is_array($datos)==true and count($datos)>0){
 
 				foreach($datos as $row)
 				{
 					$output["id_paciente"] = $row["id_paciente"];
-					$output["id_paciente"] = $row["id_paciente"];
+					$output["id_credito"] = $row["id_credito"];
 					$output["monto"] = $row["monto"];
 					$output["saldo"] = $row["saldo"];
 					$output["nombres"] = $row["nombres"];
@@ -187,6 +189,7 @@ case 'pacientes_empresarial':
 					$output["tipo_pago"] = $row["tipo_pago"];
 					$output["numero_venta"] = $row["numero_venta"];
 					$output["monto_abono"] = $row["monto_abono"];
+					$output["fecha"] = date("d-m-Y", strtotime($row["fecha"]));
 					
 				}
 		
@@ -201,6 +204,111 @@ case 'pacientes_empresarial':
 
 	        echo json_encode($output);
 
+	        }else{
+
+	$abono_ini=$creditos->abonos_paciente_inicial($_POST["id_paciente"], $_POST["id_credito"]);
+
+	      if(is_array($abono_ini)==true and count($abono_ini)>0){
+
+				foreach($abono_ini as $row)
+				{
+					$output["id_credito"] = $row["id_credito"];
+					$output["id_paciente"] = $row["id_paciente"];
+					$output["monto"] = $row["monto"];
+					$output["saldo"] = $row["saldo"];
+					$output["nombres"] = $row["nombres"];
+					$output["empresa"] = $row["empresa"];
+					$output["telefono"] = $row["telefono"];
+					$output["tipo_pago"] = $row["tipo_pago"];
+					$output["numero_venta"] = $row["numero_venta"];
+					$output["monto_abono"] = $row["monto_abono"];
+					$output["fecha"] = date("d-m-Y", strtotime($row["fecha"]));
+					
+				}
+		
+		     
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                 $output["error"]="El numero de venta seleccionado está inactivo, intenta con otro";
+
+	        }
+
+	        echo json_encode($output);
+
+
+
+	        }
+
 	break; 
+
+//DETALLE DE CREDITOS
+case "buscar_detalle_credito_aros":
+
+   $datos= $creditos->detalle_credito_aros($_POST["numero_venta"]);	
+
+      if(is_array($datos)==true and count($datos)>0){
+
+				foreach($datos as $row)
+				{
+					
+					$output["marca"] = $row["marca"];
+					$output["modelo"] = $row["modelo"];
+					$output["color"] = $row["color"];		
+							
+				}
+			      
+		          echo json_encode($output);
+
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                $errors[]="no existe";
+
+	        }
+
+			if (isset($errors)){
+			
+					?>
+					<div class="alert alert-danger" role="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Error!</strong> 
+							<?php
+								foreach ($errors as $error) {
+										echo $error;
+									}
+								?>
+					</div>
+					<?php
+			      }
+
+  	break;
+
+  	case "buscar_detalle_credito_lentes":
+
+   $datos= $creditos->detalle_credito_lentes($_POST["numero_venta"]);	
+
+      if(is_array($datos)==true and count($datos)>0){
+
+				foreach($datos as $row)
+				{
+
+					$output["modelo"] = $row["modelo"];
+							
+				}
+			      
+		          echo json_encode($output);
+
+	        } 
+  	break;
+
+
+  	case "registrar_abono_pacientes";
+
+	$creditos->agrega_abono_pacientes();
+
+     break;
 	
 }

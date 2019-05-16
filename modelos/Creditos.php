@@ -37,27 +37,40 @@ public function get_detalle_paciente($id_paciente){
 }
 
 //////////////////////REGISTRAR ABONOS
+public function agrega_abono_pacientes(){
 
-public function agrega_abono_paciente(){
+       
+  //echo json_encode($_POST['arrayCompra']);
+  $str = '';
+  $abonosp = array();
+  $abonosp = json_decode($_POST['array_abonos_pacientes']);
+
 
    
-  $conectar=parent::conexion();
-        
+   $conectar=parent::conexion();
+
+
+  foreach ($abonosp as $k => $v) {
+      
+       $abono = $v->abono;
+
        $id_credito = $_POST["id_credito"];
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
-       $abono = $_POST["abono"];
+       $forma_pago = $_POST["forma_pago"];
+       
 
         $sql="insert into abonos
-        values(null,?,?,?,?);";
+        values(null,?,?,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
 
         $sql->bindValue(1,$abono);
-        $sql->bindValue(2,$id_paciente);
-        $sql->bindValue(3,$id_usuario);
-        $sql->bindValue(4,$id_credito);
+        $sql->bindValue(2,$forma_pago);
+        $sql->bindValue(3,$id_paciente);
+        $sql->bindValue(4,$id_usuario);
+        $sql->bindValue(5,$id_credito);
        
         $sql->execute();
          
@@ -102,27 +115,38 @@ public function agrega_abono_paciente(){
                 $sql4->execute();
 
                } //cierre la condicional
+
+
+       }//cierre del foreach
       
 }
 
+
+
+  //////////////FIN REGISTRAR ABONOS  
+
 //METODO PARA VER SI EXISTEN ABONOS ANTERIORES
-public function comprobar_abonos_ant($id_credito){
+public function comprobar_abonos_ant($id_paciente,$id_credito){
 
   $conectar= parent::conexion();
 
-  $sql="select a.id_abono,a.monto_abono,c.id_credito from abonos as a inner join creditos as c on c.id_credito=a.id_credito where a.id_abono=(select max(id_abono) from abonos) and c.id_credito=?;";
+  $sql="select a.id_abono,a.monto_abono,c.id_credito from abonos as a inner join creditos as c on a.id_credito=c.id_credito where a.id_paciente=? and a.id_credito=?;";
 
   $sql=$conectar->prepare($sql);
-  $sql->bindValue(1,$id_credito);
+
+  $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$id_credito);
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-public function abonos_paciente_numerov_idp($id_paciente,$id_credito){
+
+public function abonos_paciente_inicial($id_paciente,$id_credito){
 
   $conectar = parent::conexion();
 
-  $sql="select a.id_abono,p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,c.numero_venta,a.monto_abono from abonos as a inner join creditos as c on a.id_credito=c.id_credito inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v  where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and   p.id_paciente=? and c.id_credito=? and a.id_abono=(select max(id_abono) from abonos);";
+  $sql="select c.id_credito,p.id_paciente,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,
+c.numero_venta,'0' as monto_abono, now() as fecha from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and p.id_paciente=? and c.id_credito=?;";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$id_paciente);
@@ -131,7 +155,48 @@ public function abonos_paciente_numerov_idp($id_paciente,$id_credito){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-  //////////////FIN REGISTRAR ABONOS   
+public function abonos_paciente_numerov_idp($id_paciente,$id_credito){
+
+  $conectar = parent::conexion();
+
+  $sql="select a.id_abono,p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,c.numero_venta,a.monto_abono, now() as fecha from abonos as a inner join creditos as c on a.id_credito=c.id_credito inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v  where v.numero_venta=c.numero_venta and v.tipo_pago='Descuento en Planilla' and   p.id_paciente=? and c.id_credito=? order by id_abono desc limit 1;";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$id_credito);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+  public function detalle_credito_aros($numero_venta){
+
+    $conectar = parent::conexion();
+
+    $sql="select d.numero_venta,p.marca,p.modelo,p.color from detalle_ventas as d, producto as p where d.id_producto=p.id_producto and numero_venta=? and p.categoria='aros';";
+
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_venta);
+    $sql->execute();
+
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}    
+
+
+  public function detalle_credito_lentes($numero_venta){
+
+    $conectar = parent::conexion();
+
+    $sql="select d.numero_venta,p.marca,p.modelo,p.color from detalle_ventas as d, producto as p where d.id_producto=p.id_producto and numero_venta=? and p.categoria='lentes';";
+
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_venta);
+    $sql->execute();
+
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+} 
+
 }//FIN DE LA CLASE
 
 

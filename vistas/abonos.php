@@ -39,7 +39,7 @@
         <!-- Main content -->
 
 
-<?php require_once("modal/abonos_pacientes.php");?>
+
 <?php require_once("modal/detalle_abonos_pac.php");?>
 <div class="row">
 <h5 align="center">ABONOS</h5>
@@ -112,7 +112,7 @@ d = n.getDate();
 h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 
 //Lo ordenas a gusto.
-document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+document.getElementById("fecha").innerHTML = d + "/" + m + "/" + y;
  </script>
   
 

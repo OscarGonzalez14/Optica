@@ -1,6 +1,6 @@
  <style>
     #tamModal{
-      width: 75% !important;
+      width: 85% !important;
     }
      #head{
         background-color: #034f84;
@@ -14,33 +14,58 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL</h5>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL</h5>
       </div>
       <div class="modal-body">
-     <!--Tabla generalidades del paciente-->
-      <table  class="table table-striped table-bordered table-condensed table-hover">
-        <thead>
-          <tr>
-            <th><p align="center">Fecha</p></th>
-            <th><p align="center">Telefono</p></th>
-            <th><p align="center" p>Recibí de:</p></th>
-            <th> <p align="center">Empresa</p></th>
-            <th colspan="2"><p align="center"> Cantidad en Letras</p></th>
-            <th> <p align="center">$</p></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <td align="center"> <h5 id="date"></h5><input type="hidden" name="date" id="date"></td>
-          <td align="center"> <h5 id="telefono"></h5><input type="hidden" name="telefono" id="telefono"></td>
-          <td align="center"> <h5 id="nombres"></h5><input type="hidden" name="nombres" id="nombres"></td>
-          <td align="center"> <h5 id="empresa"></h5><input type="hidden" name="empresa" id="empresa"></td>
-          <td align="center" colspan="2"><input type="text" class="form-control"></td>
-          <td align="center"> <h5 id="c_numeros"></h5><input type="hidden" name="c_numeros" id="c_numeros"></td>
-        </tbody>
-      </table>
+      <div class="row">
 
+      <div class="col-sm-3">
+          <div class="input-group">
+          <span class="input-group-addon">Fecha: </span>
+          <input id="fecha" type="text" class="form-control" name="fecha" placeholder="---">
+          </div>
+      </div>
+      
+      <div class="col-sm-6">
+          <div class="input-group">
+          <span class="input-group-addon">Recibí de: </span>
+          <input id="nombre_pac" type="text" class="form-control" name="nombre_pac" placeholder="---">
+          </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="input-group">
+          <span class="input-group-addon">Teléfono: </span>
+          <input id="telefonos" type="text" class="form-control" name="telefonos" placeholder="---">
+          </div>
+      </div>
+
+      </div>
+      <br>
+
+      <div class="row">
+              <div class="col-sm-4">
+          <div class="input-group">
+          <span class="input-group-addon">Empresa: </span>
+          <input id="empresas" type="text" class="form-control" name="empresas" placeholder="---">
+          </div>
+      </div>
+      
+      <div class="col-sm-6">
+          <div class="input-group">
+          <span class="input-group-addon">Cantidad en Letras: </span>
+          <input id="" type="text" class="form-control" name="" placeholder="---">
+          </div>
+      </div>
+      <div class="col-sm-2">
+          <div class="input-group">
+          <span class="input-group-addon">$: </span>
+          <input id="" type="text" class="form-control" name="" placeholder="---">
+          </div>
+      </div>
+      </div>
+      <br>
         <!--Tabla detalles del Credito-->       
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead style="background-color: #034f84 ;color: white ">
@@ -64,15 +89,17 @@
   <div class="col-sm-4">
   <div class="input-group">
   <span class="input-group-addon">Marca de Aro</span>
-  <input id="marca_aro" type="text" class="form-control" name="marca_aro" placeholder="---">
+  <input id="marca_aros" type="text" class="form-control" name="marca_aros" placeholder="---">
   </div>
   </div>
+
   <div class="col-sm-4">
       <div class="input-group">
   <span class="input-group-addon">Modelo</span>
   <input id="modelo_aro" type="text" class="form-control" name="modelo_aro" >
   </div>
   </div>
+
   <div class="col-sm-4">
       <div class="input-group">
   <span class="input-group-addon">Color</span>
@@ -81,11 +108,12 @@
   </div>
 </div>
 <br>
+
 <div class="row">
   <div class="col-sm-4">
   <div class="input-group">
   <span class="input-group-addon">Diseño de Lente</span>
-  <input id="dis_lente" type="text" class="form-control" name="dis_lente" placeholder="---">
+  <input id="modelo_lente" type="text" class="form-control" name="modelo_lente" placeholder="---">
   </div>
   </div>
   <div class="col-sm-4">
@@ -110,7 +138,8 @@
 
       </div>
       <div class="modal-footer">
-    <button type="button" onClick="registrarAbono()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+    <button type="button" onClick="registrar_abono_pacientes()" class="btn btn-dark pull-right" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+  <button type="button" class="btn btn-blue pull-left" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Cerrar</button>
       </div>
     </div>
 
