@@ -258,6 +258,35 @@
 
        ?>
 
+         <?php if($_SESSION["reporte_ventas"]==1)
+          {
+            
+            echo '
+
+         <li class="treeview">
+          <a href="reporte_diario_ventas.php">
+          <i class="fa fa-line-chart" aria-hidden="true"></i> <span>Reportes de Ventas</span>
+            <span class="pull-right-container badge bg-blue">
+                 <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+
+           <ul class="treeview-menu">
+           <li><a href="reporte_diario_ventas.php"><i class="fa fa-circle-o"></i>Reporte Diario de Ventas</a></li>
+            <li><a href="reporte_general_ventas.php"><i class="fa fa-circle-o"></i>Reporte General Ventas</a></li>
+            
+            <li><a href="reporte_ventas_mensual.php"><i class="fa fa-circle-o"></i> Reporte Mensual Ventas</a></li>
+
+             <li><a href="reporte_ventas_paciente.php"><i class="fa fa-circle-o"></i> Reporte Ventas-paciente</a></li>
+
+             
+          </ul>
+         
+        </li>';
+        }
+
+     ?>
+
 
        <?php if($_SESSION["reporte_compras"]==1)
           {
@@ -273,6 +302,7 @@
           </a>
 
           <ul class="treeview-menu">
+          <li><a href="reporte_general_compras.php"><i class="fa fa-circle-o"></i>Reporte General de Ingresos</a></li>
             <li><a href="reporte_general_compras.php"><i class="fa fa-circle-o"></i>Reporte General de Ingresos</a></li>
             
             <li><a href="reporte_compras_mensual.php"><i class="fa fa-circle-o"></i> Reporte Mensual Ingresos</a></li>
@@ -288,35 +318,7 @@
 
      ?>
 
-         
-           <?php if($_SESSION["reporte_ventas"]==1)
-          {
-            
-            echo '
-
-         <li class="treeview">
-          <a href="reporte_ventas.php">
-          <i class="fa fa-pie-chart" aria-hidden="true"></i> <span>Reportes de Ventas</span>
-            <span class="pull-right-container badge bg-blue">
-                 <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-
-           <ul class="treeview-menu">
-            <li><a href="reporte_general_ventas.php"><i class="fa fa-circle-o"></i>Reporte General Ventas</a></li>
-            
-            <li><a href="reporte_ventas_mensual.php"><i class="fa fa-circle-o"></i> Reporte Mensual Ventas</a></li>
-
-             <li><a href="reporte_ventas_paciente.php"><i class="fa fa-circle-o"></i> Reporte Ventas-paciente</a></li>
-
-             
-          </ul>
-         
-        </li>';
-        }
-
-     ?>
-
+  
 
        <?php if($_SESSION["usuarios"]==1)
           {

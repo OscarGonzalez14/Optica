@@ -40,25 +40,34 @@
 
 <?php require_once("modal/agregar_lentes.php");?>
 <?php require_once("modal/agregar_accesorios.php");?>
+<?php require_once("modal/agregar_ar.php");?>
+<?php require_once("modal/agregar_photo.php");?> 
 
 
-             <h2>INVENTARIO</h2>
+             <h2 align="center">INVENTARIO</h2>
 
             <div class="row">
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-
-              <h1 class="box-title">
-              <button class="btn btn-dark btn-lg" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Agregar Aros</button></h1>
+              <div class="col-sm-1">
+                
+              </div>
+              <h3 class="box-title">
+              <button class="btn btn-dark btn-md" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Crear Aros</button></h3>
               <!--Boton Agregar Lentes-->
-              <h1 class="box-title">
-              <button class="btn btn-blue btn-lg" data-toggle="modal" data-target="#agregarLentes"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Agregar Lentes</button></h1>
+              <h3 class="box-title">
+              <button class="btn btn-blue btn-md" data-toggle="modal" data-target="#agregarLentes"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Crear Lentes</button></h3>
               <!--Boton Agregar Accesorios-->
-              <h1 class="box-title">
-            <button class="btn btn-dark btn-lg" data-toggle="modal" data-target="#agregarAccesorio"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Agregar Accesorios</button></h1>
+              <h3 class="box-title">
+            <button class="btn btn-dark btn-md" data-toggle="modal" data-target="#agregarAccesorio"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Crear Accesorios</button></h3>
+            
+            <h3 class="box-title">
+            <button class="btn btn-blue btn-md" data-toggle="modal" data-target="#agregarAR"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Crear AR</button></h3>
 
-              <a href="ingresos.php"><button class="btn btn-infos btn-lg" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Ingreso a Inventario</button></h1></a>
+            <button class="btn btn-dark btn-md" data-toggle="modal" data-target="#agregar_photo"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Crear Photosensible</button></h3>
+
+              <a href="ingresos.php"><button class="btn btn-infos btn-md" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Ingresos a Inventario</button></h1></a>
 
                         <div class="box-tools pull-right">
 

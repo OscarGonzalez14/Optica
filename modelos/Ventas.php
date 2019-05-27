@@ -279,6 +279,7 @@ public function agrega_detalle_venta(){
 		   $tipo_venta = $_POST["tipo_venta"];
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
+       $plazo = $_POST["plazo"];
 		   
 
         $sql="insert into detalle_ventas
@@ -396,15 +397,16 @@ public function agrega_detalle_venta(){
            $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
-           $sql7="insert into creditos values(null,?,null,?,?,?,?);";
+           $sql7="insert into creditos values(null,?,?,?,?,?,?);";
 
            $sql7=$conectar->prepare($sql7);
 
            $sql7->bindValue(1,$subtotal);
-           $sql7->bindValue(2,$subtotal);
-           $sql7->bindValue(3,$numero_venta);
-           $sql7->bindValue(4,$id_paciente);
-           $sql7->bindValue(5,$id_usuario);
+           $sql7->bindValue(2,$plazo);
+           $sql7->bindValue(3,$subtotal);
+           $sql7->bindValue(4,$numero_venta);
+           $sql7->bindValue(5,$id_paciente);
+           $sql7->bindValue(6,$id_usuario);
            $sql7->execute();
 
           
@@ -803,8 +805,7 @@ public function agrega_detalle_abono(){
 
        }
 
-
-         //BUSCA REGISTROS VENTAS-FECHA-MES
+        //BUSCA REGISTROS VENTAS-FECHA-MES
 
         public function lista_busca_registros_fecha_mes($mes, $ano){
 
@@ -834,6 +835,20 @@ public function agrega_detalle_abono(){
 
         }
 
+       public function get_ventas_diarias(){
+
+        $conectar= parent::conexion();
+        parent::set_names();
+
+        $sql="select*from ventas where fecha_venta=current_date";
+        $sql=$conectar->prepare($sql);
+        $sql->execute();
+
+        return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+        
+      }
+
          
            public function get_ventas_por_id_paciente($id_paciente){
 
@@ -851,6 +866,7 @@ public function agrega_detalle_abono(){
 
 
     }
+
 
        public function get_detalle_ventas_por_id_paciente($id_paciente){
 

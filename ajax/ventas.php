@@ -41,7 +41,9 @@
 						$atrib = "btn btn-danger btn-md glyphicon estado";
 					}	
 				}
-		
+			
+			$fecha=date("d-m-Y");
+			$diferencia = $fecha -date("d-m-Y",strtotime($row["fecha_venta"]));
 
 				 $sub_array[] = '<button class="btn btn-blue detalle" id="'.$row["numero_venta"].'"  data-toggle="modal" data-target="#detalle_venta"><i class="fa fa-eye"></i></button>';
 	             $sub_array[] = date("d-m-Y",strtotime($row["fecha_venta"]));
@@ -53,8 +55,11 @@
 
 				$sub_array[] = '<button type="button" name="estado" onClick="'.$event.'" class="'.$atrib.'">'.$icon.$est.'</button>';
 
-               
+				$sub_array[]=$fecha;
+                $sub_array[]=$diferencia;
+
 				$data[] = $sub_array;
+
 			}
 
 
@@ -134,24 +139,80 @@
 			<option value='Tarjeta de Debito'>Tarjeta de Debito</option>
 			<option value='Tarjeta de Credito'>Tarjeta de Credito</option>";
 	
-	echo $html;
+		echo $html;
 
 	}elseif($_POST['id_tipo']=='Credito'){
 	
 	$html= "
 		<option value=''>Selecione</option>
 		<option value='Descuento en Planilla'> Descuento en Planilla</option>
-	 	<option value='Cargo Automático'>Cargo Automático</option>
+	 	<option value='c_auto'>Cargo Automático</option>
 	 	<option value='Creditos Personales'>Créditos Personales</option>";
 	
-	echo $html;
-	}else{
+		echo $html;
+		}else{
 
 	$html= "<option value=''>Seleccione</option>
 	";
 	
-	echo $html;
-	}
+		echo $html;
+		}
+
+  	break;
+
+  	case "monto_cuotas":
+
+  		if($_POST['m_cuotas']=='Descuento en Planilla'){
+
+  		$html="
+
+			<option value=''>Seleccione</>
+			<option value='2'> 2 Meses</>
+			<option value='3'> 3 Meses</>
+			<option value='4'> 4 Meses</>
+			<option value='5'> 5 Meses</>
+			<option value='6'> 6 Meses</>
+			<option value='7'> 7 Meses</>
+			<option value='8'> 8 Meses</>
+			<option value='9'> 9 Meses</>
+			<option value='10'> 10 Meses</>
+			<option value='11'> 11 Meses</>
+			<option value='12'> 12 Meses</>
+			
+  		";
+
+  		echo $html;
+
+  		}else if($_POST['m_cuotas']=='c_auto'){
+
+  		$html="
+
+			<option value=''>Seleccione</>
+			<option value='3'> 3 Meses</>
+			<option value='6'> 6 Meses</>
+			<option value='9'> 9 Meses</>
+			<option value='12'> 12 Meses</>
+			
+  		";
+
+  		echo $html;
+
+  		}else if($_POST['m_cuotas']=='Creditos Personales'){
+
+  			$html="
+			<option value=''>Seleccione</>
+			<option value='1'> 1 Meses</>
+			<option value='2'> 2 Meses</>
+			<option value='3'> 3 Meses</>
+			<option value='4'> 4 Meses</>
+			<option value='5'> 5 Meses</>
+			<option value='6'> 6 Meses</>
+			
+  		";
+
+  		echo $html;
+  		}
+
   	break;
 
   	case "ver_ultima_venta":

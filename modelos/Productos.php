@@ -67,7 +67,18 @@
     $sql=$conectar->prepare($sql);
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-  }       
+  }     
+
+  public function get_ar_ventas(){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql="select*from producto where categoria='anti-reflejantes';";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }    
 
   public function get_acc_ventas(){
 
@@ -75,6 +86,17 @@
     parent::set_names();
 
     $sql="select*from producto where categoria='accesorios';";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+    public function get_photo_ventas(){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql="select*from producto where categoria='photosensibles';";
     $sql=$conectar->prepare($sql);
     $sql->execute();
     return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);

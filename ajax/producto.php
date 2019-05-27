@@ -411,6 +411,42 @@
 
      break; 
 
+     case "listar_ar_en_ventas":
+
+     $datos=$productos->get_ar_ventas();
+
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+    foreach($datos as $row)
+			{
+				$sub_array = array();
+
+          
+				$sub_array[] = $row["categoria"];
+				$sub_array[] = $row["modelo"];
+	      		$sub_array[] = $row["precio_venta"];
+				
+      
+
+			$sub_array[] = '<button type="button" name="" id="'.$row["id_producto"].'" class="btn btn-dark btn-md " onClick="agregarDetalleVenta('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agregar</button>';
+        
+			
+				$data[] = $sub_array;
+			 
+			 }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break; 
+
       case "buscar_producto_en_venta":
           
           $datos=$productos->get_producto_por_id($_POST["id_producto"]);
@@ -449,6 +485,43 @@
     case "listar_acc_en_ventas":
 
      $datos=$productos->get_acc_ventas();
+
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+    foreach($datos as $row)
+			{
+				$sub_array = array();
+
+          
+				$sub_array[] = $row["categoria"];
+				$sub_array[] = $row["modelo"];
+	      		$sub_array[] = $row["precio_venta"];
+				
+      
+
+			$sub_array[] = '<button type="button" name="" id="'.$row["id_producto"].'" class="btn btn-primary btn-md " onClick="agregarDetalleVenta('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agregar</button>';
+        
+			
+				$data[] = $sub_array;
+			 
+			 }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break; 
+
+
+     case "listar_photo_en_ventas":
+
+     $datos=$productos->get_photo_ventas();
 
      //Vamos a declarar un array
  	 $data= Array();

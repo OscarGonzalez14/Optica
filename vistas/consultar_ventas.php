@@ -58,7 +58,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-             <table id="ventas_data" class="table table-bordered table-striped">
+             <table id="ventas_data" class="table table-bordered table-striped dataTable no-footer dtr-inline collapsed">
                 <thead>
                 <tr>
                   <th>Ver Detalle</th>
@@ -69,9 +69,21 @@
                   <th>Tipo de Pago</th>
                   <th>Monto</th>
                   <th>Estado</th>
-
-                  
-                 
+                  <th>Fecha</th>
+                  <th>Dif</th>                
+                </tr>
+                <tr>
+                <th style="visibility: hidden;">Ver Detalle</th>
+                  <th style="visibility: hidden;">Fecha Venta</th>
+                  <th style="visibility: hidden;">Número Venta</th>
+                  <th >paciente</th>
+                  <th style="visibility: hidden;">Vendedor</th>
+                  <th style="visibility: hidden;">Tipo de Pago</th>
+                  <th
+                  style="visibility: hidden;">Monto</th>
+                  <th>Estado</th>  
+                  <th>Fecha</th>
+                  <th>Dif</th>               
                 </tr>
                 </thead>
                 

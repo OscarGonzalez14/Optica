@@ -1,9 +1,9 @@
   <style>
     #tamanoModal{
-      width: 45% !important;
+      width: 65% !important;
     }
-     #encabezado{
-        background-color: black;
+     #encabezados{
+        background-color: #034f84;
         color: white;
     }
      #info{
@@ -17,7 +17,7 @@
           <div class="modal-dialog" id="tamanoModal">
            <!--antes tenia un class="modal-content" y lo cambié por bg-warning para que tuviera fondo blanco, deberia haber sido un color naranja claro pero me salió un color blanco de casualidad--> 
             <div class="bg-info" id="info">
-              <div class="modal-header" id="encabezado">
+              <div class="modal-header" id="encabezados">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" align="center"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></i> Seleccione un Producto</h4>

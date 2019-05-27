@@ -1,5 +1,8 @@
 var tabla_creditos;
 var tabla_creditos_empresarial;
+var tabla_creditos_c_aut;
+var tabla_creditos_c_pers;
+var tabla_creditos_metro;
 
 //Función que se ejecuta al inicio
 function init(){
@@ -15,10 +18,10 @@ function actualizar(){
 
  } 
 
-function lista_creditos()
+function lista_creditos_metro()
 {
-  $('#titulo').html('Clientes Metrocentro');
-  tabla_creditos=$('#creditos_data').dataTable(
+  $('#titulo').html('Pacientes Metrocentro');
+  tabla_creditos_metro=$('#creditos_data').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -31,7 +34,7 @@ function lista_creditos()
             ],
     "ajax":
         {
-          url: '../ajax/creditos.php?op=c_metrocentro',
+          url: '../ajax/creditos.php?op=pacientes_metrocentro',
           type : "get",
           dataType : "json",            
           error: function(e){
@@ -98,6 +101,13 @@ function lista_creditos()
 
 function lista_creditos_empresarial()
 {
+
+ /*$('#creditos_data thead tr:eq(1) th').each( function () {
+        var title = $('#creditos_data thead tr:eq(0) th').eq( $(this).index() ).text();
+        $(this).html( '<input size="15" type="text" placeholder="Buscar por: '+title+'" />' );
+    } ); */
+       
+
   $('#titulo').html('Clientes Empresarial');
   tabla_creditos_empresarial=$('#creditos_data').dataTable(
   {
@@ -174,8 +184,206 @@ function lista_creditos_empresarial()
          }//cerrando language
          
   }).DataTable();
+
+          /*tabla_creditos_empresarial.columns().every(function (index) {
+        $('#creditos_data thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+            tabla_creditos_empresarial.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });*/
 }
 
+function lista_creditos_c_aut()
+{
+
+ /*$('#creditos_data thead tr:eq(1) th').each( function () {
+        var title = $('#creditos_data thead tr:eq(0) th').eq( $(this).index() ).text();
+        $(this).html( '<input size="15" type="text" placeholder="Buscar por: '+title+'" />' );
+    } ); */
+       
+
+  $('#titulo').html('Pacientes Cargo Automatico');
+  tabla_creditos_c_aut=$('#creditos_data').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [              
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+    "ajax":
+        {
+          url: '../ajax/creditos.php?op=get_pacientes_c_automatico',
+          type : "get",
+          dataType : "json",            
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
+ 
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "Buscar:",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          },
+       
+          "oAria": {
+       
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+       
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+       
+          }
+
+         }//cerrando language
+         
+  }).DataTable();
+
+          /*tabla_creditos_empresarial.columns().every(function (index) {
+        $('#creditos_data thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+            tabla_creditos_empresarial.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });*/
+}
+
+
+function lista_creditos_personal()
+{
+
+ /*$('#creditos_data thead tr:eq(1) th').each( function () {
+        var title = $('#creditos_data thead tr:eq(0) th').eq( $(this).index() ).text();
+        $(this).html( '<input size="15" type="text" placeholder="Buscar por: '+title+'" />' );
+    } ); */
+       
+
+  $('#titulo').html('Pacientes Crédito Personal');
+  tabla_creditos_c_pers=$('#creditos_data').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [              
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+    "ajax":
+        {
+          url: '../ajax/creditos.php?op=get_pacientes_c_personal',
+          type : "get",
+          dataType : "json",            
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
+ 
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "Buscar:",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          },
+       
+          "oAria": {
+       
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+       
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+       
+          }
+
+         }//cerrando language
+         
+  }).DataTable();
+
+  /*tabla_creditos_empresarial.columns().every(function (index) {
+        $('#creditos_data thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+            tabla_creditos_empresarial.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });*/
+}
 
 function calcularc()
 {
@@ -330,6 +538,7 @@ function abonoPaciente(id_paciente, id_credito){
             numero_venta : data.numero_venta,
             monto    : data.monto,  
             abono_ant : data.monto_abono,
+            abono_act : data.abono_act,
             saldo    : data.saldo,
             abono    : 0,
             saldo    : 0,
@@ -340,6 +549,7 @@ function abonoPaciente(id_paciente, id_credito){
 
           abonosp.push(objects);
           listar_abono_pac();
+          //cancelar_abono_pac();
 
 
           }//fin success    
@@ -367,17 +577,20 @@ var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
     "<td name='monto[]'>"+"<p align='center'>"+abonosp[i].moneda+" "+abonosp[i].monto+"</p>"+"</td>"+
     "<td name='abono_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].abono_ant+"</td>"+
     "<td name='saldo_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].saldo_ant+"</td>"+
-    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono+"'></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onmouseout='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono_act+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonosp[i].saldo+"</span> </td>"+
     "<td align='center'>"+
         "<select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
-    "</td>"
+    "</td>"+
+    "<td><div class='form-group'><input type='date' class='form-control' id='datepicker' name='datepicker'></div></td>"
     +"</tr>";
   }
 
   
   $('#listarAbono').html(filas);
   }
+
+
 function setAbono(event, obj, idx){
     event.preventDefault();
     abonosp[idx].abono = parseFloat(obj.value);
@@ -392,12 +605,12 @@ function setAbono(event, obj, idx){
 
   function recalculo(idx){
     console.log(abonosp[idx].abono);
-    console.log((abonosp[idx].saldo_ant - abonosp[idx].abono));
+    console.log((abonosp[idx].saldo_ant - abonosp[idx].abono_act));
 
     console.log(abonosp[idx].nletras);
     console.log((abonosp[idx].monto / abonosp[idx].nletras));
 
-    var saldo =abonosp[idx].saldo = abonosp[idx].saldo_ant - abonosp[idx].abono;
+    var saldo =abonosp[idx].saldo = abonosp[idx].saldo_ant - abonosp[idx].abono_act;
     var mletras =abonosp[idx].mletras = abonosp[idx].monto / abonosp[idx].nletras;
 
 
@@ -407,10 +620,10 @@ function setAbono(event, obj, idx){
 
      Mletras = abonosp[idx].mletras;
      monto_letras=Mletras.toFixed(2);     
-    $('#mletras'+idx).html(monto_letras);
+    $('#abono'+idx).html(monto_letras);
 
   //$("#cantidad_"+idx).val(cantidad_venta);
-  calcularTotales();
+  //calcularTotales();
 
     
   }
@@ -495,6 +708,7 @@ $(document).on('click', '.abonarp', function(){
         $("#modelo_aro").attr('disabled','disabled');
         $("#color_aro").val(data.color );
         $("#color_aro").attr('disabled','disabled');
+        $('#cancela_abono').modal('show');
           
       }
     })
@@ -520,7 +734,179 @@ $(document).on('click', '.abonarp', function(){
     })
   });
 
+
+  $(document).on('click', '.abonarp', function(){
+    //toma el valor del id
+    var numero_venta = $(this).attr("id");
+
+    $.ajax({
+      url:"../ajax/creditos.php?op=buscar_detalle_credito_ar",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+
+        $("#tipo_ar").val(data.modelo);
+        $("#tipo_ar").attr('disabled','disabled');
+          
+      }
+    })
+  });
+
+ $(document).on('click', '.abonarp', function(){
+    //toma el valor del id
+    var numero_venta = $(this).attr("id");
+
+    $.ajax({
+      url:"../ajax/creditos.php?op=buscar_detalle_credito_photo",
+      method:"POST",
+      data:{numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+
+        $("#tipo_photo").val(data.modelo);
+        $("#tipo_photo").attr('disabled','disabled');
+          
+      }
+    })
+  });
+
+//////////////////////////CANCELAR ABONO
+
+var cancel = [];
+
   
+function cancelarAbono(id_paciente, id_credito){
+
+  
+        $.ajax({
+        url:"../ajax/creditos.php?op=buscar_abonos_paciente",
+        method:"POST",
+
+        data:{id_paciente:id_paciente, id_credito:id_credito},
+        cache: false,
+        dataType:"json",
+
+        success:function(data){
+                       
+        $("#nombre_paciente").val(data.nombres);
+        $("#nombre_paciente").attr('disabled','disabled');
+        $("#telefono_pac").val(data.telefono);
+        $("#telefono_pac").attr('disabled','disabled');
+        $("#fechas").val(data.fecha);
+        $("#fechas").attr('disabled','disabled');
+        $("#empresa_p").val(data.empresa);
+        $("#empresa_p").attr('disabled','disabled');
+        $("#id_creditos").val(data.id_credito);
+        $("#id_pacientes").val(data.id_paciente);
+        $('#cancelacion_p').modal('show');
+
+         var objetos = {
+            codPac   : data.codigo_paciente,
+            numero_venta : data.numero_venta,
+            monto    : data.monto,  
+            abono_ant : data.monto_abono,
+            abono_act : data.saldo,
+            saldo_act    : data.saldo,
+            abono    : 0,
+            saldo    : 0,
+            saldo_ant : data.saldo, 
+            moneda   : '$ '           
+                          
+          };
+
+          cancel.push(objetos);
+          cancelar_abono_pac();
+
+
+          }//fin success    
+
+        });//fin de ajax
+         
+        
+}
+//FIN
+
+function cancelar_abono_pac(){
+
+$('#cancela_abonos').html('');
+    var filas2 = "";
+  
+    for(var i=0; i<cancel.length; i++){
+
+var saldo = cancel[i].saldo = cancel[i].saldo_ant - cancel[i].saldo;    
+  saldo = cancel[i].saldo = cancel[i].saldo_ant - cancel[i].saldo;
+
+  var mletras = cancel[i].mletras = cancel[i].monto / cancel[i].nletras;    
+  mletras = cancel[i].mletras = cancel[i].monto /cancel[i].nletras;
+
+    var filas2 ="<tr>"+
+    "<td name='monto[]'>"+"<p align='center'>"+cancel[i].moneda+" "+cancel[i].monto+"</p>"+"</td>"+
+    "<td name='abono_ant[]' align='center'>"+cancel[i].moneda+" "+cancel[i].abono_ant+"</td>"+
+    "<td name='saldo_ant[]' align='center'>"+cancel[i].moneda+" "+cancel[i].saldo_ant+"</td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onmouseout='setAbono(event, this, "+(i)+");' value='"+cancel[i].abono_act+"'></td>"+
+    "<td align='center'><span name='saldo[]' id=saldo"+i+">"+cancel[i].saldo+"</span> </td>"+
+    "<td align='center'>"+
+        "<select class='form-control' id='forma_pagos' name='forma_pagos'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+    "</td>"
+    +"</tr>";
+  }
+
+  
+  $('#cancela_abonos').html(filas2);
+  }
+
+  function registrar_cancelacion(){
+    
+    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
+
+    var id_usuario = $("#id_usuario").val();
+    var id_paciente = $("#id_pacientes").val();
+    var id_credito =$("#id_creditos").val();
+    var forma_pagos =$("#forma_pagos").val();
+    //var abono = $("#abono").val();
+
+    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
+if(forma_pagos != 0){
+    $.ajax({
+    url:"../ajax/creditos.php?op=registrar_abono_cancelacion",
+    method:"POST",
+    data:{'array_abono_cancelacion':JSON.stringify(cancel),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pagos':forma_pagos},
+    cache: false,
+    dataType:"html",
+
+      
+    success:function(data){
+
+      var abono = $("#abono").val("");
+
+            
+            cancel = [];
+            //$('#listProdVentas').html('');
+            
+              //muestra un mensaje de exito
+          setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 
+          
+          //refresca la pagina, se llama a la funtion explode
+          setTimeout ("explode();", 2000); 
+          
+    }
+
+  }); 
+
+  }else{
+
+  } //cierre del condicional de validacion de los campos del paciente
+  
+     bootbox.alert("Debe llenar todos los campos");
+     return false;
+  }
+ 
+
 
 
 init();

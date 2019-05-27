@@ -27,11 +27,13 @@
 
 <style>
 
-.btn{
+  .tam,
+  .tam:hover,
+  .tam:active{
 
-    border: 0px;
+    weight: 400;
 
-}
+  }
 
 
 </style>     
@@ -41,6 +43,10 @@
 
 
 <?php require_once("modal/detalle_abonos_pac.php");?>
+<?php require_once("modal/cancelar_abono.php");?>
+<?php require_once("modal/detalle_venta_modal.php");?>
+
+
 <div class="row">
 <h5 align="center">ABONOS</h5>
   <div class="col-sm-12"></div>
@@ -49,7 +55,7 @@
  <div class="row">
  <div class="col-sm-1"></div>
   <div class="col-sm-2">
-    <a href="#"><h3><button class="btn btn-blue btn-block abonos" id="metro" onClick="lista_creditos()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Metrocentro</button></h3></a>
+    <a href="#"><h3><button class="btn btn-blue btn-block abonos" id="metro" onClick="lista_creditos_metro()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Metrocentro</button></h3></a>
    </div>
 
    <div class="col-sm-2">
@@ -57,11 +63,11 @@
    </div>
 
       <div class="col-sm-3">
-     <a href="abonosmetro.php"><h3><button class="btn btn-dark btn-block" id="metro" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h3></a>
+  <h3><button class="btn btn-dark btn-block" id="c_automatico" onClick="lista_creditos_c_aut()" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h3>
    </div>
 
       <div class="col-sm-3">
-     <a href="abonosmetro.php"><h3><button class="btn btn-blue btn-block" id="metro" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Créditos Personales</button></h3></a>
+<h3><button class="btn btn-blue btn-block" id="metro" onClick="lista_creditos_personal()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Créditos Personales</button></h3>
    </div>
  <div class="col-sm-1"></div>
  
@@ -77,18 +83,14 @@
      <thead>
        <tr>
         <th>Paciente</th>
-        <th>Monto Crédito</th>
+        <th >Monto</th>
         <th>Saldo</th>
-        <th>Telefono</th>
-        <th>Empresa</th>
+        <!--<th>Telefono</th>
+        <th>Empresa</th>-->
         <th>Sucursal</th>
         <th>Abonar</th>        
         <th>Cancelar</th>
         <th>Imprimir</th>
-
-
-
-
        </tr>
      </thead>
      <tbody>
@@ -129,8 +131,7 @@ document.getElementById("fecha").innerHTML = d + "/" + m + "/" + y;
 
 
 <script type="text/javascript" src="js/creditos.js"></script>
-
-
+<!--<script type="text/javascript" src="js/ventas.js"></script>-->
 
 
 

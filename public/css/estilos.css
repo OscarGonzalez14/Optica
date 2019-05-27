@@ -35,7 +35,9 @@ li.dropdown.navbar_dropdown {
     margin: 6px;
 }
 
-
+.btn{
+  border-radius: 0px;
+}
 /*menu lateral*/
     
 
@@ -105,3 +107,12 @@ footer a, footer a:hover{
     background: #1e7145;
     color: white;
   }
+  .btn-dark2,
+  .btn-dark2:hover,
+  .btn-dark2:active{
+
+    background: #323240;
+    color: white;
+  }
+
+ 

@@ -154,7 +154,7 @@ d = n.getDate();
 h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 
 //Lo ordenas a gusto.
-document.getElementById("date").innerHTML = d + "/" + m + "/" + y + "      " + h;
+document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
  </script>
   
   <!--FIN DE CONTENIDO-->

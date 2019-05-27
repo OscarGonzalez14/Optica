@@ -8,14 +8,14 @@
     }
 </style>
 <!-- Modal -->
-<div id="detalle_abonos_pac" class="modal fade" role="dialog">
+<div id="cancelacion_p" class="modal fade" role="dialog">
   <div class="modal-dialog" id="tamModal">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
-  <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL</h5>
+  <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> CANCELACIÓN DE CRÉDITO</h5>
       </div>
       <div class="modal-body">
 
@@ -24,26 +24,26 @@
       <div class="col-sm-3">
           <div class="input-group">
           <span class="input-group-addon">Fecha: </span>
-          <input id="fecha" type="text" class="form-control" name="fecha" placeholder="---">
+          <input id="fechas" type="text" class="form-control" name="fechas" placeholder="---">
           </div>
       </div>
       
       <div class="col-sm-4">
           <div class="input-group">
           <span class="input-group-addon">Recibí de: </span>
-          <input id="nombre_pac" type="text" class="form-control" name="nombre_pac" placeholder="---">
+          <input id="nombre_paciente" type="text" class="form-control" name="nombre_paciente" placeholder="---">
           </div>
       </div>
       <div class="col-sm-3">
           <div class="input-group">
           <span class="input-group-addon">Teléfono: </span>
-          <input id="telefonos" type="text" class="form-control" name="telefonos" placeholder="---">
+          <input id="telefono_pac" type="text" class="form-control" name="telefono_pac" placeholder="---">
           </div>
       </div>
       <div class="col-sm-2">
           <div class="input-group">
           <span class="input-group-addon"># Recibo:</span>
-          <input id="recibo" type="text" class="form-control" name="recibo">
+          <input id="recibos" type="text" class="form-control" name="recibos">
           </div>
       </div>
       </div>
@@ -53,7 +53,7 @@
               <div class="col-sm-4">
           <div class="input-group">
           <span class="input-group-addon">Empresa: </span>
-          <input id="empresas" type="text" class="form-control" name="empresas" placeholder="---">
+          <input id="empresa_p" type="text" class="form-control" name="empresa_p" placeholder="---">
           </div>
       </div>
       
@@ -86,7 +86,7 @@
           </tr>
         </thead>
 
-        <tbody id="listarAbono"></tbody>
+        <tbody id="cancela_abonos"></tbody>
 
       </table>
 
@@ -136,14 +136,14 @@
 </div>
 
 
-<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
-<input id="id_credito" type="hidden" name="id_credito">
-<input id="id_paciente" type="hidden" name="id_paciente">
+<input type="text" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input id="id_creditos" type="text" name="id_creditos">
+<input id="id_pacientes" type="text" name="id_pacientes">
 
 
       </div>
       <div class="modal-footer">
-<button type="button" onClick="registrar_abono_pacientes()" class="btn btn-dark pull-right" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+<button type="button" onClick="registrar_cancelacion()" class="btn btn-dark pull-right" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
   <button type="button" class="btn btn-blue pull-left" id="btn_enviar" data-dismiss="modal"><i class="fa fa-save" aria-hidden="true"></i>  Cerrar</button>
       </div>
     </div>

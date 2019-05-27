@@ -25,92 +25,56 @@
         }
 
 
-        public function login(){
+    public function login(){
 
-            $conectar=parent::conexion();
-            parent::set_names();
+        $conectar=parent::conexion();
+        parent::set_names();
 
-            if(isset($_POST["enviar"])){
+        if(isset($_POST["enviar"])){
 
-              //INICIO DE VALIDACIONES
-              $password = $_POST["password"];
-
-
-//** CAMBIOS REALIZADOS POR CARLOS MEJIA**//
-
-             // $correo = $_POST["correo"];
+  //*****************VALIDACIONES  DE ACCESO*****************
+        $password = $_POST["password"];
         $usuario = $_POST["usuario"];
 
-//********************************************************//
+//********************FIN VALIDACIONES  DE ACCESO************
 
               $estado = "1";
 
-//** CAMBIOS REALIZADOS POR CARLOS MEJIA**//
+          if(empty($usuario) and empty($password)){
 
-                  if(empty($usuario) and empty($password)){
-
-               // if(empty($correo) and empty($password)){
-//********************************************************//
-                  header("Location:".Conectar::ruta()."vistas/index.php?m=2");
+          header("Location:".Conectar::ruta()."vistas/index.php?m=2");
                  exit();
 
 
                 }
-//*********************************************** CAMBIOS REALIZADOS POR CARLOS MEJIA ***********************************************//
+
 //::Nota: Realiza una comparación con una expresión regular.    
         else if(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/", $password)) {
-//***********************************************************************************************************************************//
-              //else if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/", $password)) {
-       //else if(preg_match($usuario, $password)) {
-                         
-
-            //  header("Location:".Conectar::ruta()."vistas/index.php?m=1");
-             // exit();
+//******************************************************************************************************
 
             }
 
              else {
 
-//** CAMBIOS REALIZADOS POR CARLOS MEJIA**//
+        $sql= "select * from usuarios where usuario=? and password=? and estado=?";
 
-                  //$sql= "select * from usuarios where correo=? and password=? and estado=?";
-              $sql= "select * from usuarios where usuario=? and password=? and estado=?";
+               $sql=$conectar->prepare($sql);
+               $sql->bindValue(1, $usuario);
+               $sql->bindValue(2, $password);
+               $sql->bindValue(3, $estado);
+               $sql->execute();
+               $resultado = $sql->fetch();
 
-    
+               if(is_array($resultado) and count($resultado)>0){
 
-//********************************************************//
-
-                  $sql=$conectar->prepare($sql);
-
-//** CAMBIOS REALIZADOS POR CARLOS MEJIA**//
-                 // $sql->bindValue(1, $correo);
-                    $sql->bindValue(1, $usuario);
-
-//********************************************************//
-                  $sql->bindValue(2, $password);
-                  $sql->bindValue(3, $estado);
-                  $sql->execute();
-                  $resultado = $sql->fetch();
-
-                          //si existe el registro entonces se conecta en session
-                      if(is_array($resultado) and count($resultado)>0){
-
-                         /*IMPORTANTE: la session guarda los valores de los campos de la tabla de la bd*/
-
-
-                       $_SESSION["id_usuario"] = $resultado["id_usuario"];
-                       $_SESSION["correo"] = $resultado["correo"];
-
-//*************** CAMBIOS REALIZADOS POR CARLOS MEJIA*****************//           
-                       $_SESSION["usuario"] = $resultado["usuario"];
-
-//******************************************************************//
-
-                       $_SESSION["cedula"] = $resultado["cedula"];
-                       $_SESSION["nombre"] = $resultado["nombres"];
+                $_SESSION["id_usuario"] = $resultado["id_usuario"];
+                $_SESSION["correo"] = $resultado["correo"];     
+                $_SESSION["usuario"] = $resultado["usuario"];
+                $_SESSION["cedula"] = $resultado["cedula"];
+                $_SESSION["nombre"] = $resultado["nombres"];
 
                   
-       //PERMISOS DEL USUARIO PARA ACCEDER A LOS MODULOS
+//PERMISOS DEL USUARIO PARA ACCEDER A LOS MODULOS**************************
 
         require_once("Usuarios.php");
 
@@ -146,7 +110,7 @@
       in_array(7,$valores)?$_SESSION['reporte_compras']=1:$_SESSION['reporte_compras']=0;
       in_array(8,$valores)?$_SESSION['reporte_ventas']=1:$_SESSION['reporte_ventas']=0;
       in_array(9,$valores)?$_SESSION['usuarios']=1:$_SESSION['usuarios']=0;
-      //************** CAMBIOS REALIZADOS POR CARLOS MEJIA ********************// 
+
       in_array(11,$valores)?$_SESSION['backup']=1:$_SESSION['backup']=0;
       //**********************************************************************//
       in_array(10,$valores)?$_SESSION['empresa']=1:$_SESSION['empresa']=0;
@@ -154,24 +118,22 @@
 
       //FIN PERMISOS DEL USUARIO   
 
+       header("Location:".Conectar::ruta()."vistas/home.php");
+
+              exit();
 
 
-                        header("Location:".Conectar::ruta()."vistas/home.php");
-
-                         exit();
-
-
-                      } else {
+          } else {
                           
-                          //si no existe el registro entonces le aparece un mensaje
+               //si no existe el registro entonces le aparece un mensaje
                           header("Location:".Conectar::ruta()."vistas/index.php?m=1");
-                          exit();
-                       } 
+              exit();
+            } 
                   
-                   }//cierre del else
+        }//cierre del else
 
 
-            }//condicion enviar
+}//condicion enviar
         }
 
        //listar los usuarios

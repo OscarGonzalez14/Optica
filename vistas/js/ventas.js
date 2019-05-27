@@ -25,9 +25,30 @@ $(document).ready(function(){
 		});
 	})
 });
-//Función Listar
+//VALIDAR CUOTA
+$(document).ready(function(){
+	$("#tipo_pago").change(function () {
+					
+		$("#tipo_pago option:selected").each(function () {
+			m_cuotas = $(this).val();
+			$.post('../ajax/ventas.php?op=monto_cuotas', { m_cuotas: m_cuotas }, function(data){
+				$("#plazo").html(data);
+			});            
+		});
+	})
+});
+
+
+var abonoi = [];
+
 function listar()
 {
+
+	$('#ventas_data thead tr:eq(1) th').each( function () {
+        var title = $('#ventas_data thead tr:eq(0) th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+    } ); 
+  
 	tabla=$('#ventas_data').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -101,12 +122,19 @@ function listar()
 			    }
 
 			   }//cerrando language
+
+
 	       
 	}).DataTable();
+
+	    tabla.columns().every(function (index) {
+        $('#ventas_data thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+            tabla.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
 }
-
-var abonoi = [];
-
 	
 function abono_inicial(){
 

@@ -6,7 +6,8 @@
  var tabla_en_ventas;
  var tabla_lentes_ventas;
  var tabla_acc_ventas;
-
+ var tabla_ar_ventas;
+ var tabla_photo_ventas
  //Función que se ejecuta al inicio
 function init(){
 	
@@ -18,10 +19,10 @@ function init(){
 
 	//llama la lista de productos en ventana modal en ventas.php
 	listar_en_ventas();
-
 	listar_lentes_en_ventas();
-
 	listar_acc_en_ventas();
+	listar_ar_en_ventas()
+	listar_photo_en_ventas()
 	 //cuando se da click al boton submit entonces se ejecuta la funcion guardaryeditar(e);
 	$("#producto_form").on("submit",function(e)
 	{
@@ -684,6 +685,85 @@ function listar_lentes_en_ventas(){
 	}).DataTable();
 }
 
+function listar_ar_en_ventas(){
+
+	tabla_ar_ventas=$('#lista_ar_ventas_data').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/producto.php?op=listar_ar_en_ventas',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
+}
+
 
 function listar_acc_en_ventas(){
 
@@ -765,6 +845,85 @@ function listar_acc_en_ventas(){
 }
 
 
+function listar_photo_en_ventas(){
+
+	tabla_photo_ventas=$('#lista_photo_ventas_data').dataTable(
+	{
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+		"ajax":
+				{
+					url: '../ajax/producto.php?op=listar_photo_en_ventas',
+					type : "get",
+					dataType : "json",						
+					error: function(e){
+						console.log(e.responseText);	
+					}
+				},
+		"bDestroy": true,
+		"responsive": true,
+		"bInfo":true,
+		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+	    
+	    "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }//cerrando language
+	       
+	}).DataTable();
+}
+
 var detalles = [];
 
 	
@@ -802,7 +961,9 @@ function agregarDetalleVenta(id_producto){
 
 						$('#lista_productos_ventas_Modal').modal("hide");
 						$('#lista_lentes_ventas_Modal').modal("hide"); 
-						$('#lista_acc_ventas_Modal').modal("hide");        
+						$('#lista_acc_ventas_Modal').modal("hide");
+						$('#lista_ar_ventas_Modal').modal("hide");
+						$('#lista_photo_ventas_Modal').modal("hide");         
                    						
 					}//fin success		
 
@@ -853,9 +1014,47 @@ function agregarDetalleVenta(id_producto){
 	
     subtotal = subtotal + importe;
 
+    subtotalFinal = subtotal.toFixed(2 );
 
-    subtotalFinal = subtotal;
-    subtotalFinal=subtotalFinal.toFixed(2);
+			var su = subtotal;
+			su=su.toFixed(2);
+            var or=parseFloat(su);
+            var total= Math.round(or+subtotal);
+
+    totalFinal =total;
+}
+
+else if(detalles[i].categoria=='anti-reflejantes'){
+
+	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
+	    
+	importe = detalles[i].importe = detalles[i].importe - 0;
+ 	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
+	
+    subtotal = subtotal + importe;
+
+    subtotalFinal = subtotal.toFixed(2 );
+
+			var su = subtotal;
+			su=su.toFixed(2);
+            var or=parseFloat(su);
+            var total= Math.round(or+subtotal);
+
+    totalFinal =total;
+}
+else if(detalles[i].categoria=='photosensibles'){
+
+	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
+	    
+	importe = detalles[i].importe = detalles[i].importe - 0;
+ 	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
+	
+    subtotal = subtotal + importe;
+
+    subtotalFinal = subtotal.toFixed(2 );
+
 			var su = subtotal;
 			su=su.toFixed(2);
             var or=parseFloat(su);
@@ -893,7 +1092,7 @@ else{
 	
     subtotal = subtotal + importe;
 
-    subtotalFinal = subtotal;
+    subtotalFinal = subtotal.toFixed(2 );
 
 			var su = subtotal;
 			su=su.toFixed(2);
@@ -1111,6 +1310,7 @@ obj.value es el valor del campo de texto*/
     var sucursal = $("#sucursal").val();
     var id_usuario = $("#id_usuario").val();
     var id_paciente = $("#id_paciente").val();
+    var plazo = $("#plazo").val();
 
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
@@ -1123,7 +1323,7 @@ obj.value es el valor del campo de texto*/
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){

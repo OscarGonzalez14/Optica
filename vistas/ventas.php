@@ -67,7 +67,10 @@
     <?php require_once("modal/lista_productos_ventas_modal.php");?>
     <?php require_once("modal/lista_lentes_ventas_modal.php");?>
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
-      <?php require_once("modal/abono_inicial.php");?>
+    <?php require_once("modal/lista_ar_ventas_modal.php");?>
+    <?php require_once("modal/lista_photo_ventas_modal.php");?>
+
+    <?php require_once("modal/abono_inicial.php");?>
   <div>
       <nav class="navbar navbar-inverse">
 
@@ -105,9 +108,9 @@
       </div>
 
     <div class="col-xs-2">
- <label>Buscar Paciente</label>
-    <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#modalPaciente"><span class="glyphicon glyphicon-search"></span> </button>       
-      </div>
+      <label>Buscar Paciente</label>
+      <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#modalPaciente"><span class="glyphicon glyphicon-search"></span> </button>       
+    </div>
 
     </div> 
 
@@ -137,11 +140,20 @@
       <div class="form-group">
       <label for="sel1">Tipo de Pago:</label>
       <select class="form-control" name="tipo_pago" id="tipo_pago"></select>
-      </div>
-      
+      </div>      
     </div>
 
+  <div class="col-xs-2">
+      <div class="form-group">
+      <label for="sel1">Plazo:</label>
+      <select class="form-control" name="plazo" id="plazo"></select>
+      </div>      
+    </div>
 
+      <div class="col-xs-2">
+        <label for="ex1">Monto Cuota</label>
+        <input class="form-control" id="monto_c" name="monto_c" type="text">
+      </div> 
 
     <div class="col-xs-3">
       <label for="sel1">Sucursal:</label>                
@@ -157,28 +169,47 @@
           </select>
       </div>
 
+ 
+  </div>
+</div> 
 
-<div class="col-xs-1">
- <label>&nbsp;&nbsp;Agregar</label>
-    <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Aros</button>
+</div><!--Fin row 2-->
+
+
+<!--=======AGREGAR PRODUCTOS==============-->
+
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10 row2">
+
+    <div class="form-group row">
+
+<div class="col-xs-3">
+   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Aros</button>
   </div>
 
-  <div class="col-xs-1">
-   <label>&nbsp;&nbsp;&nbsp;Agregar</label>
-            <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#lista_lentes_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span>  Lentes</button>  
+  <div class="col-xs-2">
+    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_lentes_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span>  Lentes</button>  
   </div> 
 
-    <div class="col-xs-1">
-   <label>&nbsp;&nbsp;&nbsp;Agregar</label>
-            <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#lista_acc_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Accesorios</button>  
-  </div> 
+    <div class="col-xs-2">
+    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_acc_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Accesorios</button>  
   </div>
+
+      <div class="col-xs-2">
+    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_ar_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Tipo AR</button>  
+  </div>
+
+  <div class="col-xs-3">
+    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_photo_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Photosensible</button>  
+  </div>
+
+  </div><!--form-group-->
     </div> 
 
-
-
-  <div class="col-sm-1"></div>
 </div><!--Fin row 2-->
+<!--===============*************************-->
+
 
 
 <div class="row"><!--Row 3-->
@@ -218,11 +249,14 @@
                 </tbody>
 
           <thead>            
-          <th class="all" colspan="4"><p align="center">SUMAS</p></th> 
-          <th class="all" colspan="1"><p align="right"></p></th> 
-          <th style="background:white" class="all" colspan="1" rowspan="2"><h5 id="subtotal" name="subtotal" align="center">000.00</h5><input type="hidden"></th>                 
+    <th class="all" colspan="3"><p align="center">SUMAS</p></th> 
+    <th class="all" colspan="2"><p align="right"></p></th>
+
+    <th style="background:white" class="all" colspan="2" ><h5 id="subtotal" name="subtotal" align="center">000.00</h5><input type="hidden"></th>
+                
         </tr>
         </thead>
+
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
