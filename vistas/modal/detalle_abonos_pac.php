@@ -76,12 +76,13 @@
         <thead style="background-color: #034f84 ;color: white ">
           <tr>
 
-          <th><p align="center">Valor de la Venta</p></th>
-          <th><p align="center">Abonos Anteriores</p></th>
-          <th><p align="center">Saldo Actual</p></th>
-          <th><p align="center">Abono Actual</p></th>
+          <th><p align="center"> Valor de la Venta</p></th>
+          <th><p align="center"> Abonos Anteriores</p></th>
+          <th><p align="center"> Saldo Actual</p></th>
+          <th><p align="center"> Abono Actual</p></th>
           <th><p align="center"> NuevoSaldo</p></th> 
-          <th><p align="center">Forma de Pago</p></th>
+          <th><p align="center"> Forma de Pago</p></th>
+          <th><p align="center"> Próximo Abono</p></th>
 
           </tr>
         </thead>

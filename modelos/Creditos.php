@@ -82,24 +82,26 @@ public function agrega_abono_pacientes(){
   foreach ($abonosp as $k => $v) {
       
        $abono = $v->abono;
+       //$p_abono = $v->$p_abono;
 
        $id_credito = $_POST["id_credito"];
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
        $forma_pago = $_POST["forma_pago"];
-       
+       $p_abono = $_POST["p_abono"];
 
         $sql="insert into abonos
-        values(null,?,?,?,?,?);";
+        values(null,?,?,now(),?,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
 
         $sql->bindValue(1,$abono);
         $sql->bindValue(2,$forma_pago);
-        $sql->bindValue(3,$id_paciente);
-        $sql->bindValue(4,$id_usuario);
-        $sql->bindValue(5,$id_credito);
+        $sql->bindValue(3,$p_abono);
+        $sql->bindValue(4,$id_paciente);
+        $sql->bindValue(5,$id_usuario);
+        $sql->bindValue(6,$id_credito);
        
         $sql->execute();
          
@@ -269,7 +271,7 @@ public function abonos_paciente_inicial($id_paciente,$id_credito){
   $conectar = parent::conexion();
 
   $sql="select c.id_credito,p.id_paciente,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,
-  c.numero_venta,'0' as monto_abono, now() as fecha,round((c.monto/c.plazo)+0.01,2) as abono_act from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and p.id_paciente=? and c.id_credito=?;";
+  c.numero_venta,'0' as monto_abono, now() as fecha,round((c.monto/c.plazo)+0.001,2) as abono_act from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and p.id_paciente=? and c.id_credito=?;";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$id_paciente);
@@ -282,7 +284,7 @@ public function abonos_paciente_numerov_idp($id_paciente,$id_credito){
 
   $conectar = parent::conexion();
 
-  $sql="select a.id_abono,p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,c.numero_venta,a.monto_abono, now() as fecha,round((c.monto/c.plazo)+0.01,2) as abono_act from abonos as a inner join creditos as c on a.id_credito=c.id_credito inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v  where v.numero_venta=c.numero_venta and   p.id_paciente=? and c.id_credito=? order by id_abono desc limit 1;";
+  $sql="select a.id_abono,p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,c.numero_venta,a.monto_abono, now() as fecha,round((c.monto/c.plazo)+0.001,2) as abono_act from abonos as a inner join creditos as c on a.id_credito=c.id_credito inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v  where v.numero_venta=c.numero_venta and   p.id_paciente=? and c.id_credito=? order by id_abono desc limit 1;";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$id_paciente);

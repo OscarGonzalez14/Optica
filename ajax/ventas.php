@@ -43,7 +43,7 @@
 				}
 			
 			$fecha=date("d-m-Y");
-			$diferencia = $fecha -date("d-m-Y",strtotime($row["fecha_venta"]));
+			$diferencia = $fecha - date("d-m-Y",strtotime($row["fecha_venta"]));
 
 				 $sub_array[] = '<button class="btn btn-blue detalle" id="'.$row["numero_venta"].'"  data-toggle="modal" data-target="#detalle_venta"><i class="fa fa-eye"></i></button>';
 	             $sub_array[] = date("d-m-Y",strtotime($row["fecha_venta"]));

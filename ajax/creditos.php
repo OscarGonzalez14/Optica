@@ -84,7 +84,7 @@ case 'pacientes_empresarial':
 				$color = 'blue';
 
 				 
-				if($row["saldo"] == 0){
+				if($row["saldo"] <= 0){
 					$est = 'Factura';
 					$icon="<span class='glyphicon glyphicon-print detalle'></span>";
 					$event = $row["numero_venta"];
@@ -113,7 +113,7 @@ case 'pacientes_empresarial':
 		//$sub_array[] = $row["empresa"];
 		$sub_array[] = $row["sucursal"];
 
-		$sub_array[] = '<button class="btn btn-'.$color.' tam" abonarp" id="'.$row["numero_venta"].'" '.$evento.'><i class="fa fa-usd"></i> '.$txt.'</i></button>';
+		$sub_array[] = '<button class="btn btn-'.$color.' abonarp" id="'.$row["numero_venta"].'" '.$evento.'><i class="fa fa-usd"></i> '.$txt.'</i></button>';
 		
 		$sub_array[] = '<button class="btn btn-dark cancelar_a" id="'.$row["numero_venta"].'" onClick="cancelarAbono('.$row["id_paciente"].','.$row["id_credito"].')"><i class="fa fa-usd"></i> Cancelación</i></button>';
 

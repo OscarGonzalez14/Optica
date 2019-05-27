@@ -577,12 +577,12 @@ var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
     "<td name='monto[]'>"+"<p align='center'>"+abonosp[i].moneda+" "+abonosp[i].monto+"</p>"+"</td>"+
     "<td name='abono_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].abono_ant+"</td>"+
     "<td name='saldo_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].saldo_ant+"</td>"+
-    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onmouseout='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono_act+"'></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono'  onmouseout='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono_act+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonosp[i].saldo+"</span> </td>"+
     "<td align='center'>"+
         "<select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
     "</td>"+
-    "<td><div class='form-group'><input type='date' class='form-control' id='datepicker' name='datepicker'></div></td>"
+    "<td><div class='form-group'><input type='date' class='form-control' id='p_abono' name='p_abono'></div></td>"
     +"</tr>";
   }
 
@@ -593,7 +593,7 @@ var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
 
 function setAbono(event, obj, idx){
     event.preventDefault();
-    abonosp[idx].abono = parseFloat(obj.value);
+    abonosp[idx].abono_act = parseFloat(obj.value);
     recalculo(idx);
   }
 
@@ -604,7 +604,7 @@ function setAbono(event, obj, idx){
   }
 
   function recalculo(idx){
-    console.log(abonosp[idx].abono);
+    console.log(abonosp[idx].abono_act);
     console.log((abonosp[idx].saldo_ant - abonosp[idx].abono_act));
 
     console.log(abonosp[idx].nletras);
@@ -636,14 +636,14 @@ function setAbono(event, obj, idx){
     var id_paciente = $("#id_paciente").val();
     var id_credito =$("#id_credito").val();
     var forma_pago =$("#forma_pago").val();
-    //var abono = $("#abono").val();
+    var p_abono = $("#p_abono").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 if(forma_pago != 0){
     $.ajax({
     url:"../ajax/creditos.php?op=registrar_abono_pacientes",
     method:"POST",
-    data:{'array_abonos_pacientes':JSON.stringify(abonosp),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago},
+    data:{'array_abonos_pacientes':JSON.stringify(abonosp),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago,'p_abono':p_abono},
     cache: false,
     dataType:"html",
     error:function(x,y,z){
@@ -777,7 +777,7 @@ $(document).on('click', '.abonarp', function(){
 
 //////////////////////////CANCELAR ABONO
 
-var cancel = [];
+/* var cancel = [];
 
   
 function cancelarAbono(id_paciente, id_credito){
@@ -864,7 +864,7 @@ var saldo = cancel[i].saldo = cancel[i].saldo_ant - cancel[i].saldo;
     
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
 
-    var id_usuario = $("#id_usuario").val();
+   /* var id_usuario = $("#id_usuario").val();
     var id_paciente = $("#id_pacientes").val();
     var id_credito =$("#id_creditos").val();
     var forma_pagos =$("#forma_pagos").val();
@@ -906,7 +906,7 @@ if(forma_pagos != 0){
      return false;
   }
  
-
+*/
 
 
 init();
