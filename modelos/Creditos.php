@@ -352,7 +352,20 @@ public function detalle_credito_photo($numero_venta){
 
 } 
 
+public function cobros_pacientes(){
 
+    $conectar = parent::conexion();
+
+    $sql="select p.nombres, p.empresa,p.telefono,a.fecha_abono,max(a.proximo_abono)as pbono,c.monto,datediff(now(), max(proximo_abono)) as estado from pacientes as p inner join abonos as a on p.id_paciente=a.id_paciente inner join creditos as c on c.id_credito=a.id_credito group by(p.nombres);";
+
+          $sql=$conectar->prepare($sql);
+
+          $sql->execute();
+
+          return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+}
 
 
 }//FIN DE LA CLASE

@@ -46,7 +46,7 @@ function listar()
 
 	$('#ventas_data thead tr:eq(1) th').each( function () {
         var title = $('#ventas_data thead tr:eq(0) th').eq( $(this).index() ).text();
-        $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+        $(this).html( '<input type="text" class="form-control" placeholder="Buscar '+title+'" />' );
     } ); 
   
 	tabla=$('#ventas_data').dataTable(

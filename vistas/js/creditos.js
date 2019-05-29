@@ -3,10 +3,12 @@ var tabla_creditos_empresarial;
 var tabla_creditos_c_aut;
 var tabla_creditos_c_pers;
 var tabla_creditos_metro;
+var tabla_cobros_pac;
 
 //Función que se ejecuta al inicio
 function init(){
   
+  listar_cobros_pac();
   
 }
 
@@ -17,6 +19,98 @@ function actualizar(){
   lista_creditos_empresarial();
 
  } 
+function listar_cobros_pac()
+{
+
+    $('#cobros_data thead tr:eq(1) th').each( function () {
+        var title = $('#cobros_data thead tr:eq(0) th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" class="form-control" placeholder="Buscar '+title+'" />' );
+    } );
+  
+  tabla_cobros_pac=$('#cobros_data').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [              
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+    "ajax":
+        {
+          url: '../ajax/creditos.php?op=buscar_cobros_paciente',
+          type : "get",
+          dataType : "json",            
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
+ 
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "Buscar:",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          },
+       
+          "oAria": {
+       
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+       
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+       
+          }
+
+         }//cerrando language
+         
+  }).DataTable();
+
+        tabla_cobros_pac.columns().every(function (index) {
+        $('#cobros_data thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+            tabla_cobros_pac.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
+}
 
 function lista_creditos_metro()
 {
@@ -577,7 +671,7 @@ var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
     "<td name='monto[]'>"+"<p align='center'>"+abonosp[i].moneda+" "+abonosp[i].monto+"</p>"+"</td>"+
     "<td name='abono_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].abono_ant+"</td>"+
     "<td name='saldo_ant[]' align='center'>"+abonosp[i].moneda+" "+abonosp[i].saldo_ant+"</td>"+
-    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono'  onmouseout='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono_act+"'></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onmouseout='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono_act+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonosp[i].saldo+"</span> </td>"+
     "<td align='center'>"+
         "<select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
@@ -593,7 +687,7 @@ var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
 
 function setAbono(event, obj, idx){
     event.preventDefault();
-    abonosp[idx].abono_act = parseFloat(obj.value);
+    abonosp[idx].abono = parseFloat(obj.value);
     recalculo(idx);
   }
 
@@ -604,7 +698,7 @@ function setAbono(event, obj, idx){
   }
 
   function recalculo(idx){
-    console.log(abonosp[idx].abono_act);
+    console.log(abonosp[idx].abono);
     console.log((abonosp[idx].saldo_ant - abonosp[idx].abono_act));
 
     console.log(abonosp[idx].nletras);
@@ -777,7 +871,7 @@ $(document).on('click', '.abonarp', function(){
 
 //////////////////////////CANCELAR ABONO
 
-/* var cancel = [];
+var cancel = [];
 
   
 function cancelarAbono(id_paciente, id_credito){
@@ -864,7 +958,7 @@ var saldo = cancel[i].saldo = cancel[i].saldo_ant - cancel[i].saldo;
     
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
 
-   /* var id_usuario = $("#id_usuario").val();
+    var id_usuario = $("#id_usuario").val();
     var id_paciente = $("#id_pacientes").val();
     var id_credito =$("#id_creditos").val();
     var forma_pagos =$("#forma_pagos").val();
@@ -906,7 +1000,31 @@ if(forma_pagos != 0){
      return false;
   }
  
+/*function cobrosPaciente(){
+
+        var empresa = $("#b_empresa").val();
+
+        $.ajax({
+        url:"../ajax/creditos.php?op=buscar_cobros_paciente",
+        method:"POST",
+
+        data:{empresa:empresa},
+        cache: false,
+        dataType:"json",
+
+        success:function(data){
+                       
+       
+          control_cobros_pac();
+          //cancelar_abono_pac();
+
+
+          }//fin success    
+
+        });//fin de ajax
+ 
+        
+      }
+
 */
-
-
 init();
