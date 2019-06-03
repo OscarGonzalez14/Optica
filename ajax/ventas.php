@@ -136,8 +136,8 @@
 		$html="
 			<option value=''>Seleccione</option>
 			<option value='Efectivo'>Efectivo</option>
-			<option value='Tarjeta de Debito'>Tarjeta de Debito</option>
-			<option value='Tarjeta de Credito'>Tarjeta de Credito</option>";
+			<option value='Tarjeta de Credito'>Tarjeta de Crédito</option>			
+			<option value='Cheque'>Cheque</option>";
 	
 		echo $html;
 
@@ -147,7 +147,9 @@
 		<option value=''>Selecione</option>
 		<option value='Descuento en Planilla'> Descuento en Planilla</option>
 	 	<option value='c_auto'>Cargo Automático</option>
-	 	<option value='Creditos Personales'>Créditos Personales</option>";
+	 	<option value='Creditos Personales'>Créditos Personales</option>
+	 	<option value='Tarjeta de Credito'>Tarjeta de Crédito</option>
+	 	<option value='Cheque'>Cheque</option>";
 	
 		echo $html;
 		}else{

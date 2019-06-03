@@ -270,6 +270,7 @@
           </a>
 
            <ul class="treeview-menu">
+           <li><a href="corte_caja.php"><i class="fa fa-circle-o"></i>Reporte Corte de Caja Ventas</a></li>
            <li><a href="reporte_diario_ventas.php"><i class="fa fa-circle-o"></i>Reporte Diario de Ventas</a></li>
             <li><a href="reporte_general_ventas.php"><i class="fa fa-circle-o"></i>Reporte General Ventas</a></li>
             

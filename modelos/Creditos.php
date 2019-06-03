@@ -89,9 +89,10 @@ public function agrega_abono_pacientes(){
        $id_paciente = $_POST["id_paciente"];
        $forma_pago = $_POST["forma_pago"];
        $p_abono = $_POST["p_abono"];
+       $n_recibo = $_POST["n_recibo"];
 
         $sql="insert into abonos
-        values(null,?,?,now(),?,?,?,?);";
+        values(null,?,?,now(),?,?,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
@@ -102,6 +103,7 @@ public function agrega_abono_pacientes(){
         $sql->bindValue(4,$id_paciente);
         $sql->bindValue(5,$id_usuario);
         $sql->bindValue(6,$id_credito);
+        $sql->bindValue(7,$n_recibo);
        
         $sql->execute();
          
@@ -356,7 +358,7 @@ public function cobros_pacientes(){
 
     $conectar = parent::conexion();
 
-    $sql="select p.nombres, p.empresa,p.telefono,a.fecha_abono,max(a.proximo_abono)as pbono,c.monto,datediff(now(), max(proximo_abono)) as estado from pacientes as p inner join abonos as a on p.id_paciente=a.id_paciente inner join creditos as c on c.id_credito=a.id_credito group by(p.nombres);";
+    $sql="select p.nombres, p.empresa,p.telefono,a.fecha_abono,max(a.proximo_abono)as pbono,c.monto,c.saldo,datediff(now(), max(proximo_abono)) as estado from pacientes as p inner join abonos as a on p.id_paciente=a.id_paciente inner join creditos as c on c.id_credito=a.id_credito group by(p.nombres);";
 
           $sql=$conectar->prepare($sql);
 

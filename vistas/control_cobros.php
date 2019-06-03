@@ -68,8 +68,10 @@
             <th width="20%">Cliente</th>
             <th>Télefono</th>
             <th>Ult. Abono</th>
+
             <th>Prox. Abono</th>
             <th>Monto</th>
+            <th>Saldo</th>
             <th>Estado</th> 
        </tr>
               <tr>
@@ -77,8 +79,10 @@
             <th><div class="size">Cliente</div></th>
             <th style="visibility: hidden;">Télefono</th>
             <th style="visibility: hidden;">Ultimo Abono</th>
+          
             <th style="visibility: hidden;">Fecha Abono</th>
             <th style="visibility: hidden;">Monto</th>
+            <th style="visibility: hidden;">Saldo</th>
             <th style="visibility: hidden;">Estado</th> 
        </tr>
      </thead>

@@ -716,7 +716,7 @@ function setAbono(event, obj, idx){
      monto_letras=Mletras.toFixed(2);     
     $('#abono'+idx).html(monto_letras);
 
-  //$("#cantidad_"+idx).val(cantidad_venta);
+   //$("#cantidad_"+idx).val(cantidad_venta);
   //calcularTotales();
 
     
@@ -731,13 +731,14 @@ function setAbono(event, obj, idx){
     var id_credito =$("#id_credito").val();
     var forma_pago =$("#forma_pago").val();
     var p_abono = $("#p_abono").val();
+    var n_recibo=$("#recibo").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 if(forma_pago != 0){
     $.ajax({
     url:"../ajax/creditos.php?op=registrar_abono_pacientes",
     method:"POST",
-    data:{'array_abonos_pacientes':JSON.stringify(abonosp),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago,'p_abono':p_abono},
+    data:{'array_abonos_pacientes':JSON.stringify(abonosp),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago,'p_abono':p_abono,'n_recibo':n_recibo},
     cache: false,
     dataType:"html",
     error:function(x,y,z){

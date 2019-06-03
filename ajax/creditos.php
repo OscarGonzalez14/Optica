@@ -418,7 +418,8 @@ $sub_array= array();
 		$sub_array[] = date("d-m-Y", strtotime($row["fecha_abono"]));
 		$sub_array[] = date("d-m-Y",strtotime($row["pbono"]));
 		$sub_array[] = $row["monto"];
-		//$sub_array[] = $row["estado"];
+		$sub_array[] = $row["saldo"];
+		//$sub_array[] = $row["n_recibo"];
 
 		$sub_array[] = '<button type="button" name="estado" class="'.$atrib.'">'.$icon." ".$txt.'</button>';
 		$data[]= $sub_array;

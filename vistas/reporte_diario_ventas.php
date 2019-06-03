@@ -1,6 +1,6 @@
 
 <?php
-/*IMPORTANTE:ESTE ARCHIVO DE PDF NO ACEPTA LOS ESTILOS DE LIBRERIAS EXTERNAS NI BOOTSTRAP, HAY QUE USAR STYLE COMO ATRIBUTO Y LA ETIQUETA STYLE DEBAJO DE HEAD*/
+ob_start();/*IMPORTANTE:ESTE ARCHIVO DE PDF NO ACEPTA LOS ESTILOS DE LIBRERIAS EXTERNAS NI BOOTSTRAP, HAY QUE USAR STYLE COMO ATRIBUTO Y LA ETIQUETA STYLE DEBAJO DE HEAD*/
 
   require_once("../config/conexion.php"); 
 
@@ -14,7 +14,7 @@ $vent = new Ventas();
 
 $venta=$vent->get_ventas_diarias();
 
-ob_start(); 
+--ob_start(); 
 
    
 ?>
@@ -157,7 +157,7 @@ ob_start();
     <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="padding-top: 0em"><span class="Estilo3"><span id="result_box" lang="es" xml:lang="es">ESTE REPORTE  NO TENDRA FUERZA O EFECTO HASTA QUE SEA REVISADO Y FIRMADO POR UN FUNCIONARIO DE LA EMPRESA </span></span></td>
+
     <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
   </tr>
   <tr>

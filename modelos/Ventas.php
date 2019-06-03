@@ -222,14 +222,14 @@ $html.="<tr class='filas'>
 
 		                   if(empty($numero_venta["numero"]))
 		                {
-		                  echo '0000001';
+		                  echo 'V000001';
 		                }else
 		          
 		                  {
 		                    $num     = substr($numero_venta["numero"] , 1);
 		                    $dig     = $num + 1;
 		                    $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
-		                    echo '0'.$fact;
+		                    echo 'V'.$fact;
 		                    //echo 'F'.$new_cod;
 		                  } 
 
@@ -397,16 +397,17 @@ public function agrega_detalle_venta(){
            $sql2->execute();
 
            //INSERTAR EN LA TABLA CREDITOS
-           $sql7="insert into creditos values(null,?,?,?,?,?,?);";
+           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,now());";
 
            $sql7=$conectar->prepare($sql7);
 
            $sql7->bindValue(1,$subtotal);
            $sql7->bindValue(2,$plazo);
            $sql7->bindValue(3,$subtotal);
-           $sql7->bindValue(4,$numero_venta);
-           $sql7->bindValue(5,$id_paciente);
-           $sql7->bindValue(6,$id_usuario);
+           $sql7->bindValue(4,$tipo_pago);
+           $sql7->bindValue(5,$numero_venta);
+           $sql7->bindValue(6,$id_paciente);
+           $sql7->bindValue(7,$id_usuario);
            $sql7->execute();
 
           
