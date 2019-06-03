@@ -588,6 +588,10 @@ case "ver_ultima_venta_lentes":
 
      break;
 
+     case 'reporte_ventas_diario':
+     	
+     	break;
+
 
 
 }
