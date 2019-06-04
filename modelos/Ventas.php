@@ -1240,7 +1240,7 @@ public function agrega_detalle_abono(){
           $conectar = parent::conexion();
           parent::set_names();
 
-          $sql="elect c.numero_venta,a.n_recibo,p.nombres,u.usuario,c.monto,a.monto_abono as abono,a.forma_pago,c.forma_pago,c.saldo,a.fecha_abono,count(monto_abono) as abonos from pacientes as p inner join  creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario inner join abonos as a on c.id_credito=a.id_credito where fecha_abono=curdate()  group by c.numero_venta having count(monto_abono)<=1 order by c.forma_pago desc;";
+          $sql="select c.numero_venta,a.n_recibo,p.nombres,u.usuario,c.monto,a.monto_abono as abono,a.forma_pago,c.forma_pago,c.saldo,a.fecha_abono,count(monto_abono) as abonos from pacientes as p inner join  creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario inner join abonos as a on c.id_credito=a.id_credito where fecha_abono=curdate()  group by c.numero_venta having count(monto_abono)<=1 order by c.forma_pago desc;";
 
           $sql= $conectar->prepare($sql);
           $sql->execute();

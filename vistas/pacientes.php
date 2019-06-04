@@ -142,7 +142,7 @@
 
       <div class="col-xs-6">
         <label for="ex3">Empresa</label>
-        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="empresa">
+        <input class="form-control" id="empresa" type="text" name="empresa" placeholder="empresa" value="Ninguna">
       </div>
 
       <div class="col-xs-6">
