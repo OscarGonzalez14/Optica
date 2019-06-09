@@ -262,7 +262,7 @@
             echo '
 
          <li class="treeview">
-          <a href="reporte_diario_ventas.php">
+          <a href="corte_caja.php">
           <i class="fa fa-line-chart" aria-hidden="true"></i> <span>Reportes de Ventas</span>
             <span class="pull-right-container badge bg-blue">
                  <i class="fa fa-angle-left pull-right"></i>

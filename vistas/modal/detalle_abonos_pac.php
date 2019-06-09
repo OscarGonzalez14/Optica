@@ -42,8 +42,8 @@
       </div>
       <div class="col-sm-2">
           <div class="input-group">
-          <span class="input-group-addon"># Recibo:</span>
-          <input id="recibo" type="text" class="form-control" name="recibo">
+          <span class="input-group-addon"># Recibos:</span>
+          <input id="recibo" type="text" class="form-control" name="recibo" value="0">
           </div>
       </div>
       </div>

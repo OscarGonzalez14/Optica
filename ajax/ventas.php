@@ -146,7 +146,7 @@
 	$html= "
 		<option value=''>Selecione</option>
 		<option value='Descuento en Planilla'> Descuento en Planilla</option>
-	 	<option value='c_auto'>Cargo Automático</option>
+	 	<option value='Cargo Automatico'>Cargo Automático</option>
 	 	<option value='Creditos Personales'>Créditos Personales</option>
 	 	<option value='Tarjeta de Credito'>Tarjeta de Crédito</option>
 	 	<option value='Cheque'>Cheque</option>";
@@ -185,7 +185,7 @@
 
   		echo $html;
 
-  		}else if($_POST['m_cuotas']=='c_auto'){
+  		}else if($_POST['m_cuotas']=='Cargo Automatico'){
 
   		$html="
 
@@ -592,9 +592,8 @@ case "ver_ultima_venta_lentes":
 
     case "corte_caja":
 
-     $datos=$ventas->reporte_diario_ventas();
 
-     //Vamos a declarar un array
+     $datos=$ventas->reporte_diario_ventas();
  	 $data= Array();
 
      	foreach($datos as $row)
@@ -607,8 +606,49 @@ case "ver_ultima_venta_lentes":
 				 $sub_array[] = $row["nombres"];
 				 $sub_array[] = $row["usuario"];
 				 $sub_array[] = $row["monto"];
+				 $sub_array[] = $row["ant"];
 				 $sub_array[] = $row["abono"];
+				 $sub_array[] = $row["tipo_venta"];
 				 $sub_array[] = $row["forma_pago"];
+				 $sub_array[] = $row["saldo"];
+				 $sub_array[] = date("d-m-Y",strtotime($row["fecha_abono"]));
+
+
+
+				$data[] = $sub_array;
+
+			}
+
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+
+     
+     case "corte_recuperado":
+     $datos=$ventas->reporte_diario_recuperado();
+ 	 $data= Array();
+
+     	foreach($datos as $row)
+			{
+				$sub_array = array();
+
+	             
+				 $sub_array[] = $row["numero_venta"];
+				 $sub_array[] = $row["n_recibo"];
+				 $sub_array[] = $row["nombres"];
+				 $sub_array[] = $row["usuario"];
+				 $sub_array[] = $row["monto"];
+				 $sub_array[] = $row["ant"];
+				 $sub_array[] = $row["abono"];
+				 $sub_array[] = $row["tipo_venta"];
 				 $sub_array[] = $row["forma_pago"];
 				 $sub_array[] = $row["saldo"];
 				 $sub_array[] = date("d-m-Y",strtotime($row["fecha_abono"]));

@@ -39,7 +39,7 @@ public function get_pacientes_metro()
   public function get_pacientes_c_automatico()
   {
     $conectar=parent::conexion();
-    $sql="select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='c_auto' order by id_credito asc;
+    $sql="select p.id_paciente,c.id_credito,c.monto,c.saldo,p.nombres,p.empresa,p.telefono,v.tipo_pago,v.sucursal,c.numero_venta,c.id_credito from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente join ventas as v where v.numero_venta=c.numero_venta and v.tipo_pago='Cargo Automatico' order by id_credito asc;
     ";
     $sql=$conectar->prepare($sql);
     $sql->execute();

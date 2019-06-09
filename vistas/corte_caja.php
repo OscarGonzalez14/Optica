@@ -48,7 +48,7 @@
 
 
 <div class="row">
-<h5 align="center">ABONOS</h5>
+<h5 align="center"><strong>Corte de Caja Diario</strong></h5>
   <div class="col-sm-12"></div>
 </div>
 
@@ -86,6 +86,7 @@
         <th>Vendedor</th>
         <th>Total Fac.</th>
         <th>Anticipos Ant.</th>
+        <th>Cobro</th>
         <th>Tipo Venta</th>        
         <th>Forma de Pago</th>
         <th>Saldo Act</th>

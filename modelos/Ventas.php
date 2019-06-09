@@ -1240,7 +1240,8 @@ public function agrega_detalle_abono(){
           $conectar = parent::conexion();
           parent::set_names();
 
-          $sql="select c.numero_venta,a.n_recibo,p.nombres,u.usuario,c.monto,a.monto_abono as abono,a.forma_pago,c.forma_pago,c.saldo,a.fecha_abono,count(monto_abono) as abonos from pacientes as p inner join  creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario inner join abonos as a on c.id_credito=a.id_credito where fecha_abono=curdate()  group by c.numero_venta having count(monto_abono)<=1 order by c.forma_pago desc;";
+          $sql="select c.numero_venta,a.n_recibo,p.nombres,u.usuario,c.monto,'0' as ant,a.monto_abono as abono,a.forma_pago,c.forma_pago as tipo_venta,c.saldo,a.fecha_abono from pacientes as p inner join  creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuari inner join abonos as a on c.id_credito=a.id_credito group by c.numero_venta having count(monto_abono)<=1 and fecha_abono=curdate() order by c.forma_pago desc;;
+";
 
           $sql= $conectar->prepare($sql);
           $sql->execute();
@@ -1249,5 +1250,18 @@ public function agrega_detalle_abono(){
 
          }
 
+         public function reporte_diario_recuperado(){
+
+         $conectar = parent::conexion();
+         parent::set_names();
+
+         $sql = "select c.id_credito,c.numero_venta,a.n_recibo,p.nombres,u.usuario,c.monto,max(a.fecha_abono),a.monto_abono as abono,'0' as ant, a.id_paciente, count(c.id_credito),a.forma_pago,c.forma_pago as tipo_venta,c.saldo,a.fecha_abono from  pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario inner join abonos as a  on c.id_credito=a.id_credito  group by id_paciente having count(c.id_credito)>1 and max(a.fecha_abono) = curdate() order by a.fecha_abono DESC;";
+
+         $sql=$conectar->prepare($sql);
+         $sql->execute();
+         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+          
+         }
 
    }

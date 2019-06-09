@@ -382,7 +382,7 @@ function lista_creditos_c_aut()
         });
     });*/
 }
-
+  
 
 function lista_creditos_personal()
 {
@@ -734,7 +734,7 @@ function setAbono(event, obj, idx){
     var n_recibo=$("#recibo").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(forma_pago != 0){
+if(forma_pago != 0 && n_recibo != 0 ){
     $.ajax({
     url:"../ajax/creditos.php?op=registrar_abono_pacientes",
     method:"POST",
