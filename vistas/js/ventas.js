@@ -715,11 +715,22 @@ if(forma_pago!=""){
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
-      buttons: [              
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdf'
+buttons: [   
+
+             {
+                extend: 'excelHtml5',
+				text : 'Guardar Ventas Excel',
+				filename: function(){
+                var n = new Date();
+                y = n.getFullYear();
+				m = n.getMonth() + 1;
+				d = n.getDate();
+				
+
+                return 'Ventas'+" de " + d +"-"+m+"-"+ y ;
+            }
+            }
+
             ],
     "ajax":
         {

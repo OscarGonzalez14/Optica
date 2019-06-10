@@ -1265,5 +1265,17 @@ public function reporte_diario_ventas(){
          }
 
 
+/*public function reporte_diario_ventas_pdf(){
 
+         $conectar = parent::conexion();
+         parent::set_names();
+
+         $sql = "select c.monto,max(a.fecha_abono),a.monto_abono as abono,'0' as ant, a.id_paciente, count(c.id_credito),a.forma_pago,c.forma_pago as tipo_venta,c.saldo,a.fecha_abono from  pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario inner join abonos as a  on c.id_credito=a.id_credito  where a.forma_pago='Cheque' group by id_paciente having count(c.id_credito)<=1 and max(a.fecha_abono) = curdate() order by a.fecha_abono DESC;";
+
+         $sql=$conectar->prepare($sql);
+         $sql->execute();
+         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+          
+         }*/
    }

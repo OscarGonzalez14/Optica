@@ -39,7 +39,7 @@ CREATE TABLE `abonos` (
   CONSTRAINT `fk_abonos_creditos` FOREIGN KEY (`id_credito`) REFERENCES `creditos` (`id_credito`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_abonos_pacientes` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_abonos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `abonos` (
 
 LOCK TABLES `abonos` WRITE;
 /*!40000 ALTER TABLE `abonos` DISABLE KEYS */;
-INSERT INTO `abonos` VALUES (38,'37.13','Tarjeta de Credito','2019-06-06','2019-06-27',6,5,17,'R093'),(39,'37.13','Efectivo','2019-06-07','2019-07-01',6,5,17,'Roeir'),(41,'58.33','Tarjeta de Credito','2019-06-07','2019-06-18',8,5,18,'R0008'),(42,'58.33','Efectivo','2019-06-08','2019-06-29',8,5,18,'Rwee'),(43,'0','Efectivo','2019-06-08','2019-06-29',6,5,17,'R434'),(44,'35.6','Efectivo','2019-06-08','2019-06-29',6,5,17,'R434'),(45,'58.33','Tarjeta de Credito','2019-06-08','2019-06-28',8,5,18,'R0012');
+INSERT INTO `abonos` VALUES (81,'41.41','Efectivo','2019-06-09','2019-06-12',6,5,35,'R0094'),(82,'41.41','Efectivo','2019-06-10','2019-06-20',6,5,35,'R0973'),(83,'19.85','Efectivo','2019-06-10','2019-06-28',3,5,36,'R11'),(84,'19.85','Efectivo','2019-06-10','2019-06-29',3,5,36,'R12'),(85,'0','Efectivo','2019-06-10','2019-06-12',3,5,36,'R13'),(86,'6','Efectivo','2019-06-10','2019-06-18',3,5,36,'Rt45'),(87,'12','Cheque','2019-06-10','2019-06-29',8,5,37,'m009'),(88,'37.5','Efectivo','2019-06-10','2019-06-28',5,5,38,'R567');
 /*!40000 ALTER TABLE `abonos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +197,7 @@ CREATE TABLE `creditos` (
   KEY `fk_creditos_ventas_idx` (`id_usuario`),
   CONSTRAINT `fk_creditos_pacientes` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_creditos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `creditos` (
 
 LOCK TABLES `creditos` WRITE;
 /*!40000 ALTER TABLE `creditos` DISABLE KEYS */;
-INSERT INTO `creditos` VALUES (17,'222.75','6','112.89','Descuento en Planilla','V000022',6,5,'2019-06-06'),(18,'175.00','3','0.010000000000005','Cargo Automatico','V000023',8,5,'2019-06-07');
+INSERT INTO `creditos` VALUES (35,'248.45','6','165.63','Descuento en Planilla','V000017',6,5,'2019-06-09'),(36,'198.45','10','127.75','Descuento en Planilla','V000018',3,5,'2019-06-10'),(37,'418.4','12','406.4','Cargo Automatico','V000019',8,5,'2019-06-10'),(38,'75.00','2','37.5','Descuento en Planilla','V000020',5,5,'2019-06-10');
 /*!40000 ALTER TABLE `creditos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,7 @@ CREATE TABLE `detalle_ventas` (
   KEY `fk_detalle_ventas_clientes_idx` (`id_paciente`),
   CONSTRAINT `fk_detalle_ventas_pacientes` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_detalle_ventas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=323 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,7 +278,7 @@ CREATE TABLE `detalle_ventas` (
 
 LOCK TABLES `detalle_ventas` WRITE;
 /*!40000 ALTER TABLE `detalle_ventas` DISABLE KEYS */;
-INSERT INTO `detalle_ventas` VALUES (294,'V000022',5,'Visión Sencilla Policarbonato','75','3','1','222.75','2019-06-06',5,6),(295,'V000023',4,'RB 3050','175','1','0','175','2019-06-07',5,8);
+INSERT INTO `detalle_ventas` VALUES (296,'V000001',5,'Visión Sencilla Policarbonato','75','3','0','225','2019-06-07',5,6),(297,'V000002',6,'m34','125','2','4','240','2019-06-08',5,2),(298,'V000003',5,'Visión Sencilla Policarbonato','75','3','2','220.5','2019-06-07',5,4),(299,'V000004',4,'RB 3050','175','1','0','175','2019-06-10',5,8),(300,'V000005',5,'Visión Sencilla Policarbonato','75','1','0','75','2019-06-10',5,1),(301,'V000006',6,'m34','125','1','5','118.75','2019-06-10',5,5),(302,'V000007',4,'RB 3050','175','3','5','498.75','2019-06-10',5,3),(303,'V000008',6,'m34','125','1','0','125','2019-06-10',5,2),(304,'V000009',6,'m34','125','1','0','125','2019-06-07',5,3),(305,'V000010',6,'m34','125','1','0','125','2019-06-07',5,3),(306,'V000011',6,'m34','125','1','0','125','2019-07-11',5,6),(307,'V000012',6,'m34','125','1','0','125','2019-06-08',5,6),(308,'V000012',7,'Visión Sencilla Policarbonato','123.45','1','0','123.45','2019-06-08',5,6),(309,'V000013',6,'m34','125','1','0','125','2019-06-08',5,3),(310,'V000013',7,'Visión Sencilla Policarbonato','123.45','1','0','123.45','2019-06-08',5,3),(311,'V000014',4,'RB 3050','175','1','0','175','2019-06-08',5,8),(312,'V000014',7,'Visión Sencilla Policarbonato','123.45','1','0','123.45','2019-06-08',5,8),(313,'V000015',6,'m34','125','1','0','125','2019-06-08',5,2),(314,'V000016',4,'RB 3050','175','1','0','175','2019-06-09',5,2),(315,'V000016',7,'Visión Sencilla Policarbonato','123.45','1','0','123.45','2019-06-09',5,2),(316,'V000017',6,'m34','125','1','0','125','2019-06-09',5,6),(317,'V000017',7,'Visión Sencilla Policarbonato','123.45','1','0','123.45','2019-06-09',5,6),(318,'V000018',5,'Visión Sencilla Policarbonato','75','1','0','75','2019-06-10',5,3),(319,'V000018',7,'Visión Sencilla Policarbonato','123.45','1','0','123.45','2019-06-10',5,3),(320,'V000019',4,'RB 3050','175','1','2','171.5','2019-06-10',5,8),(321,'V000019',7,'Visión Sencilla Policarbonato','123.45','2','0','246.9','2019-06-10',5,8),(322,'V000020',5,'Visión Sencilla Policarbonato','75','1','0','75','2019-06-10',5,5);
 /*!40000 ALTER TABLE `detalle_ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,7 +387,7 @@ CREATE TABLE `producto` (
   `categoria` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_producto`),
   KEY `fk_producto_usuario_idx` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,7 +396,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (4,'RB 3050','RayBan','C1','175','9',5,'54-17-45','aros'),(5,'Visión Sencilla Policarbonato','---','---','75','29',5,'12','aros'),(6,'m34','VERSACE','c45','125','14',5,'12-12-33','aros');
+INSERT INTO `producto` VALUES (4,'RB 3050','RayBan','C1','175','2',5,'54-17-45','aros'),(5,'Visión Sencilla Policarbonato','---','---','75','20',5,'12','aros'),(6,'m34','VERSACE','c45','125','3',5,'12-12-33','aros'),(7,'Visión Sencilla Policarbonato',NULL,NULL,'123.45','-8',5,NULL,'lentes'),(8,'RB 3050','RayBan','c5','234','',5,'12-12-33','aros');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,7 +414,7 @@ CREATE TABLE `usuario_permiso` (
   PRIMARY KEY (`id_usuario_permiso`),
   KEY `fk_usuario_permiso_usuario_idx` (`id_usuario`),
   KEY `fk_usuario_permiso_permiso_idx` (`id_permiso`)
-) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -423,7 +423,7 @@ CREATE TABLE `usuario_permiso` (
 
 LOCK TABLES `usuario_permiso` WRITE;
 /*!40000 ALTER TABLE `usuario_permiso` DISABLE KEYS */;
-INSERT INTO `usuario_permiso` VALUES (32,2,1),(33,2,2),(110,3,1),(111,3,2),(112,3,3),(113,3,4),(114,3,5),(115,3,6),(116,3,7),(117,3,8),(118,3,9),(119,3,10),(140,1,1),(141,1,2),(142,1,3),(143,1,4),(144,1,5),(145,1,6),(146,1,7),(147,1,8),(148,1,9),(149,1,10),(160,4,1),(161,4,2),(162,4,3),(163,4,4),(164,4,5),(165,4,6),(166,4,7),(167,4,8),(168,4,9),(169,4,10),(170,5,1),(171,5,2),(172,5,3),(173,5,4),(174,5,5),(175,5,6),(176,5,7),(177,5,8),(178,5,9),(179,5,10),(182,6,2),(183,6,5),(184,6,8);
+INSERT INTO `usuario_permiso` VALUES (32,2,1),(33,2,2),(110,3,1),(111,3,2),(112,3,3),(113,3,4),(114,3,5),(115,3,6),(116,3,7),(117,3,8),(118,3,9),(119,3,10),(140,1,1),(141,1,2),(142,1,3),(143,1,4),(144,1,5),(145,1,6),(146,1,7),(147,1,8),(148,1,9),(149,1,10),(170,5,1),(171,5,2),(172,5,3),(173,5,4),(174,5,5),(175,5,6),(176,5,7),(177,5,8),(178,5,9),(179,5,10),(195,4,1),(196,4,2),(197,4,3),(198,4,4),(199,4,5),(200,4,6),(201,4,7),(202,4,8),(203,4,9),(204,4,10),(205,7,1),(206,7,2),(207,7,3),(208,7,4),(209,7,5),(210,7,6),(211,7,7),(212,7,8),(213,7,9),(214,7,10),(215,6,1),(216,6,2),(217,6,4),(218,6,5),(219,8,5),(220,8,6),(221,8,8),(222,9,5),(223,9,6),(224,9,8),(225,10,5),(226,10,6),(227,11,6),(228,11,8);
 /*!40000 ALTER TABLE `usuario_permiso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,7 +449,7 @@ CREATE TABLE `usuarios` (
   `fecha_ingreso` date NOT NULL,
   `estado` enum('0','1') NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -458,7 +458,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (4,'038109-4','Carlos Andres Choto','OP002','7888888','andres01@gmail.com','SS','1','andres ','12345','12345','2019-03-28','1'),(5,'454324','Oscar Antonio Gonzalez','ADMIN001','7912384','oscar@gmail.com','Caserio La Vuelta','0','oscar','12345','12345','2019-03-31','1'),(6,'Miguel','Miguel','00000000000','78888','miguel@gmail.com','SS','1','mflores','54321','54321','2019-04-02','1');
+INSERT INTO `usuarios` VALUES (4,'04659166-7','Carlos Andres Vasquez Choto','AV001','79897114','andres01@gmail.com','metrocentro ss, local 7 4ta etapa','1','andvas','and20vas08','and20vas08','2019-03-28','1'),(5,'454324','Oscar Antonio Gonzalez','ADMIN001','7912384','oscar@gmail.com','Caserio La Vuelta','0','oscar','12345','12345','2019-03-31','1'),(6,'04038907-0','Miguel Ernesto Flores ','av003','77850445','miguel@gmail.com','SS','0','mflores','54321','54321','2019-04-02','1'),(7,'04030871-5','Carmen Arely Vasquez Flores','AV002','78538973','carmenarelyflores77@gmail.com','metrocentro ss','1','arely','201188','201188','2019-06-10','1'),(8,'04177506-2','Denis Isaac Corvera','av004','71836547','denis@gmail.com','metrocentro ','1','denis','200489','200489','2019-06-10','1'),(9,'05410332-1','Josue Noe Rodriguez ','av005','60097577','josue@gmail.com','metrocentro ss','1','josue','120896','120896','2019-06-10','1'),(10,'01378707-7','Janet Riximy Cruz','av006','63149057','janet@gmail.com','metrocentro','0','janet','050569','050569','2019-06-10','1'),(11,'03362171-2','Mauricio Gregorio Flores','av007','78533789','mauricio@gmail.com','metrocentro','1','mauricio','180885','180885','2019-06-10','1');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -486,7 +486,7 @@ CREATE TABLE `ventas` (
   KEY `fk_ventas_pacientes_idx` (`id_paciente`),
   CONSTRAINT `fk_ventas_pacientes` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ventas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -495,6 +495,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
+INSERT INTO `ventas` VALUES (24,'2019-06-07','V000001','LAURA ELIZABETH CAMPOS','oscar','225','Descuento en Planilla','Credito',5,6,'Metrocentro'),(25,'2019-06-08','V000002','ANA GUADALUPE FIGUEROA','oscar','240','Descuento en Planilla','Credito',5,2,'Empresarial'),(26,'2019-06-07','V000003','DENIS MEJIA GONZALEZ','oscar','220.5','Cargo Automatico','Credito',5,4,'Metrocentro'),(27,'2019-06-10','V000004','Nayib Bukele','oscar','175.00','Creditos Personales','Credito',5,8,'Metrocentro'),(28,'2019-06-10','V000005','Andres Vazques','oscar','75.00','Descuento en Planilla','Credito',5,1,'Metrocentro'),(29,'2019-06-10','V000006','Enmanuel Sosa','oscar','118.75','Efectivo','Contado-Metrocentro',5,5,'Metrocentro'),(30,'2019-06-10','V000007','Santos Moran','oscar','498.75','Tarjeta de Credito','Contado-Metrocentro',5,3,'Metrocentro'),(31,'2019-06-10','V000008','ANA GUADALUPE FIGUEROA','oscar','125.00','Efectivo','Contado-Metrocentro',5,2,'Metrocentro'),(32,'2019-06-07','V000009','Santos Moran','oscar','125.00','Descuento en Planilla','Credito',5,3,'Empresarial'),(33,'2019-06-07','V000010','Santos Moran','oscar','125.00','Descuento en Planilla','Credito',5,3,'Metrocentro'),(34,'2019-07-11','V000011','LAURA ELIZABETH CAMPOS','oscar','125.00','Cargo Automatico','Credito',5,6,'Metrocentro'),(35,'2019-06-08','V000012','LAURA ELIZABETH CAMPOS','oscar','248.45','Cargo Automatico','Credito',5,6,'Metrocentro'),(36,'2019-06-08','V000013','Santos Moran','oscar','248.45','Descuento en Planilla','Credito',5,3,'Empresarial'),(37,'2019-06-08','V000014','Nayib Bukele','oscar','298.45','Cargo Automatico','Credito',5,8,'Metrocentro'),(38,'2019-06-08','V000015','ANA GUADALUPE FIGUEROA','oscar','125.00','Efectivo','Contado-Metrocentro',5,2,'Metrocentro'),(39,'2019-06-09','V000016','ANA GUADALUPE FIGUEROA','oscar','298.45','Descuento en Planilla','Credito',5,2,'Metrocentro'),(40,'2019-06-09','V000017','LAURA ELIZABETH CAMPOS','oscar','248.45','Descuento en Planilla','Credito',5,6,'Metrocentro'),(41,'2019-06-10','V000018','Santos Moran','oscar','198.45','Descuento en Planilla','Credito',5,3,'Metrocentro'),(42,'2019-06-10','V000019','Nayib Bukele','oscar','418.4','Cargo Automatico','Credito',5,8,'Metrocentro'),(43,'2019-06-10','V000020','Enmanuel Sosa','oscar','75.00','Descuento en Planilla','Credito',5,5,'Metrocentro');
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -507,4 +508,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-07  8:12:12
+-- Dump completed on 2019-06-10 17:41:24

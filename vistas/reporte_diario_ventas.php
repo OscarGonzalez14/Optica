@@ -14,7 +14,7 @@ $vent = new Ventas();
 
 $venta=$vent->get_ventas_diarias();
 
---ob_start(); 
+ob_start(); 
 
    
 ?>
@@ -50,6 +50,7 @@ $venta=$vent->get_ventas_diarias();
        <th width="5%" ><span class="Estilo11">No. Venta </span></th>
       <th width="25%" bgcolor="#317eac"><span class="Estilo11">Cliente</span></th>
       <th width="5%" bgcolor="#317eac"><span class="Estilo11">Vendedor</span></th>
+      <th width="5%" bgcolor="#317eac"><span class="Estilo11">Monto</span></th>
       <th width="10%" bgcolor="#317eac"><span class="Estilo11">Forma de Cobro</span>
       <th width="10%" bgcolor="#317eac"><span class="Estilo11">Fecha</span>
       
@@ -73,19 +74,19 @@ $venta=$vent->get_ventas_diarias();
      
       <td style="text-align: center"><span><?php echo $venta[$j]["numero_venta"];?></span></td>
       <td style="text-align: center"><span><?php echo $venta[$j]["paciente"];?></span></td>
-      <td style="text-align: center"><span><?php echo $venta[$j]["usuario"];?></span></td>
-      <td style="text-align: center"><span><?php echo $venta[$j]["tipo_pago"];?></span></td>
+      <td style="text-align: center"><span><?php echo $venta[$j]["id_usuario"];?></span></td>
 
-      
-      <td style="text-align: center"><span><?php echo $fecha=date("d-m-Y",strtotime($venta[$j]["fecha_venta"])); ?></span></td>
-     
+      <td style="text-align: center"><span><?php echo $venta[$j]["subtotal"];?></span></td>
+      <td style="text-align: center"><span><?php echo $venta[$j]["tipo_pago"];?></span></td>      
+      <td style="text-align: center"><span><?php echo $fecha=date("d-m-Y",strtotime($venta[$j]["fecha_venta"])); ?></span></td>     
       </tr>
+
       <?php } ?>
 
 
  <!--comienzo de la suma de productos y monto total-->
    <tr class="even_row">
-  <td colspan="5" style="text-align: center"><table style="width: 100%; font-size: 8pt;">
+  <td colspan="6" style="text-align: center"><table style="width: 100%; font-size: 8pt;">
    
   <tr>
     <td class="even_row" style="text-align: center">&nbsp;</td>
