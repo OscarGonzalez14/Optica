@@ -27,7 +27,7 @@
             <th><p align="center" p>Recibí de:</p></th>
             <th> <p align="center">Empresa</p></th>
             <th colspan="2"><p align="center"> Cantidad en Letras</p></th>
-            <th> <p align="center">$</p></th>
+            <th> <p align="center">No. Recibo</p></th>
           </tr>
         </thead>
 
@@ -37,7 +37,7 @@
           <td align="center"> <h5 id="nombres"></h5><input type="hidden" name="nombres" id="nombres"></td>
           <td align="center"> <h5 id="empresa"></h5><input type="hidden" name="empresa" id="empresa"></td>
           <td align="center" colspan="2"><input type="text" class="form-control"></td>
-          <td align="center"> <h5 id="c_numeros"></h5><input type="hidden" name="c_numeros" id="c_numeros"></td>
+          <td align="center"><input type="text" name="num_recibo" id="num_recibo" value="0" class="form-control"> </td>
         </tbody>
       </table>
 
@@ -52,6 +52,7 @@
           <th><p align="center">Abono Actual</p></th>
           <th><p align="center"> NuevoSaldo</p></th> 
           <th><p align="center">Forma de Pago</p></th>
+          <th><p align="center">Proximo Abono</p></th>
 
           </tr>
         </thead>

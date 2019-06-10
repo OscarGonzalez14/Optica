@@ -535,11 +535,56 @@ case "buscar_detalle_credito_photo":
   	
   	case "registrar_abono_pacientes";
 
+  	$comprobar_recibos=$creditos->comprobar_recibos_ant($_POST["n_recibo"]);
+    
+    if(is_array($comprobar_recibos)==true and count($comprobar_recibos)==0){ 
+
 	$creditos->agrega_abono_pacientes();
 
+	}else{
+
+		$errors[]="Este Numero de Recibo ya Existe";
+	}
+
+	     //mensaje success
+     if (isset($messages)){
+				
+				?>
+				<div class="alert alert-success" role="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>¡Bien hecho!</strong>
+						<?php
+							foreach ($messages as $message) {
+									echo $message;
+								}
+							?>
+				</div>
+				<?php
+			}
+	 //fin success
+
+	 //mensaje error
+         if (isset($errors)){
+			
+			?>
+				<div class="alert alert-danger" role="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<script>alert("Numero de Recibo ya Existe");</script> 
+						<?php
+							foreach ($errors as $error) {
+									echo $error;
+								}
+							?>
+				</div>
+			<?php
+
+			}
+
+	 //fin mensaje e
      break;
 
      case "registrar_abono_cancelacion";
+
 
 	$creditos->agrega_cancelacion();
 

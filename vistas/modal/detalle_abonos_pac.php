@@ -14,6 +14,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header" id="head">
+      <div id="errores_ajax"></div>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
   <h5 class="modal-title" align="center"><i class="fa fa-usd" aria-hidden="true"></i> ABONO INICIAL</h5>
       </div>

@@ -370,6 +370,19 @@ public function cobros_pacientes(){
 }
 
 
+  public function comprobar_recibos_ant($n_recibo){
+
+  $conectar= parent::conexion();
+
+  $sql="select*from abonos where n_recibo=?;
+";
+
+  $sql=$conectar->prepare($sql);
+
+  $sql->bindValue(1,$n_recibo);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 }//FIN DE LA CLASE
 
 

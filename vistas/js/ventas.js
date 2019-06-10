@@ -201,7 +201,9 @@ function listarAbono(){
     "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonoi[i].saldo+"</span> </td>"+
     "<td align='center'>"+
-        "<select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+        "<select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select>"+
+	"<td><div class='form-group'><input type='date' class='form-control' id='pr_abono' name='pr_abono'></div></td>"
+        +
     "</td>"
     +"</tr>";
 	}
@@ -256,14 +258,15 @@ function registrarAbono(){
     var id_paciente = $("#id_paciente").val();
     var id_credito =$("#id_credito").val();
     var forma_pago =$("#forma_pago").val();
-    //var abono = $("#abono").val();
+    var pr_abono = $("#pr_abono").val();
+    var num_recibo=$("#num_recibo").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 if(forma_pago!=""){
     $.ajax({
 		url:"../ajax/ventas.php?op=registrar_abono",
 		method:"POST",
-		data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago},
+		data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago,'pr_abono':pr_abono,'num_recibo':num_recibo},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){

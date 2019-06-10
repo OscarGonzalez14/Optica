@@ -674,7 +674,7 @@ var saldo = abonosp[i].saldo = abonosp[i].saldo_ant - abonosp[i].saldo;
     "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onmouseout='setAbono(event, this, "+(i)+");' value='"+abonosp[i].abono_act+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonosp[i].saldo+"</span> </td>"+
     "<td align='center'>"+
-        "<select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+        "<select class='form-control' id='forma_pago' name='forma_pago'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select>"+
     "</td>"+
     "<td><div class='form-group'><input type='date' class='form-control' id='p_abono' name='p_abono'></div></td>"
     +"</tr>";
@@ -732,9 +732,10 @@ function setAbono(event, obj, idx){
     var forma_pago =$("#forma_pago").val();
     var p_abono = $("#p_abono").val();
     var n_recibo=$("#recibo").val();
+    var abono=$("#abono").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(forma_pago != 0 && n_recibo != 0 ){
+if(forma_pago != 0 && n_recibo != 0){
     $.ajax({
     url:"../ajax/creditos.php?op=registrar_abono_pacientes",
     method:"POST",
@@ -750,11 +751,13 @@ if(forma_pago != 0 && n_recibo != 0 ){
       
     success:function(data){
 
+console.log(data);
       var abono = $("#abono").val("");
 
             
             abonosp = [];
             //$('#listProdVentas').html('');
+      $('#errores_ajax').html(data);      
             
               //muestra un mensaje de exito
           setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 

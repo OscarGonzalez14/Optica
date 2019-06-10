@@ -436,19 +436,23 @@ public function agrega_detalle_abono(){
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
        $forma_pago = $_POST["forma_pago"];
+       $pr_abono = $_POST["pr_abono"];
+       $num_recibo = $_POST["num_recibo"];
        
 
-        $sql="insert into abonos
-        values(null,?,?,?,?,?);";
+      $sql="insert into abonos
+        values(null,?,?,now(),?,?,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
 
         $sql->bindValue(1,$abono);
         $sql->bindValue(2,$forma_pago);
-        $sql->bindValue(3,$id_paciente);
-        $sql->bindValue(4,$id_usuario);
-        $sql->bindValue(5,$id_credito);
+        $sql->bindValue(3,$pr_abono);
+        $sql->bindValue(4,$id_paciente);
+        $sql->bindValue(5,$id_usuario);
+        $sql->bindValue(6,$id_credito);
+        $sql->bindValue(7,$num_recibo);
        
         $sql->execute();
          
@@ -1259,5 +1263,7 @@ public function reporte_diario_ventas(){
 
           
          }
+
+
 
    }
