@@ -63,7 +63,7 @@
    </div>
 
       <div class="col-sm-2">
-  <h3><button class="btn btn-danger btn-block" id="c_automatico" onClick="lista_creditos_c_aut()" ><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Consolidado</button></h3>
+  <a href="corte_diario_pdf.php"><h3><button class="btn btn-danger btn-block" id="c_automatico"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Consolidado</button></h3></a>
    </div>
 
 

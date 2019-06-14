@@ -4,11 +4,13 @@ var tabla_creditos_c_aut;
 var tabla_creditos_c_pers;
 var tabla_creditos_metro;
 var tabla_cobros_pac;
+var tabla_cobros_pendientes;
 
 //Función que se ejecuta al inicio
 function init(){
   
   listar_cobros_pac();
+  listar_cobros_pendientes();
   
 }
 
@@ -18,7 +20,9 @@ function actualizar(){
 
   lista_creditos_empresarial();
 
- } 
+ }
+
+
 function listar_cobros_pac()
 {
 
@@ -111,6 +115,101 @@ function listar_cobros_pac()
         });
     });
 }
+
+
+function listar_cobros_pendientes()
+{
+
+    $('#pendientes_data thead tr:eq(1) th').each( function () {
+        var title = $('#pendientes_data thead tr:eq(0) th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" class="form-control" placeholder="Buscar '+title+'" />' );
+    } );
+  
+  tabla_cobros_pendientes = $('#pendientes_data').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [              
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+    "ajax":
+        {
+          url: '../ajax/creditos.php?op=buscar_cobros_pendientes',
+          type : "get",
+          dataType : "json",            
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
+ 
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "Buscar:",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          },
+       
+          "oAria": {
+       
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+       
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+       
+          }
+
+         }//cerrando language
+         
+  }).DataTable();
+
+        tabla_cobros_pendientes.columns().every(function (index) {
+        $('#pendientes_data thead tr:eq(1) th:eq(' + index + ') input').on('keyup change', function () {
+            tabla_cobros_pendientes.column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
+}
+
 
 function lista_creditos_metro()
 {

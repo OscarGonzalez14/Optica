@@ -369,6 +369,20 @@ public function cobros_pacientes(){
 
 }
 
+public function cobros_pendientes(){
+
+    $conectar = parent::conexion();
+
+    $sql="select p.nombres, p.empresa,p.telefono,a.fecha_abono,max(a.proximo_abono)as pbono,c.monto,c.saldo,datediff(now(), max(proximo_abono)) as estado from pacientes as p inner join abonos as a on p.id_paciente=a.id_paciente inner join creditos as c on c.id_credito=a.id_credito group by(p.nombres) having datediff(now(), max(proximo_abono))>=1;";
+
+    $sql=$conectar->prepare($sql);
+
+    $sql->execute();
+
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 
   public function comprobar_recibos_ant($n_recibo){
 
@@ -383,6 +397,23 @@ public function cobros_pacientes(){
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function get_filas_pendientes_pagos(){
+
+    $conectar= parent::conexion();
+           
+    $sql="select p.nombres, p.empresa,p.telefono,a.fecha_abono,max(a.proximo_abono)as pbono,c.monto,c.saldo,datediff(now(), max(proximo_abono)) as estado from pacientes as p inner join abonos as a on p.id_paciente=a.id_paciente inner join creditos as c on c.id_credito=a.id_credito group by(p.nombres) having datediff(now(), max(proximo_abono))>=1;";
+             
+    $sql=$conectar->prepare($sql);
+
+    $sql->execute();
+
+    $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+return $sql->rowCount();
+
+}
+
 }//FIN DE LA CLASE
 
 

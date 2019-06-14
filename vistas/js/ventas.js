@@ -262,7 +262,7 @@ function registrarAbono(){
     var num_recibo=$("#num_recibo").val();
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(forma_pago!=""){
+if(forma_pago!="" && num_recibo !=0){
     $.ajax({
 		url:"../ajax/ventas.php?op=registrar_abono",
 		method:"POST",

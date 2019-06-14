@@ -1,6 +1,6 @@
 
 <?php
-ob_start();/*IMPORTANTE:ESTE ARCHIVO DE PDF NO ACEPTA LOS ESTILOS DE LIBRERIAS EXTERNAS NI BOOTSTRAP, HAY QUE USAR STYLE COMO ATRIBUTO Y LA ETIQUETA STYLE DEBAJO DE HEAD*/
+ob_start();
 
   require_once("../config/conexion.php"); 
 
@@ -18,7 +18,7 @@ ob_start();
 
    
 ?>
-
+<p><h3 align="center">RESUMEN DE COBROS</h3></p>
 <link type="text/css" rel="stylesheet" href="dompdf/css/print_static.css"/>
   
   <style type="text/css">
@@ -33,7 +33,8 @@ ob_start();
 
   </style>
 
-  <div align="center" style="color:black; font-weight:bolder; font-size:20px;"> REPORTE DE VENTAS DIARIAS</div>
+
+
 
 <?php
 
@@ -65,9 +66,9 @@ ob_start();
 
          for($j=0;$j<count($venta);$j++){
 
-           $decision=$venta[$j]["subtotal"];
+           //$decision=$venta[$j]["subtotal"];
 
-          $pagoTotal= $pagoTotal + $decision;
+          //$pagoTotal= $pagoTotal + $decision;
 
          ?>
     <tr class="even_row" style="font-size:10pt">
@@ -100,7 +101,7 @@ ob_start();
     <td width="16%" class="odd_row" style="font-size:12pt" text-align: right; border-right-style: none;">
       <div align="center">
       <strong>
-      <?php
+    <?php
 
        if($pagoTotal!=0){
 
@@ -112,10 +113,8 @@ ob_start();
 
             echo "US$ ".$pagoTotal; 
        }
- 
 
-
-      ?>
+    ?>
       </strong>
       
       </div>

@@ -840,6 +840,8 @@ public function agrega_detalle_abono(){
 
         }
 
+        /////////////////////////////Reportes de Corte Caja
+
        public function get_ventas_diarias(){
 
         $conectar= parent::conexion();
@@ -853,6 +855,25 @@ public function agrega_detalle_abono(){
 
         
       }
+
+       public function get_ventas_contado_efectivo(){
+
+        $conectar= parent::conexion();
+        parent::set_names();
+
+        $sql="select v.tipo_pago,v.tipo_venta, c.monto,a.monto_abono, a.fecha_abono from ventas as v join creditos as c on v.numero_venta=c.numero_venta join abonos as a on c.id_credito=a.id_credito where a.fecha_abono=curdate() and tipo_pago='Efectivo' and tipo_venta='Contado-Metrocentro';";
+        $sql=$conectar->prepare($sql);
+        $sql->execute();
+
+        return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+        
+      }
+
+
+
+
+
 
          
            public function get_ventas_por_id_paciente($id_paciente){

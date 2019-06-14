@@ -21,6 +21,7 @@
       require_once("../modelos/Compras.php");
       require_once("../modelos/Pacientes.php");
       require_once("../modelos/Ventas.php");
+      require_once("../modelos/Creditos.php");
 
        $categoria = new Categoria();
        $producto = new Producto();
@@ -29,6 +30,7 @@
        $paciente = new Paciente();
        $venta = new Ventas();
        $usuario = new Usuarios();
+       $creditos = new Creditos();
 
 ?>
 
@@ -221,7 +223,11 @@
 
           <ul class="treeview-menu">
             <li><a href="abonos.php"><i class="fa fa-circle-o"></i> Creditos y Cobros</a></li>
-            <li><a href="control_cobros.php"><i class="fa fa-circle-o"></i> Control de Cobros</a></li>      
+            <li><a href="control_cobros.php"><i class="fa fa-circle-o"></i> Control de Cobros</a></li>
+            <li><a href="cobros_pendientes.php"><i class="fa fa-circle-o"></i> Pendientes de Pago
+            <span class="pull-right-container badge bg-blue">
+              <i class="fa fa-bell pull-right">'.$creditos->get_filas_pendientes_pagos().'</i>
+            </span></a></li>       
           </ul>
          
         </li>';

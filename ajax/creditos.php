@@ -589,5 +589,59 @@ case "buscar_detalle_credito_photo":
 	$creditos->agrega_cancelacion();
 
      break;
+
+
+
+case "buscar_cobros_pendientes":
+
+$datos=$creditos->cobros_pendientes();
+$data = Array();
+	foreach ($datos as $row) {
+
+$sub_array= array();
+
+		$txt = '  Sin Retraso ';
+		$icon = "<span class='glyphicon glyphicon-ok'></span><span class='glyphicon glyphicon-ok'></span>";
+		$atrib = 'btn btn-edit btn-md';
+
+		if($row["estado"]==0){
+
+			$txt='Fecha Abono';
+			$atrib='btn btn-info btn-md';
+			$icon = '<i class="fa fa-bell pull-right">';
+		}elseif($row["estado"]>=1 && $row["estado"]<=3){
+
+			$txt='Retraso '.$row["estado"].' dias .';
+			$atrib='btn btn-success btn-md';
+			$icon = '<span class="pull-right-container badge bg-red"><span>';
+
+		}elseif ($row["estado"]>3) {
+			$txt='Retraso '.$row["estado"].' dias <i class="fa fa-volume-control-phone" aria-hidden="true"></i>';
+			$atrib='btn btn-success btn-md';
+			$icon = '<span class="pull-right-container badge bg-red"></span>';
+		}
+
+		$sub_array[] = $row["empresa"];
+		$sub_array[] = $row["nombres"];
+		$sub_array[] = $row["telefono"];
+		$sub_array[] = date("d-m-Y", strtotime($row["fecha_abono"]));
+		$sub_array[] = date("d-m-Y",strtotime($row["pbono"]));
+		$sub_array[] = $row["monto"];
+		$sub_array[] = $row["saldo"];
+		//$sub_array[] = $row["n_recibo"];
+
+		$sub_array[] = '<button type="button" name="estado" class="'.$atrib.'">'.$icon." ".$txt.'</button>';
+		$data[]= $sub_array;
+
+	}
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+   
+
+break;
 	
 }
