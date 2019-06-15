@@ -63,7 +63,7 @@
    </div>
 
       <div class="col-sm-2">
-  <a href="corte_diario_pdf.php"><h3><button class="btn btn-danger btn-block" id="c_automatico"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Consolidado</button></h3></a>
+  <a href="reporte_diario_ventas.php"><h3><button class="btn btn-danger btn-block" id="c_automatico"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Consolidado</button></h3></a>
    </div>
 
 

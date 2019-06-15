@@ -12,13 +12,15 @@ $vent = new Ventas();
 
 
 
-$venta=$vent->get_ventas_diarias();
+$contado_cheque=$vent->reporte_diario_contado_cheques_pdf();
+$contado_efectivo=$vent->reporte_diario_contado_efectivo_pdf();
+$contado_tarjeta=$vent->reporte_diario_contado_tarjeta_pdf();
+$contado_automatico=$vent->reporte_diario_contado_cargoa_pdf();
 
 ob_start(); 
 
    
 ?>
-<p><h3 align="center">RESUMEN DE COBROS</h3></p>
 <link type="text/css" rel="stylesheet" href="dompdf/css/print_static.css"/>
   
   <style type="text/css">
@@ -32,153 +34,59 @@ ob_start();
     .Estilo4{color: #FFFFFF}
 
   </style>
-
-
-
-
-<?php
-
-         if(is_array($venta)==true and count($venta)==0){
-
-             echo "<span style='font-size:20px; color:red' align='center'><h5>NO HAY VENTAS ESTE DIA</h5></span>";        
-
-         }
-
-
-      ?>
-  <table width="102%" class="change_order_items">
+<p><h3 align="center">RESUMEN DE COBROS  Y VENTAS  DE <?php  echo date("d-m-Y"); ?></h3></p>
+<table width="102%" class="change_order_items">
    <tr>
-       <th width="5%" ><span class="Estilo11">No. Venta </span></th>
-      <th width="25%" bgcolor="#317eac"><span class="Estilo11">Cliente</span></th>
-      <th width="5%" bgcolor="#317eac"><span class="Estilo11">Vendedor</span></th>
-      <th width="5%" bgcolor="#317eac"><span class="Estilo11">Monto</span></th>
-      <th width="10%" bgcolor="#317eac"><span class="Estilo11">Forma de Cobro</span>
-      <th width="10%" bgcolor="#317eac"><span class="Estilo11">Fecha</span>
-      
-      
-
-      </tr>
-
-        <?php
-
-
-           $pagoTotal=0;
-
-         for($j=0;$j<count($venta);$j++){
-
-           //$decision=$venta[$j]["subtotal"];
-
-          //$pagoTotal= $pagoTotal + $decision;
-
-         ?>
-    <tr class="even_row" style="font-size:10pt">
-     
-      <td style="text-align: center"><span><?php echo $venta[$j]["numero_venta"];?></span></td>
-      <td style="text-align: center"><span><?php echo $venta[$j]["paciente"];?></span></td>
-      <td style="text-align: center"><span><?php echo $venta[$j]["id_usuario"];?></span></td>
-
-      <td style="text-align: center"><span><?php echo $venta[$j]["subtotal"];?></span></td>
-      <td style="text-align: center"><span><?php echo $venta[$j]["tipo_pago"];?></span></td>      
-      <td style="text-align: center"><span><?php echo $fecha=date("d-m-Y",strtotime($venta[$j]["fecha_venta"])); ?></span></td>     
-      </tr>
-
-      <?php } ?>
-
-
- <!--comienzo de la suma de productos y monto total-->
-   <tr class="even_row">
-  <td colspan="6" style="text-align: center"><table style="width: 100%; font-size: 8pt;">
+      <th bgcolor="#C6C9CF"><span class="Estilo11">Tipo Venta</span></th>
+      <th bgcolor="#C6C9CF" colspan="5"><span class="Estilo11">Forma Cobro</span></th>
+      <th bgcolor="#C6C9CF"><span class="Estilo11">Subtotal</span></th>     
+    </tr>
    
-  <tr>
-    <td class="even_row" style="text-align: center">&nbsp;</td>
-    <td class="odd_row" style="text-align: right; border-right-style: none;">&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td width="84%" class="even_row" style="font-size:10pt; text-align: center">
-      <div align="right"><strong><span style="text-align: right;">TOTAL VENTA:</span></strong></div>
-    </td>
-    <td width="16%" class="odd_row" style="font-size:12pt" text-align: right; border-right-style: none;">
-      <div align="center">
-      <strong>
-    <?php
-
-       if($pagoTotal!=0){
-
-        echo $pagoTotal;
-
-       } else {
-
-            //echo "US$ ".$pagoTotal;
-
-            echo "US$ ".$pagoTotal; 
-       }
-
-    ?>
-      </strong>
-      
-      </div>
-    </td>
-  </tr>
-  
-  <tr>
-    <td class="even_row" style="font-size:10pt; text-align: center"><div align="right"><strong><span style="text-align:right;">TOTAL PRODUCTOS VENDIDOS:</span></strong></div></td>
-    <td class="odd_row" style="font-size:12pt;text-align: right; border-right-style: none;"><div align="center"><strong>
-      <?php 
 
 
-      if($pagoTotal!=0){
+    <tr>
+      <td></td>
+      <td bgcolor="#C9E2F1" align="center">Efectivo</td>
+      <td align="center">Cheque</td>
+      <td bgcolor="#C9E2F1" align="center">Tarjeta</td>
+      <td align="center">Cargo Automatico</td>
+      <td  bgcolor="#C9E2F1" align="center">Otros</td>
+      <td align="center">Cobrado</td>
+    </tr>
+ <?php
+//////////SUBTOTALES VENTAS CONTADO
+$cheques_contado = $contado_cheque[0]["abono"];
+$efectivo_contado = $contado_efectivo[0]["abono"];
+$tarjeta_contado = $contado_tarjeta[0]["abono"];
+$automatico_cargo = $contado_automatico[0]["abono"];
+$subtotal_efectivo = $cheques_contado+$efectivo_contado+$tarjeta_contado+$automatico_cargo;
 
-        echo $total_productos["total"];
 
-       } else {
+///SUBTOTALES VENTAS
 
-            echo "0";
-       }
-      
+ ?>
+    <tr>
+      <td>Ventas Contado</td>
+      <td align="center"><strong><?php echo "$"." ".$contado_efectivo[0]["abono"]; ?></strong></td>
+      <td align="center"><strong><?php echo "$"." ".$contado_cheque[0]["abono"]; ?></strong></td> 
+      <td align="center"><strong><?php echo "$"." ".$contado_tarjeta[0]["abono"]; ?></strong></td> 
+      <td align="center"><strong><?php echo "$"." ".$contado_automatico[0]["abono"]; ?></td> 
+      <td></td>
+      <td align="center"><strong><?php echo "$"." ".$subtotal_efectivo; ?></td>     
+    </tr>
 
-      ?>
-    </strong></div>
-  </td>
-  </tr> 
-  
-    </td>
-  </tr>     
-       <!--termina la suma de productos y monto total-->
+        <tr>
+      <td>Ventas Credito</td>
+      <td align="center"><strong><?php echo "$"." ".$contado_efectivo[0]["abono"]; ?></strong></td>
+      <td align="center"><strong><?php echo "$"." ".$contado_cheque[0]["abono"]; ?></strong></td> 
+      <td align="center"><strong><?php echo "$"." ".$contado_tarjeta[0]["abono"]; ?></strong></td> 
+      <td align="center"><strong><?php echo "$"." ".$contado_automatico[0]["abono"]; ?></td> 
+      <td></td>
+      <td align="center"><strong><?php echo "$"." ".$subtotal_efectivo; ?></td>     
+    </tr>
+
 
 </table>
-
-
-
-
-<table style="border-top: 1px solid black; padding-top: 2em; margin-top: 2em;">
-  <tr>
-    <td style="padding-top: 0em"><span class="Estilo2"><strong> REVISADO  POR: <?php echo $_SESSION["usuario"];?> </strong></span></td>
-    <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
-  </tr>
-  <tr>
-
-    <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td style="padding-top: 0em">&nbsp;</td>
-    <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
-  </tr>
-
-  <?php 
-   $cant1=$pagoTotal;
-   $cant2=2;
-   $ct=$cant1+$cant2;
-   echo $ct;
-  ?>
-  <tr>
-    <td style="padding-top: 0em"><span class="Estilo1">REALIZADO EL DIA <?php echo date("d")?> DE <?php echo Conectar::convertir(date('m'))?> DEL <?php echo date("Y")?></span></td>
-    <td style="text-align: center; padding-top: 0em;">&nbsp;</td>
-  </tr>
-</table>
-
-
- </div>
 
 
   <?php
