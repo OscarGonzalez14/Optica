@@ -148,8 +148,7 @@
 		<option value='Descuento en Planilla'> Descuento en Planilla</option>
 	 	<option value='Cargo Automatico'>Cargo Automático</option>
 	 	<option value='Creditos Personales'>Créditos Personales</option>
-	 	<option value='Tarjeta de Credito'>Tarjeta de Crédito</option>
-	 	<option value='Cheque'>Cheque</option>";
+	 	";
 	
 		echo $html;
 		}else{

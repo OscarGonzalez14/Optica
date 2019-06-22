@@ -717,7 +717,7 @@ public function agrega_detalle_abono(){
 
               foreach($resultado as $row){
 
-                 $id_producto=$output["id_producto"]=$row["id_producto"];
+                $id_producto=$output["id_producto"]=$row["id_producto"];
                 //selecciona la cantidad vendida
                 $cantidad_venta=$output["cantidad_venta"]=$row["cantidad_venta"];
 
@@ -1365,17 +1365,68 @@ public function reporte_diario_ventas(){
          $conectar = parent::conexion();
          parent::set_names();
 
-         $sql = "select c.monto,max(a.fecha_abono),a.monto_abono as abono,count(c.id_credito),a.forma_pago,c.forma_pago as tipo_venta,v.tipo_venta
-                from  pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente inner join usuarios as u on u.id_usuario=c.id_usuario 
-                inner join abonos as a  on c.id_credito=a.id_credito inner join ventas as v on v.numero_venta=c.numero_venta 
-                where a.forma_pago='Efectivo' and v.tipo_venta='Credito' group by a.fecha_abono and a.id_credito
-                having count(c.id_credito)<=1 and max(a.fecha_abono) = curdate() order by a.fecha_abono DESC;";
+         $sql = "select v.tipo_venta,c.monto,count(a.n_recibo),a.monto_abono,a.forma_pago,a.id_credito,a.fecha_abono from ventas as v join creditos as c on v.numero_venta=c.numero_venta join abonos as a on c.id_credito=a.id_credito where a.fecha_abono=curdate() and v.tipo_venta='Credito' and a.forma_pago='Efectivo' group by id_credito having count(a.n_recibo)=1;";
 
          $sql=$conectar->prepare($sql);
          $sql->execute();
          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 
           
-         } 
+         }
 
+        public function reporte_diario_credito_cheque_pdf(){
+
+        $conectar = parent::conexion();
+        parent::set_names();
+
+         $sql = "select v.tipo_venta,c.monto,count(a.n_recibo),a.monto_abono,a.forma_pago,a.id_credito,a.fecha_abono from ventas as v join creditos as c on v.numero_venta=c.numero_venta join abonos as a on c.id_credito=a.id_credito where a.fecha_abono=curdate() and v.tipo_venta='Credito' and a.forma_pago='Cheque' group by id_credito having count(a.n_recibo)=1;";
+
+         $sql=$conectar->prepare($sql);
+         $sql->execute();
+         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+          
+         }     
+      public function reporte_diario_credito_tarjeta_pdf(){
+
+        $conectar = parent::conexion();
+        parent::set_names();
+
+         $sql = "select v.tipo_venta,c.monto,count(a.n_recibo),a.monto_abono,a.forma_pago,a.id_credito,a.fecha_abono from ventas as v join creditos as c on v.numero_venta=c.numero_venta join abonos as a on c.id_credito=a.id_credito where a.fecha_abono=curdate() and v.tipo_venta='Credito' and a.forma_pago LIKE 'Tarj%' group by id_credito having count(a.n_recibo)=1;";
+
+         $sql=$conectar->prepare($sql);
+         $sql->execute();
+         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+          
+         }
+
+     public function reporte_diario_credito_cargo_pdf(){
+
+        $conectar = parent::conexion();
+        parent::set_names();
+
+        $sql = "select v.tipo_venta,c.monto,count(a.n_recibo),a.monto_abono,a.forma_pago,a.id_credito,a.fecha_abono from ventas as v join creditos as c on v.numero_venta=c.numero_venta join abonos as a on c.id_credito=a.id_credito where a.fecha_abono=curdate() and v.tipo_venta='Credito' and a.forma_pago LIKE 'Carg%' group by id_credito having count(a.n_recibo)=1;";
+
+         $sql=$conectar->prepare($sql);
+         $sql->execute();
+         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+          
+         }          
+//////////////////////////RECUPERADO CONTADO
+
+    public function reporte_recuperado_contado_cheques_pdf(){
+
+    $conectar = parent::conexion();
+    parent::set_names();
+
+    $sql = "select sum(monto_abono) as abono,count(id_credito) from abonos where forma_pago='Cheque' and fecha_abono=curdate() group by id_credito;";
+
+         $sql=$conectar->prepare($sql);
+         $sql->execute();
+         return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+          
+         }
    }

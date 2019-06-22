@@ -11,11 +11,18 @@ require_once("../modelos/Ventas.php");
 $vent = new Ventas();
 
 
-
+//Ventas Contado
 $contado_cheque=$vent->reporte_diario_contado_cheques_pdf();
 $contado_efectivo=$vent->reporte_diario_contado_efectivo_pdf();
 $contado_tarjeta=$vent->reporte_diario_contado_tarjeta_pdf();
 $contado_automatico=$vent->reporte_diario_contado_cargoa_pdf();
+
+//ventas Credito
+$credito_efectivo= $vent->reporte_diario_credito_efectivo_pdf();
+$credito_cheque= $vent->reporte_diario_credito_cheque_pdf();
+$credito_tarjeta = $vent->reporte_diario_credito_tarjeta_pdf();
+$credito_automatico = $vent->reporte_diario_credito_cargo_pdf();
+$prueba = $vent->reporte_recuperado_contado_cheques_pdf();
 
 ob_start(); 
 
@@ -62,9 +69,16 @@ $automatico_cargo = $contado_automatico[0]["abono"];
 $subtotal_efectivo = $cheques_contado+$efectivo_contado+$tarjeta_contado+$automatico_cargo;
 
 
-///SUBTOTALES VENTAS
+///SUBTOTALES VENTAS CREDITO
+$efectivo_credito= $credito_efectivo[0]["monto_abono"];
+$cheque_credito= $credito_cheque[0]["monto_abono"];
+$tarjeta_credito = $credito_tarjeta[0]["monto_abono"];
+$automatico_credito = $credito_automatico[0]["monto_abono"];
+$subtotal_credito = $efectivo_credito+$cheque_credito+$tarjeta_credito+$automatico_credito;
 
+$total = $subtotal_efectivo+$subtotal_credito;
  ?>
+
     <tr>
       <td>Ventas Contado</td>
       <td align="center"><strong><?php echo "$"." ".$contado_efectivo[0]["abono"]; ?></strong></td>
@@ -75,20 +89,32 @@ $subtotal_efectivo = $cheques_contado+$efectivo_contado+$tarjeta_contado+$automa
       <td align="center"><strong><?php echo "$"." ".$subtotal_efectivo; ?></td>     
     </tr>
 
-        <tr>
+      <tr>
       <td>Ventas Credito</td>
-      <td align="center"><strong><?php echo "$"." ".$contado_efectivo[0]["abono"]; ?></strong></td>
-      <td align="center"><strong><?php echo "$"." ".$contado_cheque[0]["abono"]; ?></strong></td> 
-      <td align="center"><strong><?php echo "$"." ".$contado_tarjeta[0]["abono"]; ?></strong></td> 
-      <td align="center"><strong><?php echo "$"." ".$contado_automatico[0]["abono"]; ?></td> 
+      <td align="center"><strong><?php echo "$"." ".$credito_efectivo[0]["monto_abono"]; ?></strong></td>
+      <td align="center"><strong><?php echo "$"." ".$credito_cheque[0]["monto_abono"]; ?></strong></td> 
+      <td align="center"><strong><?php echo "$"." ".$credito_tarjeta[0]["monto_abono"]; ?></strong></td> 
+      <td align="center"><strong><?php echo "$"." ".$credito_automatico[0]["monto_abono"]; ?></td> 
       <td></td>
-      <td align="center"><strong><?php echo "$"." ".$subtotal_efectivo; ?></td>     
+      <td align="center"><strong><?php echo "$"." ".$subtotal_credito; ?></td>     
     </tr>
 
-
+   <tr>
+      <th colspan="6"><span class="Estilo11"><h3><strong>TOTAL</strong></h3></span></th>
+      <th bgcolor="#E5E2EA"><span class="Estilo11"><h3><?php echo $total; ?></h3></span></th>     
+    </tr>
 </table>
 
+<table>
+<?php
+  $dec=0;
 
+  for($j=0;$j<count($prueba);$j++){
+    $dec=$dec+$prueba[$j]["abono"];
+
+  }
+  echo $dec;
+?>
   <?php
   
   $salida_html = ob_get_contents();
