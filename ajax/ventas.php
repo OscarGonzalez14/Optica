@@ -646,7 +646,7 @@ case "ver_ultima_venta_lentes":
 				 $sub_array[] = $row["nombres"];
 				 $sub_array[] = $row["usuario"];
 				 $sub_array[] = $row["monto"];
-				 $sub_array[] = $row["ant"];
+				 $sub_array[] = $row["abono"];
 				 $sub_array[] = $row["abono"];
 				 $sub_array[] = $row["tipo_venta"];
 				 $sub_array[] = $row["forma_pago"];

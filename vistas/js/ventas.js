@@ -790,14 +790,29 @@ function corte_recuperado()
 
    tabla_corte_recuperado=$('#corte_data').dataTable(
   {
+
+
+
+
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
-      buttons: [              
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdf'
+      buttons: [   
+
+             {
+                extend: 'excelHtml5',
+				text : 'Guardar Excel',
+				filename: function(){
+                var n = new Date();
+                y = n.getFullYear();
+				m = n.getMonth() + 1;
+				d = n.getDate();
+				
+
+                return 'Recuperado'+" de " + d +"-"+m+"-"+ y ;
+            }
+            }
+
             ],
     "ajax":
         {
@@ -866,5 +881,13 @@ function corte_recuperado()
 }
 
 
+$(document).ready( function () {
+var currentDate = new Date()
+var day = currentDate.getDate()
+var month = currentDate.getMonth() + 1
+var year = currentDate.getFullYear()
+
+var d = day + "-" + month + "-" + year;
+})
 
 init();
