@@ -1,6 +1,10 @@
 <?php
 
    require_once("../config/conexion.php");
+   require_once("../modelos/Categorias.php");
+
+   $categoria = new Categoria();
+   $cat = $categoria->get_categorias();
 
     if(isset($_SESSION["id_usuario"])){
        
@@ -99,32 +103,34 @@
 
             <div class="modal-content">
               
-               <div class="modal-header">
-
+              <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-
                  <h4 class="modal-title">Agregar Usuario</h4>
-                 
+              </div>
 
-               </div>
+      <div class="modal-body"><!--Contenido de la modal-->
 
+          <label>Nombres y Apellidos</label>
+              <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Escriba el nombre completo del Usuario" required pattern="^[a-zA-Z_áéíóúñ\s]{0,30}$"/>
+              <br />        
 
-               <div class="modal-body">
-
-                 <label>Codigo de Empleado </label>
-                 <input type="text" name="cedula" id="cedula" class="form-control" placeholder="Ingrese l Codigo del usuario" required"/>
-                
+         <label>Codigo de Empleado </label>
+                 <input type="text" name="cedula" id="cedula" class="form-control" placeholder="Ingrese l Codigo del usuario" required"/>                
                 <br />
+
+        <label>Usuario</label>
+          <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Usuario" required pattern="^[a-zA-Z_áéíóúñ\s]{0,30}$"/>
+          <br />
+          
+        <label>Password</label>
+          <input type="password" name="password1" id="password1" class="form-control" placeholder="Password" required/>
+         <br />                
 
           <label>DUI</label>
           <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el DUI del usuario" required"/>
-          <br />
-          
-          <label>Nombres y Apellidos</label>
-          <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Escriba el nombre completo del Usuario" required pattern="^[a-zA-Z_áéíóúñ\s]{0,30}$"/>
-          <br />
-          
-          <label>Cargo</label>
+          <br /> 
+             
+         <label>Cargo</label>
            <select class="form-control" id="cargo" name="cargo" required>
               <option value="">-- Selecciona cargo --</option>
               <option value="1" selected>Administrador</option>
@@ -132,30 +138,26 @@
               <option value="2">Asesor Visual</option>
            </select>
            <br />
-          
-          <label>Usuario</label>
-          <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Usuario" required pattern="^[a-zA-Z_áéíóúñ\s]{0,30}$"/>
-          <br />
-          
-          <label>Password</label>
-          <input type="password" name="password1" id="password1" class="form-control" placeholder="Password" required/>
-          <br />
+
+         <label>Sucursal</label>
+           <select class="form-control" id="cargo" name="cargo" required>
+          <option  value="">Seleccione una sucursal</option>
+            <?php
+                for($i=0; $i<sizeof($cat);$i++){                             
+                  ?>
+                  <option value="<?php echo $cat[$i]["id_categoria"]?>"><?php echo $cat[$i]["categoria"];?></option>
+                  <?php
+                }
+             ?>
+           </select>
+           <br />                
          
-          <label>Repita Password</label>
-          <input type="password" name="password2" id="password2" class="form-control" placeholder="Repita Password" required/>
-          <br />
-          
           <label>Teléfono</label>
           <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Teléfono" required pattern="[0-9]{0,15}"/>
           <br />
           
           <label>Correo</label>
           <input type="email" name="email" id="email" class="form-control" placeholder="Correo" required="required"/>
-          <br />
-          
-          <label>Dirección</label>
-          <textarea cols="80" rows="3" id="direccion" name="direccion"  placeholder="Direccion ..." required pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$">
-          </textarea>
           <br />
           
           <label>Estado</label>

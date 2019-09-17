@@ -28,7 +28,7 @@
 
 	    if(empty($_POST["id_paciente"])){
 
-            $datos = $pacientes->valida_registro($_POST["correo"],$_POST["telefono"]);
+            $datos = $pacientes->valida_registro($_POST["telefono"]);
 
 
 			if(is_array($datos)==true and count($datos)==0){

@@ -48,7 +48,7 @@
 
 
 
-			       	   	  $messages[]="La categoría se registró correctamente";
+			       	   	  $messages[]="La suscursal se registró correctamente";
 
 			       	   } //cierre de validacion de $datos 
 

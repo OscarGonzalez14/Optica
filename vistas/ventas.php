@@ -82,9 +82,10 @@
       </ul>
       </div>
     </nav>        
-<div id="factheader"><h4 align="center">Factura de Consumidor Final</h4></div>
+<div id="factheader"><h4 align="center">Ventas</h4></div>
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
+  
   <div class="col-sm-10 row1">
 
    <div align="left"><strong><?php echo "Asesor: " . $_SESSION["cedula"]."<p align='right' id='date'></p>"; ?></strong></div>

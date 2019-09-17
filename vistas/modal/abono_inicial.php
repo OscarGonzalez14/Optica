@@ -22,7 +22,7 @@
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead>
           <tr>
-            <th><p align="center">Fecha</p></th>
+            <th><p align="center">Fechas</p></th>
             <th><p align="center">Telefono</p></th>
             <th><p align="center" p>Recibí de:</p></th>
             <th> <p align="center">Empresa</p></th>

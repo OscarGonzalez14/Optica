@@ -42,7 +42,7 @@
 <?php require_once("modal/agregar_accesorios.php");?>
 <?php require_once("modal/agregar_ar.php");?>
 <?php require_once("modal/agregar_photo.php");?> 
-
+<?php require_once("modal/orden_envio.php");?> 
 
              <h2 align="center">INVENTARIO</h2>
 
@@ -54,7 +54,7 @@
                 
               </div>
               <h3 class="box-title">
-              <button class="btn btn-dark btn-md" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Crear Aros</button></h3>
+              <button class="btn btn-dark btn-md" id="add_button" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Crear Aros</button></h3>
               <!--Boton Agregar Lentes-->
               <h3 class="box-title">
               <button class="btn btn-blue btn-md" data-toggle="modal" data-target="#agregarLentes"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Crear Lentes</button></h3>
@@ -68,6 +68,8 @@
             <button class="btn btn-dark btn-md" data-toggle="modal" data-target="#agregar_photo"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Crear Photosensible</button></h3>
 
               <a href="ingresos.php"><button class="btn btn-infos btn-md" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Ingresos a Inventario</button></h1></a>
+
+      <button class="btn btn-dark btn-md" id="add_button" id="add_button" data-toggle="modal" data-target="#orden_envio"><span class="glyphicon glyphicon-share-alt"></span> Envios</button></h1>              
 
                         <div class="box-tools pull-right">
 
@@ -181,7 +183,20 @@ Guardar</button>
     </div>
   </div>
  <!--FIN FORMULARIO VENTANA MODAL-->
+<script>
+n =  new Date();
+//Año
+y = n.getFullYear();
+//Mes
+m = n.getMonth() + 1;
+//Día
+d = n.getDate();
 
+h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
+
+//Lo ordenas a gusto.
+document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+ </script>
 
 
   
