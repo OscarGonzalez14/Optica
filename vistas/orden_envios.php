@@ -1,25 +1,6 @@
-<?php require_once("modal/lista_productos_ventas_modal.php");?>
- <style>
-    #tamModal{
-      width: 75% !important;
-    }
-     #head{
-        background-color: #034f84;
-        color: white;
-    }
-</style>
+<?php require_once("header.php");?>
 
-<!-- Modal -->
-<div id="orden_envio" class="modal fade" role="dialog">
-  <div class="modal-dialog" id="tamModal">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header" id="head">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h5 class="modal-title" align="center"></i>ORDEN DE ENVIO</h5>
-      </div>
-      <div class="modal-body">
 
 <div class="row"><!--inicio row1-->
 
@@ -64,8 +45,8 @@
               </div>
 
 </div><!--Fin row1-->
-<br>
-<div class="row"><!--Inicio row 2-->
+<!--<br>
+<div class="row">
 
 <div class="col-sm-6">
   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span> Agregar Aros</button>
@@ -75,9 +56,9 @@
   <button class="btn btn-blue btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Agregar Accesorios</button>
 </div>
 
-</div><!--Fin row 2-->     
+</div>
 
-  <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+  <input type="hidden" name="id_usuario" id="id_usuario" value="<?php //echo $_SESSION["id_usuario"];?>"/>
       <input id="id_credito" type="hidden" name="id_credito">
       <input id="id_paciente" type="hidden" name="id_paciente">
 
@@ -89,4 +70,4 @@
     </div>
 
   </div>
-</div>
+</div>-->
