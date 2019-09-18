@@ -205,7 +205,7 @@
 
      break;
 
-      case "listar_en_compras":
+    case "listar_en_compras":
 
     $datos=$productos->get_productos();
 

@@ -63,8 +63,10 @@
 </style>     
 <div class="content-wrapper">        
         <!--ESPACIO MODALES -->
+    <?php require_once("modal/lentes_envio_modal.php");?>
+    <?php require_once("modal/lista_acc_ventas_modal.php");?>
 
-     
+
 <div id="factheader"><h3 align="center">ORDENES DE ENVÍO</h3></div>
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
@@ -111,12 +113,12 @@
 
 <div class="col-xs-2">
 <label for="ex1">Agregar Aro</label>
-   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span> Aros</button>
+   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productosModal"><span class="glyphicon glyphicon-sunglasses"></span> Aros</button>
   </div>      
 
 <div class="col-xs-2">
 <label for="ex1">Agregar Accesorio</label>
-   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Aros</button>
+   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_acc_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Aros</button>
   </div>
     </div> 
 
@@ -193,8 +195,7 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
   
   <!--FIN DE CONTENIDO-->
 
-       <!--VISTA MODAL PARA AGREGAR PROVEEDOR-->
-    <?php require_once("modal/lista_proveedores_modal.php");?>
+
     <!--VISTA MODAL PARA AGREGAR PROVEEDOR-->
     
      <!--VISTA MODAL PARA AGREGAR PRODUCTO-->
@@ -212,17 +213,9 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 
    <?php require_once("footer.php");?>
 
-
-   
-    <!--AJAX PROVEEDORES-->
-<script type="text/javascript" src="js/paciente.js"></script>
-
-   <!--AJAX PRODUCTOS-->
+<!--AJAX PRODUCTOS-->
+<script type="text/javascript" src="js/envios.js"></script>
 <script type="text/javascript" src="js/productos.js"></script>
-<script type="text/javascript" src="js/ventas.js"></script>
-
-
-
 
 
 <?php
