@@ -1,4 +1,4 @@
-   <style>
+  <style>
     #tamanoModal{
       width: 65% !important;
     }
@@ -12,14 +12,15 @@
     }
 
   </style>
- <div class="modal fade" id="lista_productoEnvios">
+
+   <div class="modal fade" id="modalEnvios">
           <div class="modal-dialog" id="tamanoModal">
            <!--antes tenia un class="modal-content" y lo cambié por bg-warning para que tuviera fondo blanco, deberia haber sido un color naranja claro pero me salió un color blanco de casualidad--> 
             <div class="bg-info" id="info">
               <div class="modal-header" id="encabezados">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" align="center"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></i> Seleccionar Producto para Enviar</h4>
+                <h4 class="modal-title" align="center"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></i> Orden de Envio Aros</h4>
               </div>
               <div class="modal-body">
 
@@ -29,7 +30,7 @@
         <div class="table-responsive">
          
              <div class="box-body">
-             <table id="lista_productos_envios_data" class="table table-bordered table-striped">
+             <table id="lista_envios_data" class="table table-bordered table-striped">
                
                 <thead>
                   <tr>
@@ -73,3 +74,8 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+       
+
+        
+  

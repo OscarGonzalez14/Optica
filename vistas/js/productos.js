@@ -1323,7 +1323,7 @@ obj.value es el valor del campo de texto*/
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_ventnumero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1399,8 +1399,184 @@ obj.value es el valor del campo de texto*/
 
 
    }
+/////////////ENVIOS****************///////////
+
+   //este es un arreglo vacio de envios
+	var detallesE = [];
+
+	
+	 function agregarDetalleEnvio(id_producto){
+
+	 	//alert(estado);
+
+		        $.ajax({
+					url:"../ajax/producto.php?op=buscar_producto",
+					 method:"POST",
+
+					data:{id_producto:id_producto},
+					cache: false,
+					dataType:"json",
+
+					success:function(data){
+                     
+						var obj = {
+							cantidad : 1,
+							codProd  : id_producto,
+							modelo   : data.modelo,
+							marca    : data.marca,
+							color    : data.color,
+							stock    : data.stock,
+														
+						};
+		                
+   
+						detallesE.push(obj);
+						listarDetalleEnvios();
+
+						$('#modalEnvios').modal("hide");
+
+                      // }//if validacion id_producto
+
+                       
+						
+					}//fin success		
+
+				});//fin de ajax
+			
+		    
+		  }// fin de funcion
+
+  
+//***********************************************************************
+
+ /*El lenght 
+	sirve para calcular la longitud del arreglo o el 
+	numero de objetos que tiene el arreglo, que es lo mismo Y es por eso que 
+	lo necesito en el for*/
 
 
+
+  function listarDetalleEnvios(){
+
+  	  
+  	$('#listProdEnvios').html('');
+
+  
+
+  	var filas = ""; 	
+
+      
+
+  	for(var i=0; i<detallesE.length; i++){
+
+  	
+
+	 var filas = filas + "<tr><td colspan='1'>"+(i+1)+
+	 "</td> <td name='descipcion[]' id='descripcion' colspan='4'>"+detallesE[i].modelo+" "+detallesE[i].marca+" "+detallesE[i].color+
+
+	 "<td colspan='1'><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detallesE[i].cantidad+"'></td></tr>";
+
+	}
+
+	
+	$('#listProdEnvios').html(filas);
+
+	
+      
+  }
+
+
+  function setCantidad(event, obj, idx){
+  	event.preventDefault();
+  	detalles[idx].cantidad = parseInt(obj.value);
+  	recalcular(idx);
+  }
+
+
+
+
+
+  //*******************************************************************
+    /*IMPORTANTE:Event es el objeto del evento que los manejadores de eventos utilizan
+parseInt es una función para convertir un valor string a entero
+obj.value es el valor del campo de texto*/
+
+  	function  eliminarProd(event, idx){
+  		event.preventDefault();
+  		//console.log('ELIMINAR EYTER');
+  		detalles[idx].estado = 0;
+  		listarDetalles();
+  	}
+
+ //********************************************************************
+
+
+ function registrarEnvio(){
+    
+    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
+    var sucursal_origen = $("#sucursal_origen").val();
+    var sucursal_destino = $("#sucursal_destino").val();
+    var numero_envio = $("#numero_envio").val();
+
+    //var comprador = $("#comprador").html();
+  
+    var id_usuario = $("#id_usuario").val();
+ 
+    if(detallesE !=""){
+    
+
+     console.log('Proof');
+   
+    $.ajax({
+		url:"../ajax/producto.php?op=registrar_envio",
+		method:"POST",
+		data:{'arrayEnvio':JSON.stringify(detallesE),'id_usuario':id_usuario,'sucursal_origen':sucursal_origen, 'sucursal_destino':sucursal_destino,'numero_envio':numero_envio},
+		cache: false,		
+		dataType:"html",
+		error:function(x,y,z){
+			console.log(x);
+			console.log(y);
+			console.log(z);
+		},
+         
+
+		success:function(data){
+
+			console.log(data);
+                         
+            detalles = [];
+            $('#listProdEnvios').html('');
+
+
+
+          setTimeout ("bootbox.alert('Se ha registrado el envio con éxito');", 100); 
+          
+ 
+          setTimeout ("explode();", 2000); 
+
+         	
+		}
+
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del producto,proveedor,pago
+
+	 } else{
+
+	 	 bootbox.alert("Debe agregar al menos un item y una sucursal");
+	 	 return false;
+	 } 	
+	
+  }
+
+
+  //*****************************************************************************
+ /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA COMPRA*/
+       function explode(){
+
+	    location.reload();
+}
 
 
  init();

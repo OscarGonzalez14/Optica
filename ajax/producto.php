@@ -678,6 +678,23 @@ case "eliminar_producto":
 
      break;
   	
+////////////////ENVIOS***********
+
+
+     case "registrar_envio";
+
+        //se llama al modelo Compras.php
+
+        require_once('../modelos/Envios.php');
+
+	    $compra = new Envios();
+
+	    $compra->agrega_detalle_envios();
+
+
+
+     break;
+
        }
   	
      

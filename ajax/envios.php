@@ -4,15 +4,26 @@
   //llamo a la conexion de la base de datos 
   require_once("../config/conexion.php");
   //llamo al modelo Producto
-  require_once("../modelos/Productos.php");
+  require_once("../modelos/Envios.php");
 
-  $productos = new Producto();
+  $envio = new Envios();
+
+   $id_producto=isset($_POST["id_producto"]);
+   $modelo=isset($_POST["modelo"]);
+   $id_usuario=isset($_POST["id_usuario"]);
+   $marca=isset($_POST["marca"]);
+   $color=isset($_POST["color"]);
+   $medidas=isset($_POST["medidas"]);
+   $precio_venta=isset($_POST["precio_venta"]);
+   $stock=isset($_POST["stock"]);
+   $categoria=isset($_POST["categoria"]);
+
 
 	switch ($_GET["op"]) {
 
 	case "listar_en_envios":
 
-    $datos=$productos->get_productos();
+    $datos=$envio->get_productos_envio();
 
      //Vamos a declarar un array
  	 $data= Array();
@@ -57,7 +68,7 @@
 
 				
                
-			$sub_array[] = '<button type="button" name="" id="'.$row["id_producto"].'" class="btn btn-dark btn-md " onClick="agregarDetalle('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agregar</button>';
+			$sub_array[] = '<button type="button" name="" id="'.$row["id_producto"].'" class="btn btn-dark btn-md " onClick="agregarDetalleEnvio('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agrega Envio</button>';
                 
 			
 
@@ -73,6 +84,35 @@
  			"aaData"=>$data);
  		echo json_encode($results);
 
+
+     break;
+
+ case "buscar_productos_envios";
+
+
+        
+    $datos=$envio->get_producto_por_id($_POST["id_producto"]);
+
+            /*comprobamos que el producto esté activo, de lo contrario no lo agrega
+	      if(is_array($datos)==true and count($datos)>0){*/
+
+				foreach($datos as $row)
+				{
+					
+					$output["id_producto"] = $row["id_producto"];
+					$output["modelo"] = $row["modelo"];
+					$output["marca"] = $row["marca"];
+					$output["color"] = $row["color"];
+					//$output["precio_venta"] = $row["precio_venta"];
+					$output["stock"] = $row["stock"];
+				     
+					
+					
+				}
+		
+
+
+	        echo json_encode($output);
 
      break;
 }

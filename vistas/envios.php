@@ -10,9 +10,12 @@
      require_once("../modelos/Usuarios.php");
 
       require_once("../modelos/Ventas.php");
+
+      require_once("../modelos/Envios.php");
      
-       $venta = new Ventas();
-    
+      $venta = new Ventas();
+      
+      $envio = new Envios();
      
       $compra = new Compras();
       $categoria = new Categoria();
@@ -79,12 +82,12 @@
 
       <div class="col-xs-2">
         <label for="ex1">Numero Envio</label>
-        <input class="form-control" id="numero_venta" name="numero_venta" type="text" value="<?php $codigo=$venta->numero_venta();?>"  readonly>
+        <input class="form-control" id="numero_envio" name="numero_envio" type="text" value="<?php $codigo=$venta->numero_venta();?>"  readonly>
       </div>
 
     <div class="col-xs-3">
       <label for="sel1">Sucursal de Origen:</label>                
-      <select class="form-control" name="sucursal" id="sucursal" required>
+      <select class="form-control" name="sucursal_origen" id="sucursal_origen" required>
           <option  value="">Seleccione una sucursal</option>
             <?php
                 for($i=0; $i<sizeof($cat);$i++){                             
@@ -98,7 +101,7 @@
 
     <div class="col-xs-3">
       <label for="sel1">Sucursal Destino:</label>                
-      <select class="form-control" name="sucursal" id="sucursal" required>
+      <select class="form-control" name="sucursal_destino" id="sucursal_destino" required>
           <option  value="">Seleccione una sucursal</option>
             <?php
                 for($i=0; $i<sizeof($cat);$i++){                             
@@ -113,7 +116,7 @@
 
 <div class="col-xs-2">
 <label for="ex1">Agregar Aro</label>
-   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productosModal"><span class="glyphicon glyphicon-sunglasses"></span> Aros</button>
+   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#modalEnvios"><span class="glyphicon glyphicon-sunglasses"></span> Aros</button>
   </div>      
 
 <div class="col-xs-2">
@@ -163,10 +166,10 @@
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input type="hidden" name="id_paciente" id="id_paciente"/>                
+               
   </table>
  <div class="boton_registrar">
-<button type="button" onClick="registrarVenta()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><span class="glyphicon glyphicon-share-alt">  Realizar Envío</button>
+<button type="button" onClick="registrarEnvio()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><span class="glyphicon glyphicon-share-alt">  Realizar Envío</button>
 
 </div>
 
@@ -196,10 +199,6 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
   <!--FIN DE CONTENIDO-->
 
 
-    <!--VISTA MODAL PARA AGREGAR PROVEEDOR-->
-    
-     <!--VISTA MODAL PARA AGREGAR PRODUCTO-->
-    <?php require_once("modal/lista_productos_modal.php");?>
 
 
    
@@ -216,7 +215,6 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 <!--AJAX PRODUCTOS-->
 <script type="text/javascript" src="js/envios.js"></script>
 <script type="text/javascript" src="js/productos.js"></script>
-
 
 <?php
    
