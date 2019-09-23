@@ -38,23 +38,24 @@
 
 //********************FIN VALIDACIONES  DE ACCESO************
 
-              $estado = "1";
+        $estado = "1";
 
-          if(empty($usuario) and empty($password)){
+        if(empty($usuario) and empty($password)){
 
-          header("Location:".Conectar::ruta()."vistas/index.php?m=2");
+        header("Location:".Conectar::ruta()."vistas/index.php?m=2");
                  exit();
 
 
                 }
 
-//::Nota: Realiza una comparación con una expresión regular.    
+//::Nota: Realiza una comparación con una expresión regular.
+
         else if(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){12,15}$/", $password)) {
-//******************************************************************************************************
+//******************************************************************************
 
-            }
+          }
 
-             else {
+        else {
 
         $sql= "select * from usuarios where usuario=? and password=? and estado=?";
 
@@ -72,6 +73,7 @@
                 $_SESSION["usuario"] = $resultado["usuario"];
                 $_SESSION["cedula"] = $resultado["cedula"];
                 $_SESSION["nombre"] = $resultado["nombres"];
+                $_SESSION["sucursal"] = $resultado["sucursal"];
 
                   
 //PERMISOS DEL USUARIO PARA ACCEDER A LOS MODULOS**************************

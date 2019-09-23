@@ -124,27 +124,23 @@ public function agrega_detalle_compra(){
 		$color = $v->color; 
 
 	   $numero_compra = $_POST["numero_compra"];
-     $categoria = $_POST["categoria"];
+     $bodega = $_POST["bodega"];
 
      $id_usuario = $_POST["id_usuario"];
        //$id_proveedor = $_POST["id_proveedor"];
 
-        $sql="insert into detalle_compras
-        values(null,?,?,?,?,null,?,?);";
+        $sql="insert existencias
+        values(null,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
 
 
-        $sql->bindValue(1,$numero_compra);
+        $sql->bindValue(1,$bodega);
         $sql->bindValue(2,$codProd);
-        $sql->bindValue(3,$modelo);
-        $sql->bindValue(4,$cantidad);
-        $sql->bindValue(5,$id_usuario);
-        $sql->bindValue(6,$categoria);
-
-       
+        $sql->bindValue(3,$cantidad);       
         $sql->execute();
+        
 
         
              $sql3="select * from producto where id_producto=?;";

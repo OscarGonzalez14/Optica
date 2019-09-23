@@ -50,13 +50,8 @@
                   <div class="box-header with-border">
                     <h1 class="box-title">
             
-            <button class="btn btn-blue btn-lg" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#lista_productosModal"><i class="fa fa-plus" aria-hidden="true"></i> Ingresar a Inventario</button></h1>
+            <button class="btn btn-dark" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#lista_productosModal"><i class="fa fa-plus" aria-hidden="true"></i> Ingresar Producto a Bodega  - Envio de Productos</button></h1>
 
-            <a href="productos.php"><h1 class="box-title">
-            <button class="btn btn-teal btn-lg"><i class="fa fa-list-alt" aria-hidden="true"></i> Ver Inventario</button></h1></a>
-
-            <a href="consultar_ingresos.php"><h1 class="box-title">
-            <button class="btn btn-dark btn-lg"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Consultar Ingresos</button></h1></a>
 
 
 
@@ -87,7 +82,7 @@
                 <div class="col-sm-4">
                   
 
-                    <select class="form-control" name="categoria" id="categoria" required>
+                    <select class="form-control" name="bodega" id="bodega" required>
 
                       <option  value="">Seleccione una Bodega</option>
 
@@ -185,7 +180,7 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 
    
     <!--AJAX PROVEEDORES-->
-<script type="text/javascript" src="js/proveedores.js"></script>
+<script type="text/javascript" src="js/envios.js"></script>
 
    <!--AJAX PRODUCTOS-->
 <script type="text/javascript" src="js/productos.js"></script>

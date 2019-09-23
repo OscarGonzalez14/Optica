@@ -179,12 +179,15 @@
 
            echo ' 
 
-         <li class="">
-          <a href="productos.php">
-            <i class="fa fa-tasks" aria-hidden="true"></i> <span>Inventario</span>
+         <li class="treeview">
+         <a href="productos.php"><i class="fa fa-tasks" aria-hidden="true"></i> <span>Inventario</span></a>
 
-          </a>
-         
+         <ul class="treeview-menu">
+         <li><a href="productos.php"><i class="fa fa-circle-o" aria-hidden="true"></i> <span>Inventario</span></a></li>
+
+          <li><a href="actualizar_bodegas.php"><i class="fa fa-tasks" aria-hidden="true"></i> <span>Actualizar Bodegas</span></a></li>
+         </ul>
+
         </li>';
 
              }

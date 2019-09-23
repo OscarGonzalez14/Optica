@@ -207,10 +207,12 @@
 
     case "listar_en_compras":
 
-    $datos=$productos->get_productos();
+    $datos=$productos->get_productos_compra();
 
      //Vamos a declarar un array
  	 $data= Array();
+
+ 	 
 
     foreach($datos as $row)
 			{

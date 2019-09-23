@@ -13,7 +13,7 @@
 
 function init(){
 	
-	agregarDetalleEnvio();
+	listarEnvio();
 
 	 //llama la lista de productos en ventana modal en compras.php
 	//listar_en_compras();
@@ -50,7 +50,7 @@ function init(){
 	
 }
 
-function agregarDetalleEnvio(){
+function listarEnvio(){
 
 	tabla_en_envios=$('#lista_envios_data').dataTable(
 	{
@@ -129,6 +129,64 @@ function agregarDetalleEnvio(){
 	}).DataTable();
 }
 
+function registrarMovimiento(){
+    
+    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
+    var sucursal_origen = $("#sucursal_origen").val();
+    var sucursal_destino = $("#sucursal_destino").val();
+    var numero_envio = $("#numero_envio").val();
+
+    //var comprador = $("#comprador").html();
+  
+    var id_usuario = $("#id_usuario").val();
+ 
+    if(detallesE != ""){
+    
+
+     console.log('Proof');
+   
+    $.ajax({
+		url:"../ajax/envios.php?op=registrar_ingreso",
+		method:"POST",
+		data:{'arrayIngreso':JSON.stringify(detallesE), 'sucursal_origen':sucursal_origen,'sucursal_destino':sucursal_destino,'id_usuario':id_usuario,'numero_envio':numero_envio},
+		cache: false,		
+		dataType:"html",
+		error:function(x,y,z){
+			console.log(x);
+			console.log(y);
+			console.log(z);
+		},
+         
+
+		success:function(data){
+
+			console.log(data);
+                         
+            detalles = [];
+            $('#listProdEnvios').html('');
+
+
+
+          setTimeout ("bootbox.alert('Se ha registrado el envio con éxito');", 100); 
+          
+ 
+          setTimeout ("explode();", 2000); 
+
+         	
+		}
+
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del producto,proveedor,pago
+
+	 } else{
+
+	 	 bootbox.alert("Debe agregar al menos un item y una sucursal");
+	 	 return false;
+	 } 	
+	
+  }
 
 
 init();

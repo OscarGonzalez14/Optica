@@ -21,6 +21,7 @@
       $categoria = new Categoria();
 
       $cat = $categoria->get_categorias();
+      $bodegas = $categoria->get_bodegas();
     
 ?>
 
@@ -70,7 +71,7 @@
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
 
 
-<div id="factheader"><h3 align="center">ORDENES DE ENVÍO</h3></div>
+<div id="factheader"><h3 align="center">ORDENES DE REQUISICIÓN</h3></div>
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
   
@@ -82,7 +83,7 @@
 
       <div class="col-xs-2">
         <label for="ex1">Numero Envio</label>
-        <input class="form-control" id="numero_envio" name="numero_envio" type="text" value="<?php $codigo=$venta->numero_venta();?>"  readonly>
+        <input class="form-control" id="numero_envio" name="numero_envio" type="text" value="<?php $cod_envio=$envio->numeroRequisición();?>"  readonly>
       </div>
 
     <div class="col-xs-3">
@@ -90,9 +91,9 @@
       <select class="form-control" name="sucursal_origen" id="sucursal_origen" required>
           <option  value="">Seleccione una sucursal</option>
             <?php
-                for($i=0; $i<sizeof($cat);$i++){                             
+                for($i=0; $i<sizeof($bodegas);$i++){                             
                   ?>
-                  <option value="<?php echo $cat[$i]["categoria"]?>"><?php echo $cat[$i]["categoria"];?></option>
+                  <option value="<?php echo $bodegas[$i]["id_bodega"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
                   <?php
                 }
              ?>                      
@@ -104,9 +105,9 @@
       <select class="form-control" name="sucursal_destino" id="sucursal_destino" required>
           <option  value="">Seleccione una sucursal</option>
             <?php
-                for($i=0; $i<sizeof($cat);$i++){                             
+                for($i=0; $i<sizeof($bodegas);$i++){                             
                   ?>
-                  <option value="<?php echo $cat[$i]["categoria"]?>"><?php echo $cat[$i]["categoria"];?></option>
+                  <option value="<?php echo $bodegas[$i]["id_bodega"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
                   <?php
                 }
              ?>                      
@@ -169,7 +170,7 @@
                
   </table>
  <div class="boton_registrar">
-<button type="button" onClick="registrarEnvio()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><span class="glyphicon glyphicon-share-alt">  Realizar Envío</button>
+<button type="button" onClick="registrarIngreso()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><span class="glyphicon glyphicon-share-alt">  Realizar Envío</button>
 
 </div>
 

@@ -235,7 +235,7 @@ function guardaryeditar(e)
 //importante:id_categoria, est se envia por post via ajax
 
 
-    function cambiarEstado(id_categoria, id_producto, est){
+function cambiarEstado(id_categoria, id_producto, est){
 
 
  bootbox.confirm("¿Está Seguro de cambiar de estado?", function(result){
@@ -419,7 +419,7 @@ function listar_en_compras(){
 
   	
 
-	 var filas = filas + "<tr><td>"+(i+1)+"</td> <td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='marca[]'>" +detalles[i].marca+"</td> <td name='color[]'>" +detalles[i].color+"</td><td>"+detalles[i].stock+"</td><td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td>  <button href='#' class='btn btn-danger btn-lg' role='button' onClick='eliminarProd(event, "+(i)+");' aria-pressed='true'><span class='glyphicon glyphicon-trash'></span> </button></td> </tr>";
+	 var filas = filas + "<tr><td>"+(i+1)+"</td> <td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='marca[]'>" +detalles[i].marca+"</td> <td name='color[]'>" +detalles[i].color+"</td><td>"+detalles[i].stock+"</td><td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td>  <button href='#' class='btn btn-danger btn-lg' role='button' onClick='eliminaProd(event, "+(i)+");' aria-pressed='true'><span class='glyphicon glyphicon-trash'></span> </button></td> </tr>";
 
 	}
 
@@ -446,10 +446,14 @@ function listar_en_compras(){
 parseInt es una función para convertir un valor string a entero
 obj.value es el valor del campo de texto*/
 
-  	function  eliminarProd(event, idx){
+ 	function  eliminaProd(event, idx){
   		event.preventDefault();
-  		//console.log('ELIMINAR EYTER');
+  		console.log('ELIMINAR Eyter');
   		detalles[idx].estado = 0;
+
+
+  	    $("#cantidad_"+idx).val(1);
+
   		listarDetalles();
   	}
 
@@ -460,21 +464,18 @@ obj.value es el valor del campo de texto*/
     
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
     var numero_compra = $("#numero_compra").val();
-    var categoria = $("#categoria").val();
+    var bodega = $("#bodega").val();
 
-    var comprador = $("#comprador").html();
-  
-    var id_usuario = $("#id_usuario").val();
- 
-    if(detalles!="" && categoria !=""){
+    var comprador = $("#comprador").html();  
+    var id_usuario = $("#id_usuario").val(); 
     
+    if(detalles!="" && bodega !=""){  
 
-     console.log('Proof');
-   
+    console.log('Proof');   
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_compra",
 		method:"POST",
-		data:{'arrayCompra':JSON.stringify(detalles), 'numero_compra':numero_compra,'comprador':comprador,'id_usuario':id_usuario,'categoria':categoria},
+		data:{'arrayCompra':JSON.stringify(detalles), 'numero_compra':numero_compra,'comprador':comprador,'id_usuario':id_usuario,'bodega':bodega},
 		cache: false,		
 		dataType:"html",
 		error:function(x,y,z){
@@ -483,7 +484,6 @@ obj.value es el valor del campo de texto*/
 			console.log(z);
 		},
          
-
 		success:function(data){
 
 			console.log(data);
@@ -493,7 +493,7 @@ obj.value es el valor del campo de texto*/
 
 
 
-          setTimeout ("bootbox.alert('Se ha registrado el ingreso con éxito');", 100); 
+          setTimeout ("bootbox.alert('Se ha registrado el movimento con éxito');", 100); 
           
  
           setTimeout ("explode();", 2000); 
@@ -1400,15 +1400,14 @@ obj.value es el valor del campo de texto*/
 
    }
 /////////////ENVIOS****************///////////
-
-   //este es un arreglo vacio de envios
+   //este es un arreglo vacio
 	var detallesE = [];
 
 	
 	 function agregarDetalleEnvio(id_producto){
 
 	 	//alert(estado);
-
+	 			//var suc_origen = $('#sucursal_origen');
 		        $.ajax({
 					url:"../ajax/producto.php?op=buscar_producto",
 					 method:"POST",
@@ -1445,18 +1444,9 @@ obj.value es el valor del campo de texto*/
 			
 		    
 		  }// fin de funcion
+		  
 
-  
-//***********************************************************************
-
- /*El lenght 
-	sirve para calcular la longitud del arreglo o el 
-	numero de objetos que tiene el arreglo, que es lo mismo Y es por eso que 
-	lo necesito en el for*/
-
-
-
-  function listarDetalleEnvios(){
+function listarDetalleEnvios(){
 
   	  
   	$('#listProdEnvios').html('');
@@ -1471,10 +1461,10 @@ obj.value es el valor del campo de texto*/
 
   	
 
-	 var filas = filas + "<tr><td colspan='1'>"+(i+1)+
-	 "</td> <td name='descipcion[]' id='descripcion' colspan='4'>"+detallesE[i].modelo+" "+detallesE[i].marca+" "+detallesE[i].color+
-
-	 "<td colspan='1'><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detallesE[i].cantidad+"'></td></tr>";
+	 var filas = filas + "<tr><td colspan='1'>"+(i+1)+"</td> <td name='modelo[]' colspan='2'>"+detallesE[i].modelo+"</td> <td name='marca[]' colspan='1'>" +detallesE[i].marca+"</td> <td name='color[]' colspan='2'>" +
+	 detallesE[i].color+"</td><td colspan='1'><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+
+	 (i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detallesE[i].cantidad+
+	 "'></td> </tr>";
 
 	}
 
@@ -1485,33 +1475,7 @@ obj.value es el valor del campo de texto*/
       
   }
 
-
-  function setCantidad(event, obj, idx){
-  	event.preventDefault();
-  	detalles[idx].cantidad = parseInt(obj.value);
-  	recalcular(idx);
-  }
-
-
-
-
-
-  //*******************************************************************
-    /*IMPORTANTE:Event es el objeto del evento que los manejadores de eventos utilizan
-parseInt es una función para convertir un valor string a entero
-obj.value es el valor del campo de texto*/
-
-  	function  eliminarProd(event, idx){
-  		event.preventDefault();
-  		//console.log('ELIMINAR EYTER');
-  		detalles[idx].estado = 0;
-  		listarDetalles();
-  	}
-
- //********************************************************************
-
-
- function registrarEnvio(){
+  function registrarIngreso(){
     
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
     var sucursal_origen = $("#sucursal_origen").val();
@@ -1522,15 +1486,21 @@ obj.value es el valor del campo de texto*/
   
     var id_usuario = $("#id_usuario").val();
  
-    if(detallesE !=""){
+	if(sucursal_origen==sucursal_destino){
+ 		
+ 		bootbox.alert("Revise las Sucursales de Origen y Destino");
+	 	 return false;
+	} 
+    	//if(detallesE != "")
+    	else{
     
 
      console.log('Proof');
    
     $.ajax({
-		url:"../ajax/producto.php?op=registrar_envio",
+		url:"../ajax/envios.php?op=registrar_ingreso",
 		method:"POST",
-		data:{'arrayEnvio':JSON.stringify(detallesE),'id_usuario':id_usuario,'sucursal_origen':sucursal_origen, 'sucursal_destino':sucursal_destino,'numero_envio':numero_envio},
+		data:{'arrayIngreso':JSON.stringify(detallesE), 'sucursal_origen':sucursal_origen,'sucursal_destino':sucursal_destino,'id_usuario':id_usuario,'numero_envio':numero_envio},
 		cache: false,		
 		dataType:"html",
 		error:function(x,y,z){
@@ -1562,22 +1532,9 @@ obj.value es el valor del campo de texto*/
 
 	 //cierre del condicional de validacion de los campos del producto,proveedor,pago
 
-	 } else{
-
-	 	 bootbox.alert("Debe agregar al menos un item y una sucursal");
-	 	 return false;
-	 } 	
+	 }	
 	
   }
-
-
-  //*****************************************************************************
- /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA COMPRA*/
-       function explode(){
-
-	    location.reload();
-}
-
 
  init();
 

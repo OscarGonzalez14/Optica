@@ -37,6 +37,21 @@
           return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
        }
 
+
+
+       public function get_bodegas(){
+
+          $conectar=parent::conexion();
+          parent::set_names();
+
+          $sql="select * from bodegas";
+
+          $sql=$conectar->prepare($sql);
+          $sql->execute();
+
+          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+       }
+
         //método para mostrar los datos de un registro a modificar
         public function get_categoria_por_id($id_categoria){
 

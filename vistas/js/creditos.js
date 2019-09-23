@@ -214,6 +214,7 @@ function listar_cobros_pendientes()
 function lista_creditos_metro()
 {
   $('#titulo').html('Pacientes Metrocentro');
+  
   tabla_creditos_metro=$('#creditos_data').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables

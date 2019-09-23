@@ -10,7 +10,7 @@ require_once("../config/conexion.php");
 
           $conectar= parent::conexion();
        
-          $sql= "select*from producto";
+          $sql= "select*from producto where categoria='aros'";
 
           $sql=$conectar->prepare($sql);
 
@@ -41,13 +41,56 @@ require_once("../config/conexion.php");
 
         }
 
-public function agrega_detalle_envios(){
+          
+      public function numeroRequisición(){
 
+        $conectar=parent::conexion();
+        parent::set_names();
+
+     
+        $sql="select codigo_envio from detalle_envio;";
+
+        $sql=$conectar->prepare($sql);
+
+        $sql->execute();
+        $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+           //aqui selecciono solo un campo del array y lo recorro que es el campo numero_venta
+           foreach($resultado as $k=>$v){
+
+                     $numero_venta["numero"]=$v["codigo_envio"];
+
+                   
+              
+                 }
+              //luego despues de tener seleccionado el numero_venta digo que si el campo numero_venta està vacio entonces se le asigna un F000001 de lo contrario ira sumando
+
+            
+
+                       if(empty($numero_venta["numero"]))
+                    {
+                      echo 'E000001';
+                    }else
+              
+                      {
+                        $num     = substr($numero_venta["numero"] , 1);
+                        $dig     = $num + 1;
+                        $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
+                        echo date("y")."-".'E'.$fact;
+                        //echo 'F'.$new_cod;
+                      } 
+
+           //return $data;
+      }
+
+
+
+public function agrega_detalle_ingreso(){
        
   //echo json_encode($_POST['arrayCompra']);
   $str = '';
   $detallesE = array();
-  $detallesE = json_decode($_POST['arrayEnvio']);
+  $detallesE = json_decode($_POST['arrayIngreso']);
 
 
    
@@ -85,19 +128,19 @@ public function agrega_detalle_envios(){
         $sql->bindValue(5,$sucursal_origen);
         $sql->bindValue(6,$sucursal_destino);
         $sql->bindValue(7,$id_usuario);
-        //$sql->bindValue(6,$categoria);
-
-       
+        //$sql->bindValue(6,$categoria);       
         $sql->execute();
 
+
         
-             $sql3="select * from producto where id_producto=?;";
+             $sql3="select * from existencias where id_producto=? and id_bodega=?;";
 
              //echo $sql3;
              
              $sql3=$conectar->prepare($sql3);
 
              $sql3->bindValue(1,$codProd);
+             $sql3->bindValue(2,$sucursal_destino);
              $sql3->execute();
 
              $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
@@ -118,20 +161,74 @@ public function agrega_detalle_envios(){
                      
                   //actualiza el stock en la tabla producto
 
-                 $sql4 = "update producto set 
+                 $sql4 = "update existencias set 
                       
                       stock=?
                       where 
                       id_producto=?
+                      and
+                      id_bodega=?
                  ";
 
 
                 $sql4 = $conectar->prepare($sql4);
                 $sql4->bindValue(1,$cantidad_total);
                 $sql4->bindValue(2,$codProd);
+                $sql4->bindValue(3,$sucursal_destino);
                 $sql4->execute();
 
-               } //cierre la condicional
+               } //cierre la condicional*********FIN DE AGREGA SUDURSAL DESTINO
+
+               ///INICIA UPDATE SUCURSAL ORIGEN
+            
+
+            $sql8="select * from existencias where id_producto=? and id_bodega=?;";
+
+             //echo $sql3;
+             
+             $sql8=$conectar->prepare($sql8);
+
+             $sql8->bindValue(1,$codProd);
+             $sql8->bindValue(2,$sucursal_origen);
+             $sql8->execute();
+
+             $resultado = $sql8->fetchAll(PDO::FETCH_ASSOC);
+
+                  foreach($resultado as $b=>$row){
+
+                    $re["existencia"] = $row["stock"];
+
+                  }
+
+                //la cantidad total es la suma de la cantidad más la cantidad actual
+                $descuenta_producto = $row["stock"]-$cantidad;
+
+             
+               //si existe el producto entonces actualiza el stock en producto
+              
+               if(is_array($resultado)==true and count($resultado)>0) {
+                     
+                  //actualiza el stock en la tabla producto
+
+                 $sql9 = "update existencias set 
+                      
+                      stock=?
+                      where 
+                      id_producto=?
+                      and
+                      id_bodega=?
+                 ";
+
+
+                $sql9 = $conectar->prepare($sql9);
+                $sql9->bindValue(1,$descuenta_producto);
+                $sql9->bindValue(2,$codProd);
+                $sql9->bindValue(3,$sucursal_origen);
+                $sql9->execute();
+
+               }
+
+
 
 
        }//cierre del foreach

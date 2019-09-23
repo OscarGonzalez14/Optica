@@ -40,6 +40,21 @@
 
          
          }
+      public function get_productos_compra(){
+
+           $conectar= parent::conexion();
+       
+          $sql= "select*from producto where categoria='aros'";
+
+           $sql=$conectar->prepare($sql);
+
+           $sql->execute();
+
+           return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+         
+         }
+
 
           //método para seleccionar registros
 

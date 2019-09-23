@@ -67,7 +67,9 @@
 
             <button class="btn btn-dark btn-md" data-toggle="modal" data-target="#agregar_photo"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Crear Photosensible</button></h3>
 
-              <a href="ingresos.php"><button class="btn btn-infos btn-md" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Ingresos a Inventario</button></h1></a>
+            <a href="envios.php"><button class="btn btn-dark btn-md" id="add_button" id="add_button" data-toggle="modal" data-target="#orden_envio"><span class="glyphicon glyphicon-share-alt"></span> Envios</button></h1></a>
+
+              <a href="ingresos.php"><button class="btn btn-edit btn-md" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Ingresos a Inventario</button></h1></a>
 
       <a href="envios.php"><button class="btn btn-dark btn-md" id="add_button" id="add_button" data-toggle="modal" data-target="#orden_envio"><span class="glyphicon glyphicon-share-alt"></span> Envios</button></h1></a>              
 

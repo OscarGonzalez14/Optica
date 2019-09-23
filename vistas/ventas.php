@@ -88,7 +88,8 @@
   
   <div class="col-sm-10 row1">
 
-   <div align="left"><strong><?php echo "Asesor: " . $_SESSION["cedula"]."<p align='right' id='date'></p>"; ?></strong></div>
+   <div align="left"><strong><?php echo "Asesor: " . $_SESSION["usuario"]."  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sucursal: ". $_SESSION["sucursal"]."<p align='right' id='date'></p>"; ?></strong></div>
+
 
     <div class="form-group row">
 

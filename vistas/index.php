@@ -165,10 +165,6 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
 
-      <div class="form-group has-feedback">
-        <input type="text" name="sucursal" id="sucursal" class="form-control" placeholder="sucursal" required>
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
        <div class="form-group">
         <input type="hidden" name="enviar" class="form-control" value="si">
        

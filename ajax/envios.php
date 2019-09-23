@@ -115,4 +115,13 @@
 	        echo json_encode($output);
 
      break;
+
+
+     case "registrar_ingreso";
+
+	    $envio->agrega_detalle_ingreso();
+
+
+
+     break;
 }
