@@ -262,4 +262,19 @@ public function agrega_detalle_ingreso(){
       }
 
 
+      public function listar_requisiones(){
+
+        $conectar = parent::conexion();
+        parent::set_names();
+
+        $sql="select d.id_detalle_envio,d.codigo_envio,d.sucursal_origen,d.sucursal_destino, u.usuario, p.modelo from usuarios as u inner join detalle_envio as d on u.id_usuario=d.id_usuario join producto as p where d.id_producto=p.id_producto;";
+
+        $sql=$conectar->prepare($sql);
+        $sql->execute();
+
+        return $resultado=$sql->fetchAll();
+
+      }
+
+
 }

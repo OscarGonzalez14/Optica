@@ -71,11 +71,17 @@
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
 
 
-<div id="factheader"><h3 align="center">ORDENES DE REQUISICIÓN</h3></div>
+<div id="factheader"><h3 align="center">ORDENES DE REQUISICIÓN</h3>
+
+</div>
 <div class="row"><!--Row 1-->
+  
   <div class="col-sm-1"></div>
   
   <div class="col-sm-10 row1">
+  <a href="requisiones.php"><h1 class="box-title">
+            <button class="btn btn-edit btn-lg" style='right'><i class="fa fa-list-alt" aria-hidden="true"></i> Listar Requisiones</button></h1></a>
+
 
    <div align="left"><strong><?php echo "Usuario: " . $_SESSION["usuario"]."<p align='right' id='date'></p>"; ?></strong></div>
 
@@ -93,7 +99,7 @@
             <?php
                 for($i=0; $i<sizeof($bodegas);$i++){                             
                   ?>
-                  <option value="<?php echo $bodegas[$i]["id_bodega"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
+                  <option value="<?php echo $bodegas[$i]["nombre"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
                   <?php
                 }
              ?>                      
@@ -107,7 +113,7 @@
             <?php
                 for($i=0; $i<sizeof($bodegas);$i++){                             
                   ?>
-                  <option value="<?php echo $bodegas[$i]["id_bodega"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
+                  <option value="<?php echo $bodegas[$i]["nombre"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
                   <?php
                 }
              ?>                      

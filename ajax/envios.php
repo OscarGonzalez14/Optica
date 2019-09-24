@@ -124,4 +124,94 @@
 
 
      break;
+
+     /*case "activarydesactivar":
+              
+                //los parametros id_usuario y est vienen por via ajax
+              $datos = $usuarios->get_usuario_por_id($_POST["id_usuario"]);
+                
+                //valida el id del usuario
+                 if(is_array($datos)==true and count($datos)>0){
+                    
+                    //edita el estado del usuario 
+                    $usuarios->editar_estado($_POST["id_usuario"],$_POST["est"]);
+                 }
+         break;*/
+
+         case "listar_requisiones":
+
+         $datos = $envio->listar_requisiones();
+
+         //declaramos el array
+
+         $data = Array();
+
+
+         foreach($datos as $row){
+
+            
+            $sub_array= array();
+
+             //ESTADO
+          $est = '';
+         
+           /*$atrib = "btn btn-warning btn-md estado";
+          if($row["estado"] == 0){
+            $est = 'PENDIENTE';
+            $atrib = "btn btn-warning btn-md estado";
+          }
+          else{
+            if($row["estado"] == 1){
+              $est = 'ACTIVO';
+              
+            } 
+          }*/
+
+
+            //cargo
+
+            /*if($row["cargo"]==1){
+
+              $cargo="ADMINISTRADOR";
+
+            } else{
+
+              if($row["cargo"]==0){
+                   
+                   $cargo="EMPLEADO";
+              }
+            }*/
+
+
+         $sub_array[]= $row["codigo_envio"];
+         //$sub_array[] = $row["codigo_envio"];
+         $sub_array[] = $row["sucursal_origen"];
+         $sub_array[] = $row["sucursal_destino"];
+         //$sub_array[] = $cargo;
+         //$sub_array[] = $row[""];
+         $sub_array[] = $row["usuario"];
+         $sub_array[] = $row["modelo"];
+         //$sub_array[] = date("d-m-Y",strtotime($row["fecha_ingreso"]));
+
+              
+         $sub_array[] = '<button type="button" name="estado"> Pendiente</button>';
+
+
+
+        
+       $data[]=$sub_array;
+      
+          
+         }
+
+         $results= array( 
+
+         "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+         echo json_encode($results);
+
+
+         break;
 }
