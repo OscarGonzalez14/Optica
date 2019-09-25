@@ -9,6 +9,8 @@
 
      
        $venta = new Creditos();
+       require_once("../modelos/Pacientes.php");
+       $codigo = new Paciente();
     
 ?>
 
@@ -47,6 +49,7 @@
 <?php require_once("modal/detalle_venta_modal.php");?>
 
 
+
 <div class="row">
 <h5 align="center">ABONOS</h5>
   <div class="col-sm-12"></div>
@@ -62,13 +65,19 @@
 <h3><button class="btn btn-blue btn-block" id="empresarial" onClick="lista_creditos_empresarial()" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Empresarial</button></h3>
    </div>
 
-      <div class="col-sm-3">
+      <div class="col-sm-2">
   <h3><button class="btn btn-dark btn-block" id="c_automatico" onClick="lista_creditos_c_aut()" ><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Cargo Automatico</button></h3>
    </div>
 
-      <div class="col-sm-3">
+<div class="col-sm-3">
 <h3><button class="btn btn-blue btn-block" id="metro" onClick="lista_creditos_personal()"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <span class="glyphicon glyphicon-import" aria-hidden="true"></span> Créditos Personales</button></h3>
    </div>
+
+<div class="col-sm-2">
+<h3><button class="btn btn-danger" data-toggle="modal" data-target="#pacienteModal_auto"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><strong> C_Auto</button></strong></h3>
+   </div>
+
+
  <div class="col-sm-1"></div>
  
  </div><!--FIN ROW 1-->  
@@ -79,6 +88,7 @@
 
   <div class="col-sm-12">
   <h4 align="center" id="titulo"></h4>
+  <div id='btn'></div>
    <table id="creditos_data" class="table table-bordered table-striped">
      <thead>
        <tr>
@@ -99,6 +109,9 @@
   </div>
 
 </div>
+
+
+
 
 </div><!-- /.content-wrapper -->
  

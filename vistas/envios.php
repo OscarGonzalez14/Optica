@@ -99,7 +99,7 @@
             <?php
                 for($i=0; $i<sizeof($bodegas);$i++){                             
                   ?>
-                  <option value="<?php echo $bodegas[$i]["nombre"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
+                  <option value="<?php echo $bodegas[$i]["id_bodega"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
                   <?php
                 }
              ?>                      
@@ -113,7 +113,7 @@
             <?php
                 for($i=0; $i<sizeof($bodegas);$i++){                             
                   ?>
-                  <option value="<?php echo $bodegas[$i]["nombre"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
+                  <option value="<?php echo $bodegas[$i]["id_bodega"]?>"><?php echo $bodegas[$i]["nombre"];?></option>
                   <?php
                 }
              ?>                      

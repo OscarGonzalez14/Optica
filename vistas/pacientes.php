@@ -12,14 +12,9 @@
        
 ?>
 
-
-
-<?php
- 
+<?php 
   require_once("header.php");
-
 ?>
-
 
   <?php if($_SESSION["pacientes"]==1)
      {
@@ -35,10 +30,12 @@
         color: white;
     }
 
+
   </style>
   <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">        
+      <div class="content-wrapper"> 
+       
         <!-- Main content -->
         <section class="content">
              
@@ -52,6 +49,9 @@
                     <div class="box-header with-border">
                           <h1 class="box-title">
                             <button class="btn btn-dark btn-lg"  data-toggle="modal" data-target="#pacienteModal"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Paciente</button></h1>
+
+                    <h1 class="box-title">
+                            <button class="btn btn-dark btn-lg"  data-toggle="modal" data-target="#modal_auto_update"><i class="fa fa-plus" aria-hidden="true"></i>Actualizar Paciente C_Auto</button></h1>                            
 
                             <a href="consultas.php"><button class="btn btn-blue btn-lg"><i class="fa fa-address-card-o" aria-hidden="true"></i>
                               Consultas</button></h1></a>
@@ -121,16 +121,22 @@
     <input type="text" class="form-control" id="codigo" name="codigo" value="<?php $codigos=$codigo->codigo_paciente(); ?>" readonly>
       </div>
 
-      <div class="col-xs-12">
+      <div class="col-xs-9">
         <label for="ex1">Nombre</label>
         <input class="form-control" id="nombres" name="nombres" type="text" placeholder="Escriba el Nombre del paciente" required>
       </div>
-      <div class="col-xs-3">
+
+     <div class="col-xs-4">
+        <label for="ex1">DUI</label>
+        <input class="form-control" id="dui" name="dui" type="text" placeholder="Escriba el DUI del paciente" required>
+      </div>
+
+      <div class="col-xs-4">
         <label for="ex2">Telefono del Paciente</label>
         <input class="form-control" id="telefono" type="text" name="telefono">
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-xs-4">
         <label for="ex3">Edad</label>
         <input class="form-control" id="edad" type="number" name="edad" placeholder="edad" required>
       </div>
@@ -147,7 +153,7 @@
 
       <div class="col-xs-6">
         <label for="ex3">Correo</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente">
+        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
       </div>
 
 

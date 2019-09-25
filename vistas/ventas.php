@@ -63,7 +63,7 @@
 </style>     
 <div class="content-wrapper">        
         <!-- Main content -->
-    <?php require_once("modal/lista_pacientes_modal.php");?>
+    
     <?php require_once("modal/lista_productos_ventas_modal.php");?>
     <?php require_once("modal/lista_lentes_ventas_modal.php");?>
     <?php require_once("modal/lista_acc_ventas_modal.php");?>

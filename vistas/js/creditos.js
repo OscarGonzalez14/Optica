@@ -398,6 +398,8 @@ function lista_creditos_c_aut()
        
 
   $('#titulo').html('Pacientes Cargo Automatico');
+  //$('#btn').html('<h3><button class="btn btn-danger" id="c_automatico"><span class="glyphicon glyphicon-refresh" aria-hidden="true" data-toggle="modal" data-target="#agregarLentes"></span> <strong>Update Cargos Automaticos</strong></button></h3>');
+
   tabla_creditos_c_aut=$('#creditos_data').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables

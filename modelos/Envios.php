@@ -91,12 +91,8 @@ public function agrega_detalle_ingreso(){
   $str = '';
   $detallesE = array();
   $detallesE = json_decode($_POST['arrayIngreso']);
-
-
    
    $conectar=parent::conexion();
-
-
   foreach ($detallesE as $k => $v) {
   
     //IMPORTANTE:estas variables son del array detalles
@@ -107,20 +103,14 @@ public function agrega_detalle_ingreso(){
     $marca = $v->marca;
     $color = $v->color;
     //$descripcion = $v->descripcion; 
-
      $sucursal_origen = $_POST["sucursal_origen"];
      $sucursal_destino = $_POST["sucursal_destino"];
      $numero_envio = $_POST["numero_envio"];
      $id_usuario = $_POST["id_usuario"];
      //$id_proveedor = $_POST["id_proveedor"];
-
         $sql="insert into detalle_envio
         values(null,?,?,?,?,CURRENT_TIMESTAMP,?,?,?);";
-
-
         $sql=$conectar->prepare($sql);
-
-
         $sql->bindValue(1,$numero_envio);
         $sql->bindValue(2,$codProd);
         $sql->bindValue(3,$modelo);
@@ -130,37 +120,26 @@ public function agrega_detalle_ingreso(){
         $sql->bindValue(7,$id_usuario);
         //$sql->bindValue(6,$categoria);       
         $sql->execute();
-
-
         
              $sql3="select * from existencias where id_producto=? and id_bodega=?;";
-
              //echo $sql3;
              
              $sql3=$conectar->prepare($sql3);
-
              $sql3->bindValue(1,$codProd);
              $sql3->bindValue(2,$sucursal_destino);
              $sql3->execute();
-
              $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
-
                   foreach($resultado as $b=>$row){
-
                     $re["existencia"] = $row["stock"];
-
                   }
-
                 //la cantidad total es la suma de la cantidad más la cantidad actual
                 $cantidad_total = $cantidad + $row["stock"];
-
              
                //si existe el producto entonces actualiza el stock en producto
               
                if(is_array($resultado)==true and count($resultado)>0) {
                      
                   //actualiza el stock en la tabla producto
-
                  $sql4 = "update existencias set 
                       
                       stock=?
@@ -169,47 +148,33 @@ public function agrega_detalle_ingreso(){
                       and
                       id_bodega=?
                  ";
-
-
                 $sql4 = $conectar->prepare($sql4);
                 $sql4->bindValue(1,$cantidad_total);
                 $sql4->bindValue(2,$codProd);
                 $sql4->bindValue(3,$sucursal_destino);
                 $sql4->execute();
-
                } //cierre la condicional*********FIN DE AGREGA SUDURSAL DESTINO
-
                ///INICIA UPDATE SUCURSAL ORIGEN
             
-
             $sql8="select * from existencias where id_producto=? and id_bodega=?;";
-
              //echo $sql3;
              
              $sql8=$conectar->prepare($sql8);
-
              $sql8->bindValue(1,$codProd);
              $sql8->bindValue(2,$sucursal_origen);
              $sql8->execute();
-
              $resultado = $sql8->fetchAll(PDO::FETCH_ASSOC);
-
                   foreach($resultado as $b=>$row){
-
                     $re["existencia"] = $row["stock"];
-
                   }
-
                 //la cantidad total es la suma de la cantidad más la cantidad actual
                 $descuenta_producto = $row["stock"]-$cantidad;
-
              
                //si existe el producto entonces actualiza el stock en producto
               
                if(is_array($resultado)==true and count($resultado)>0) {
                      
                   //actualiza el stock en la tabla producto
-
                  $sql9 = "update existencias set 
                       
                       stock=?
@@ -218,27 +183,15 @@ public function agrega_detalle_ingreso(){
                       and
                       id_bodega=?
                  ";
-
-
                 $sql9 = $conectar->prepare($sql9);
                 $sql9->bindValue(1,$descuenta_producto);
                 $sql9->bindValue(2,$codProd);
                 $sql9->bindValue(3,$sucursal_origen);
                 $sql9->execute();
-
                }
-
-
-
-
        }//cierre del foreach
-
-
-
            /*$sql2="insert into compras 
            values(null,now(),?,?,?,?,?,?,?,?,?,?,?,?);";
-
-
            $sql2=$conectar->prepare($sql2);
            
       
@@ -256,9 +209,6 @@ public function agrega_detalle_ingreso(){
            $sql2->bindValue(12,$id_proveedor);
           
            $sql2->execute();*/
-
-
-
       }
 
 
