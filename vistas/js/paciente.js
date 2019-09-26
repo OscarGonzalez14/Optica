@@ -1,7 +1,7 @@
 var tabla;
 
 var tabla_en_ventas;
-
+var tabla_c_autos;
 //Función que se ejecuta al inicio
 function init(){
 	
@@ -9,6 +9,8 @@ function init(){
 
 	//llama la lista de pacientes en ventana modal en ventas.php
     listar_en_ventas();
+
+    listar_act_auto();
 
 	 //cuando se da click al boton submit entonces se ejecuta la funcion guardaryeditar(e);
 	$("#paciente_form").on("submit",function(e)

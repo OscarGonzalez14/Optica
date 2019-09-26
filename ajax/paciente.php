@@ -33,7 +33,7 @@
 
 			if(is_array($datos)==true and count($datos)==0){
 
-			$pacientes->registrar_paciente($codigo,$nombres,$telefono,$edad,$ocupacion,$empresa,$correo,$id_usuario);
+			$pacientes->registrar_paciente($codigo,$nombres,$telefono,$edad,$ocupacion,$empresa,$correo,$id_usuario,$dui);
 
 			       	   	  $messages[]="El Paciente se registró correctamente";
 
@@ -194,6 +194,47 @@
 
 
                  $sub_array[] = '<button type="button" onClick="eliminarp('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-dark btn-md"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>';
+                
+				$data[] = $sub_array;
+			}
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+
+
+
+
+     case "listar_autos":
+
+     $datos = $pacientes->get_pacientes_auto();
+
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+     foreach($datos as $row)
+
+		{
+			$sub_array = array();				
+			
+	        $sub_array[] = $row["codigo"];
+			$sub_array[] = $row["nombres"];
+			$sub_array[] = $row["dui"];
+			$sub_array[] = $row["empresa"]; 
+			$sub_array[] = $row["numero_tarjeta"]; 
+				 
+            
+           $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-blue btn-md"><i class="fa fa-credit-card-alt" aria-hidden="true" aria-hidden="true"></i> Agregar Cargo</button>';
+                 
+                 $sub_array[] = '<button type="button" class="btn btn-edit btn-md"><i class="fa fa-usd" aria-hidden="true"></i> Abonar</button>';
+
+
                 
 				$data[] = $sub_array;
 			}

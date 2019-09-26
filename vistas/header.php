@@ -230,7 +230,8 @@
             <li><a href="cobros_pendientes.php"><i class="fa fa-circle-o"></i> Pendientes de Pago
             <span class="pull-right-container badge bg-blue">
               <i class="fa fa-bell pull-right">'.$creditos->get_filas_pendientes_pagos().'</i>
-            </span></a></li>       
+            </span></a></li>
+            <li><a href="update_auto.php"><i class="fa fa-circle-o"></i> Actualizar Creditos y Cobros</a></li>       
           </ul>
          
         </li>';

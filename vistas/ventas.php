@@ -69,7 +69,7 @@
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
     <?php require_once("modal/lista_ar_ventas_modal.php");?>
     <?php require_once("modal/lista_photo_ventas_modal.php");?>
-
+    <?php require_once("modal/lista_pacientes_modal.php"); ?>
     <?php require_once("modal/abono_inicial.php");?>
   <div>
       <nav class="navbar navbar-inverse">

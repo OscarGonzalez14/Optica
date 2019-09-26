@@ -143,7 +143,7 @@
 
      break;
 
-        case "listar":
+     case "listar":
 
      $datos=$productos->get_productos();
 

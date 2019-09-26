@@ -41,28 +41,28 @@ public function get_pacientes(){
 
           if(empty($codigo["numero"]))
               {
-                 echo 'PA000001';
+                 echo 'AV000001';
               }else
               
                 {
                   $num     = substr($codigo["numero"] , 2);
                   $dig     = $num + 1;
                   $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
-                  echo 'PA'.$fact;
+                  echo 'AV'.$fact;
                         
                 } 
 
       }
 
   
-   public function registrar_paciente($codigo,$nombres,$telefono,$edad,$ocupacion,$empresa,$correo,$id_usuario){
+   public function registrar_paciente($codigo,$nombres,$telefono,$edad,$ocupacion,$empresa,$correo,$id_usuario,$dui){
 
 
            $conectar= parent::conexion();
            parent::set_names();
 
            $sql="insert into pacientes
-           values(null,?,?,?,?,?,?,?,null,?);";
+           values(null,?,?,?,?,?,?,?,null,?,?);";
 
           
             $sql=$conectar->prepare($sql);
@@ -75,6 +75,7 @@ public function get_pacientes(){
             $sql->bindValue(6, $_POST["empresa"]);
             $sql->bindValue(7, $_POST["correo"]);
             $sql->bindValue(8, $_POST["id_usuario"]);
+            $sql->bindValue(9, $_POST["dui"]);
             $sql->execute();
       
          
@@ -160,4 +161,20 @@ public function eliminar_paciente($id_paciente)
                 return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
         }
+
+public function get_pacientes_auto(){
+
+          $conectar=parent::conexion();
+          parent::set_names();
+
+          $sql="select *from pacientes where tipo_pac='c_autom';";
+
+          $sql=$conectar->prepare($sql);
+          $sql->execute();
+
+          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
 }
