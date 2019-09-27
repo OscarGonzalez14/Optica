@@ -128,6 +128,26 @@
 
 	 break;
 
+     case 'mostrar_pac_cargo':
+    
+	$datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
+
+    	foreach($datos as $row)
+    	{
+    		$output["id_paciente"] = $row["id_paciente"];
+			$output["nombres"] = $row["nombres"];
+			$output["codigo"] = $row["codigo"];
+			$output["numero_tarjeta"] = $row["numero_tarjeta"];
+			$output["fecha_vencimiento_tarjeta"] = $row["fecha_vencimiento_tarjeta"];
+						
+						
+    				}
+        
+         echo json_encode($output);
+
+
+	 break;	 
+
 
 	case 'editarp':
     
@@ -230,7 +250,7 @@
 			$sub_array[] = $row["numero_tarjeta"]; 
 				 
             
-           $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-blue btn-md"><i class="fa fa-credit-card-alt" aria-hidden="true" aria-hidden="true"></i> Agregar Cargo</button>';
+           $sub_array[] = '<button type="button" onClick="realizar_cargo('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-blue btn-md"><i class="fa fa-credit-card-alt" aria-hidden="true" aria-hidden="true"></i> Agregar Cargo</button>';
                  
                  $sub_array[] = '<button type="button" class="btn btn-edit btn-md"><i class="fa fa-usd" aria-hidden="true"></i> Abonar</button>';
 

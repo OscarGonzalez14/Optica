@@ -242,7 +242,7 @@ public function agrega_detalle_venta(){
 
        
 	//echo json_encode($_POST['arrayCompra']);
-	$str = '';
+  $str = '';
 	$detalles = array();
 	$detalles = json_decode($_POST['arrayVenta']);
 
@@ -412,6 +412,94 @@ public function agrega_detalle_venta(){
 
           
   	  }
+
+
+//////////////////////////REGISTRAR CARGOS AUTOMATICOS
+
+public function agrega_detalle_cargo(){
+
+
+  $str = '';
+  $detalles = array();
+  
+
+   $conectar=parent::conexion();
+   
+
+       
+       $numero_venta = '04';
+       $codigo_paciente = ["codigo_paciente"];
+       $monto_cargo= ["monto_cargo"];
+       $nombre_pac = $_POST["nombre_pac"];
+       $tipo_pago = $_POST["tipo_pago"];
+       $concepto = $_POST["concepto"];
+       //$usuario = $_POST["usuario"];
+       $sucursal = "Metrocentro";
+       $tipo_venta = "credito";
+       $id_usuario = $_POST["id_usuario"];
+       $id_paciente = $_POST["id_paciente"];
+       $plazo_cargo = $_POST["plazo_cargo"];
+       
+
+       $cantidad ="1";
+       $descuento ="0";
+
+
+
+
+        $sql="insert into detalle_ventas
+        values(null,?,?,?,?,?,?,?,now(),?,?);";
+
+
+        $sql=$conectar->prepare($sql);
+
+        $sql->bindValue(1,$numero_venta);
+        //$sql->bindValue(2,$cod_pac);
+        $sql->bindValue(2,$concepto);
+        $sql->bindValue(3,$concepto);
+        $sql->bindValue(4,$monto_cargo);
+        $sql->bindValue(5,$cantidad);
+        $sql->bindValue(6,$dscuento);
+        $sql->bindValue(7,$monto_cargo);
+        $sql->bindValue(8,$id_usuario);
+        $sql->bindValue(9,$id_paciente);       
+  
+
+
+           $sql2="insert into ventas 
+           values(null,now(),?,?,?,?,?,?,?,?,?);";
+
+
+           $sql2=$conectar->prepare($sql2);
+           
+          
+           $sql2->bindValue(1,$numero_venta);
+           $sql2->bindValue(2,$nombre_pac);
+           $sql2->bindValue(3,$id_usuario);       
+           $sql2->bindValue(4,$monto_cargo);
+           $sql2->bindValue(5,$tipo_pago);
+           $sql2->bindValue(6,$tipo_venta);          
+           $sql2->bindValue(7,$id_usuario);
+           $sql2->bindValue(8,$id_paciente);
+           $sql2->bindValue(9,$sucursal);
+           $sql2->execute();
+
+           //INSERTAR EN LA TABLA CREDITOS
+           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,now());";
+
+           $sql7=$conectar->prepare($sql7);
+
+           $sql7->bindValue(1,$monto_cargo);
+           $sql7->bindValue(2,$plazo_cargo);
+           $sql7->bindValue(3,$monto_cargo);
+           $sql7->bindValue(4,$tipo_pago);
+           $sql7->bindValue(5,$numero_venta);
+           $sql7->bindValue(6,$id_paciente);
+           $sql7->bindValue(7,$id_usuario);
+           $sql7->execute();
+///CIERRE DEL FOREACH
+          
+      }      
 
 //////////////////////REGISTRAR ABONOS
 

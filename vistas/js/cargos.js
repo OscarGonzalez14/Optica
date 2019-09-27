@@ -110,6 +110,108 @@ function listar_act_auto()
 	}).DataTable();
 }
 
+function realizar_cargo(id_paciente)
+{
+	$.post("../ajax/paciente.php?op=mostrar_pac_cargo",{id_paciente : id_paciente}, function(data, status)
+	{
+		data = JSON.parse(data);
+
+
+
+		  console.log(data);
+		
+
+		
+		$('#agregarCargo').modal('show');					
+
+			$('#paciente_cargo').val(data.nombres);
+			//$("#paciente_cargo").attr('disabled', 'disabled');
+
+			$('#code').val(data.codigo);
+			//$("#code").attr('disabled', 'disabled');
+
+			$('#ntarjeta').val(data.numero_tarjeta);
+			//$("#ntarjeta").attr('disabled', 'disabled');
+
+			$('#fecha').val(data.fecha_vencimiento_tarjeta);
+			//$("#fecha").attr('disabled', 'disabled');
+
+			$('#id_paciente').val(data.id_paciente);
+
+			$('#id_usurios').val(data.id_paciente);				
+
+
+			//$('.modal-title').text("Nueva Consulta");
+
+
+		      
+		
+				
+		});
+        
+        
+	}
+
+
+function registrarCargoAuto(){
+    
+    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
+    var monto_cargo = $("#monto_cargo").val();
+    var plazo_cargo = $("#plazo_cargo").val();
+    var concepto = $("#concepto").val();
+    var n_venta = $("#numero_venta");
+    var id_usuario = $("#id_usuarios").val();
+    var id_paciente = $("#id_paciente").val();
+    var tipo_pago = $("#tipo_pago").val();
+    var codigo_paciente = $("#code").val();
+    var nombre_pac = $("#paciente_cargo").val();
+    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
+
+    if(monto_cargo != ""){
+
+    //$("#descuento").attr('disabled', 'disabled');
+     console.log('error!');
+
+    $.ajax({
+		url:"../ajax/producto.php?op=registrar_cargo",
+		method:"POST",
+		data:{tipo_pago:tipo_pago,id_usuario:id_usuario,id_paciente:id_paciente,monto_cargo:monto_cargo,plazo_cargo:plazo_cargo,concepto:concepto,nombre_pac:nombre_pac,codigo_paciente:codigo_paciente},
+		cache: false,
+		dataType:"html",
+		error:function(x,y,z){
+			d_pacole.log(x);
+			console.log(y);
+			console.log(z);
+		},    
+      
+			
+		success:function(data){
+
+	    //var nombre_pac = $("#nombre_pac").val("");
+
+            
+            //detalles = [];
+            //$('#listProdVentas').html('');
+            
+              //muestra un mensaje de exito
+          setTimeout ("bootbox.alert('Se ha registrado el cargo con éxito');", 100); 
+          
+          //refresca la pagina, se llama a la funtion explode
+          setTimeout ("explode();", 2000); 
+         	
+		}
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del paciente
+
+	 } else{
+
+	 	 bootbox.alert("Debe llenar todos los campos");
+	 	 return false;
+	 } 	
+	
+  }	
 
 
 init();

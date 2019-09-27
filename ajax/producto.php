@@ -588,7 +588,7 @@
 
      break;
 
-     case "registrar_venta";
+    case "registrar_venta";
 
         //se llama al modelo Ventas.php
 
@@ -602,6 +602,18 @@
 
      break;
 
+    case "registrar_cargo";
+
+        //se llama al modelo Ventas.php
+
+        require_once('../modelos/Ventas.php');
+
+	    $venta = new Ventas();
+	    $venta->agrega_detalle_cargo();
+
+
+
+     break;
 
 case "eliminar_producto":
 
