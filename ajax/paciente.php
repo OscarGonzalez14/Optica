@@ -128,7 +128,8 @@
 
 	 break;
 
-     case 'mostrar_pac_cargo':
+    
+    case 'mostrar_pac_cargo':
     
 	$datos=$pacientes->get_paciente_por_id($_POST["id_paciente"]);
 
@@ -139,9 +140,12 @@
 			$output["codigo"] = $row["codigo"];
 			$output["numero_tarjeta"] = $row["numero_tarjeta"];
 			$output["fecha_vencimiento_tarjeta"] = $row["fecha_vencimiento_tarjeta"];
+			$output["telefono"] = $row["telefono"];
+			$output["correo"] = $row["correo"];
+			$output["codigo"] = $row["codigo"];
 						
 						
-    				}
+    	}
         
          echo json_encode($output);
 
@@ -214,6 +218,49 @@
 
 
                  $sub_array[] = '<button type="button" onClick="eliminarp('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-dark btn-md"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>';
+                
+				$data[] = $sub_array;
+			}
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+
+
+          case "listar_pacientes_planes":
+
+     $datos=$pacientes->get_pacientes_planes();
+
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+     foreach($datos as $row)
+
+			{
+				$sub_array = array();
+
+
+				
+			
+	             $sub_array[] = $row["nombre"];
+				 $sub_array[] = $row["dui"];
+				 $sub_array[] = $row["tarjeta_n"];
+				 $sub_array[] = $row["celular"];
+				 
+            
+          
+
+                 
+                 $sub_array[] = '<button type="button"  class="btn btn-edit btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';
+
+
+                 
                 
 				$data[] = $sub_array;
 			}

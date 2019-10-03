@@ -71,15 +71,15 @@ public function agrega_abono_pacientes(){
        
   //echo json_encode($_POST['arrayCompra']);
   $str = '';
-  $abonosp = array();
-  $abonosp = json_decode($_POST['array_abonos_pacientes']);
+  $cargos = array();
+  $cargos = json_decode($_POST['array_abonos_pacientes']);
 
 
    
    $conectar=parent::conexion();
 
 
-  foreach ($abonosp as $k => $v) {
+  foreach ($cargos as $k => $v) {
       
        $abono = $v->abono;
        //$p_abono = $v->$p_abono;
@@ -413,6 +413,24 @@ public function get_filas_pendientes_pagos(){
 return $sql->rowCount();
 
 }
+
+
+
+//////PACIENTES CARGO AUTOMATICO
+
+public function get_pacientes_cargo($id_paciente){
+
+  $conectar = parent::conexion();
+
+  $sql="select*from pacientes where id_paciente=?;";
+
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+////////////////////////////////REGISTRAR CARGOS AUTOMATICOS
 
 }//FIN DE LA CLASE
 

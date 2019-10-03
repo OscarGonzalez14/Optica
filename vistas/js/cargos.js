@@ -110,108 +110,162 @@ function listar_act_auto()
 	}).DataTable();
 }
 
-function realizar_cargo(id_paciente)
-{
-	$.post("../ajax/paciente.php?op=mostrar_pac_cargo",{id_paciente : id_paciente}, function(data, status)
-	{
-		data = JSON.parse(data);
+var cargos = [];
+
+  
+function realizar_cargo(id_paciente){
+
+        $('#agregarCargo').modal('show');
+  
+        $.ajax({
+        url:"../ajax/creditos.php?op=mostrar_pac_cargo",
+        method:"POST",
+
+        data:{id_paciente:id_paciente},
+        cache: false,
+        dataType:"json",
+
+        success:function(data){
+                       
+        $("#monto_name").val(data.nombres);
+        $("#monto_name").attr('disabled','disabled');
+        $("#code").val(data.codigo);
+        //$("#ntarjeta").attr('disabled','disabled');
+        $("#ntarjeta").val(data.numero_tarjeta );
+        $("#ntarjeta").attr('disabled','disabled');
+        $("#fecha").val(data.fecha_vencimiento_tarjeta);
+        $("#fecha").attr('disabled','disabled');
+        //$("#id_credito").val(data.id_credito);
+        //$("#id_paciente").val(data.id_paciente);
 
 
+          var objects = {
+            codPac   : data.codigo_paciente,
+            id_paciente : id_paciente,
+            //numero_venta : data.numero_venta,
+            dui    : data.dui,  
+            empresa : data.empresa,
+            telefono : data.telefono,
+            //saldo    : data.saldo,
+            abono    : 0,
+            saldo    : 0,
+            correo : correo, 
+            moneda   : '$ '           
+                          
+          };
 
-		  console.log(data);
-		
-
-		
-		$('#agregarCargo').modal('show');					
-
-			$('#paciente_cargo').val(data.nombres);
-			//$("#paciente_cargo").attr('disabled', 'disabled');
-
-			$('#code').val(data.codigo);
-			//$("#code").attr('disabled', 'disabled');
-
-			$('#ntarjeta').val(data.numero_tarjeta);
-			//$("#ntarjeta").attr('disabled', 'disabled');
-
-			$('#fecha').val(data.fecha_vencimiento_tarjeta);
-			//$("#fecha").attr('disabled', 'disabled');
-
-			$('#id_paciente').val(data.id_paciente);
-
-			$('#id_usurios').val(data.id_paciente);				
+          cargos.push(objects);
+          listar_cargos_pac();
+          //cancelar_abono_pac();
 
 
-			//$('.modal-title').text("Nueva Consulta");
+          }//fin success    
 
-
-		      
-		
-				
-		});
+        });//fin de ajax
+     // $('#detalle_abonos_pac').modal('show');   
         
-        
-	}
+      }
+      // fin de funcion
+
+function listar_cargos_pac(){
+
+$('#listarCargos').html('');
+    var filas = "";
+  
+for(var i=0; i<cargos.length; i++){
 
 
-function registrarCargoAuto(){
+    var filas ="<tr>"+
+    "<td name='dui[]'>"+"<p align='center'>"+cargos[i].dui+"</p>"+"</td>"+
+    "<td name='telefono[]' align='center'>"+cargos[i].telefono+"</td>"+
+    "<td name='empresa[]' align='center'>"+cargos[i].empresa+"</td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='monto' name='monto' id='monto'></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='plazo' name='plazo' id='plazo' onmouseout='setAbono(event, this, "+(i)+");' ></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abonadas' name='abonadas' id='abonadas'></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='m_abonado' name='m_abonado' id='m_abonado'></td>"+
+
+    +"</tr>";
+  }
+
+  
+  $('#listarCargos').html(filas);
+  }
+
+
+
+ 
+ function registrar_cargo_pacientes(){
     
     /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
-    var monto_cargo = $("#monto_cargo").val();
-    var plazo_cargo = $("#plazo_cargo").val();
-    var concepto = $("#concepto").val();
-    var n_venta = $("#numero_venta");
-    var id_usuario = $("#id_usuarios").val();
-    var id_paciente = $("#id_paciente").val();
-    var tipo_pago = $("#tipo_pago").val();
-    var codigo_paciente = $("#code").val();
-    var nombre_pac = $("#paciente_cargo").val();
+
+    var codigo = $("#code").val();
+    //var id_paciente = $("#id_paciente").val();
+    var paciente_name = $("#paciente_name").val();
+    //var fecha_ = $("#pacien").val();
+    var id_usuario = $("#id_usuario").val();
+    var plazo =$("#plazo").val();
+    var abonadas =$("#abonadas").val();
+    var m_abonado =$("#m_abonado").val();
+    var recibos = $("#recibos").val();
+    var monto = $("#monto");
+    var numero_venta = "07";
+    var tipo_pago = "Cargo Automatico";
+    var paciente ="generico";
+    var usuario = "mauricio";
+    var tipo_venta ="Credito";
+    var sucursal = "Metrocentro";
+
+
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-
-    if(monto_cargo != ""){
-
-    //$("#descuento").attr('disabled', 'disabled');
-     console.log('error!');
-
+if(m_abonado != ""){
     $.ajax({
-		url:"../ajax/producto.php?op=registrar_cargo",
-		method:"POST",
-		data:{tipo_pago:tipo_pago,id_usuario:id_usuario,id_paciente:id_paciente,monto_cargo:monto_cargo,plazo_cargo:plazo_cargo,concepto:concepto,nombre_pac:nombre_pac,codigo_paciente:codigo_paciente},
-		cache: false,
-		dataType:"html",
-		error:function(x,y,z){
-			d_pacole.log(x);
-			console.log(y);
-			console.log(z);
-		},    
+    url:"../ajax/creditos.php?op=registrar_cargos_pacientes",
+    method:"POST",
+    data:{'array_cargos_pacientes':JSON.stringify(cargos),'sucursal':sucursal,'tipo_venta':tipo_venta,'usuario':usuario,'numero_venta':numero_venta,'codigo':codigo,'paciente_name':paciente_name,'plazo':plazo,'abonadas':abonadas,'m_abonado':m_abonado,'recibos':recibos,'monto':monto,'tipo_pago':tipo_pago},
+    cache: false,
+    dataType:"html",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },    
       
-			
-		success:function(data){
+      
+    success:function(data){
 
-	    //var nombre_pac = $("#nombre_pac").val("");
+console.log(data);
+      var abono = $("#abono").val("");
 
             
-            //detalles = [];
+            cargos = [];
             //$('#listProdVentas').html('');
+      $('#errores_ajax').html(data);      
             
               //muestra un mensaje de exito
-          setTimeout ("bootbox.alert('Se ha registrado el cargo con éxito');", 100); 
+          setTimeout ("bootbox.alert('Se ha Realizado el Cargo con exito');", 100); 
           
           //refresca la pagina, se llama a la funtion explode
           setTimeout ("explode();", 2000); 
-         	
-		}
+          
+    }
 
-	});	
+  }); 
 
-	 //cierre del condicional de validacion de los campos del paciente
+  }else{
 
-	 } else{
+  } //cierre del condicional de validacion de los campos del paciente
+  
+     bootbox.alert("Debe llenar todos los campos");
+     return false;
+  }
+   
 
-	 	 bootbox.alert("Debe llenar todos los campos");
-	 	 return false;
-	 } 	
-	
-  }	
+  //*****************************************************************************
+   /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
+       function explode(){
+
+      location.reload();
+}	
 
 
 init();

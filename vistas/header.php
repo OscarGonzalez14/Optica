@@ -297,6 +297,19 @@
      ?>
 
 
+     <?php if($_SESSION["ventas"] == 1)
+
+      {
+        echo 
+         '
+            <li class="treeview-menu">
+                <li><a href="pacientes_planes.php"><i class="fa fa-circle-o"> Planes en Linea</i></li></a>
+            </li>
+        ';
+      }
+
+     ?>
+      
        <?php if($_SESSION["reporte_compras"]==1)
           {
 

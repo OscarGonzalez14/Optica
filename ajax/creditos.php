@@ -380,7 +380,46 @@ break;
 	        }
 
 	break; 
+/////////////////////CARGOS AUTOMATICOS
 
+	case "mostrar_pac_cargo":
+
+
+		$datos=$creditos->get_pacientes_cargo($_POST["id_paciente"]);
+
+	      if(is_array($datos)==true and count($datos)>0){
+
+				foreach($datos as $row)
+				{
+					$output["id_paciente"] = $row["id_paciente"];
+			$output["nombres"] = $row["nombres"];
+			$output["codigo"] = $row["codigo"];
+			$output["numero_tarjeta"] = $row["numero_tarjeta"];
+			$output["fecha_vencimiento_tarjeta"] = $row["fecha_vencimiento_tarjeta"];
+			$output["telefono"] = $row["telefono"];
+			$output["correo"] = $row["correo"];
+			$output["dui"] = $row["dui"];
+			$output["empresa"] = $row["empresa"];
+						
+					
+					
+				}
+		
+		     
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                 $output["error"]="El numero de venta seleccionado está inactivo, intenta con otro";
+
+	        }
+
+	        echo json_encode($output);
+
+
+        
+
+	break;
 
 case "buscar_cobros_paciente":
 
@@ -643,5 +682,11 @@ $sub_array= array();
    
 
 break;
+
+case 'registrar_cargos_pacientes':
+	
+	$creditos->agrega_cargo_abonos();
+
+	break;
 	
 }

@@ -19,6 +19,20 @@ public function get_pacientes(){
           return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
        }
 
+
+public function get_pacientes_planes(){
+
+          $conectar=parent::conexion();
+          parent::set_names();
+
+          $sql="select * from pacientes_afiliados";
+
+          $sql=$conectar->prepare($sql);
+          $sql->execute();
+
+          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+       }
+
   public function codigo_paciente(){
 
     $conectar=parent::conexion();

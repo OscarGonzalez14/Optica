@@ -423,8 +423,7 @@ public function agrega_detalle_cargo(){
   $detalles = array();
   
 
-   $conectar=parent::conexion();
-   
+   $conectar=parent::conexion();   
 
        
        $numero_venta = '04';

@@ -128,7 +128,7 @@
 
     <div class="form-group row">
 
-      <div class="col-xs-2">
+    <div class="col-xs-2">
       <label for="sel1">Tipo de Venta:</label>
         <select class="form-control" id="tipo_venta" name="tipo_venta">
             <option value="">Seleccione</option>

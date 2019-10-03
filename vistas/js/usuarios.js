@@ -19,10 +19,8 @@ var tabla;
 		     //habilita los campos cuando se agrega un registro nuevo ya que cuando se editaba un registro asociado entonces aparecia deshabilitado los campos
 			 $("#cedula").attr('disabled', false);
              $("#nombre").attr('disabled', false);
-             $("#apellido").attr('disabled', false);
-			
-			
-			$(".modal-title").text("Agregar Usuario");
+             $("#apellido").attr('disabled', false);		
+			 $(".modal-title").text("Agregar Usuario");
 		
 	  });
 

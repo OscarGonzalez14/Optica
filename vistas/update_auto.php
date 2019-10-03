@@ -110,7 +110,7 @@
 
     <div class="col-xs-6">
         <label for="ex3">Nombre del Paciente</label>
-        <input class="form-control" id="paciente_cargo" type="text" name="paciente_cargo" >
+        <input class="form-control" id="monto_name" type="text" name="monto_name" >
     </div>
      
     <div class="col-xs-2">
@@ -122,31 +122,38 @@
         <label for="ex3">Fecha de Venc.</label>
         <input class="form-control" id="fecha" type="text" name="fecha" >
     </div>
-     
-    <div class="col-xs-3">
-        <label for="ex3">Monto del Cargo</label>
-        <input class="form-control" id="monto_cargo" type="text" name="monto_cargo" placeholder="monto" >
-    </div>
+ <br>
+    <!--TABLA DETALLA PACIENTE CARGO-->    
+    <table  class="table table-striped table-bordered table-condensed table-hover">
+        <thead style="background-color: #034f84 ;color: white ">
+          <tr><th style="background-color:white"></th></tr>
+          <tr>
 
-      <div class="col-xs-3">
-        <label for="ex3">Plazo</label>
-        <input class="form-control" id="plazo_cargo" type="text" name="plazo_cargo" placeholder="meses plazo" >
-      </div>
+          <th><p align="center"> DUI</p></th>
+          <th><p align="center"> Telefono</p></th>
+          <th><p align="center"> Empresa</p></th>
+          <th><p align="center"> Monto</p></th>
+          <th><p align="center"> Plazo</p></th>
+          <th><p align="center"> Cuotas Abonadas</p></th> 
+          <th><p align="center"> Total abonado</p></th>
+          
+          </tr>
+        </thead>
 
-      <div class="col-xs-3">
-        <label for="ex3">Cuotas Abonadas</label>
-        <input class="form-control" id="c_abonadas" type="text" name="c_abonadas">
-      </div>
+        <tbody id="listarCargos"></tbody>
 
-    <div class="col-xs-3">
-        <label for="ex3">Monto Abonado</label>
-        <input class="form-control" id="m_abonado" type="text" name="monto_abonado">
-      </div>
+      </table>
+    <!--FIN TABLA DETALLA PACIENTE CARGO-->
 
-      <div class="col-xs-12">
-        <label for="ex3">Concepto</label>
-        <input class="form-control" id="concepto" type="text" name="concepto" >
-      </div>
+  <div class="col-xs-12">
+      <label for="ex3">Concepto</label>
+      <input class="form-control" id="concepto" type="text" name="concepto" >
+  </div>
+
+    <div class="col-xs-12">
+      <label for="ex3">Recibos</label>
+      <input class="form-control" id="recibos" type="text" name="recibos" >
+  </div>
 
  
   </div>
@@ -159,7 +166,7 @@
 
  
  
-    <button type="submit" class="btn btn-blue btn-block" onClick="registrarCargoAuto()"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+    <button type="submit" class="btn btn-blue btn-block" onClick="registrar_cargo_pacientes()"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 GUARDAR CARGO AUTOMATICO</button>
 
   </form>
