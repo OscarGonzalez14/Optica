@@ -15,18 +15,7 @@ function init(){
 }
 
 //VALDAR TIPO DE PAGO
-$(document).ready(function(){
-	$("#tipo_venta").change(function () {
 
-					
-		$("#tipo_venta option:selected").each(function () {
-			id_tipo = $(this).val();
-			$.post('../ajax/ventas.php?op=tipo_pago', { id_tipo: id_tipo }, function(data){
-				$("#tipo_pago").html(data);
-			});            
-		});
-	})
-});
 //VALIDAR CUOTA
 $(document).ready(function(){
 	$("#tipo_pago").change(function () {

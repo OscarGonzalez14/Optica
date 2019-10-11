@@ -128,7 +128,7 @@
 
      <div class="col-xs-4">
         <label for="ex1">DUI</label>
-        <input class="form-control" id="dui" name="dui" type="text" placeholder="Escriba el DUI del paciente" required>
+        <input class="form-control" id="dui" name="dui" type="text" placeholder="Escriba el DUI del paciente" >
       </div>
 
       <div class="col-xs-4">
@@ -138,7 +138,7 @@
 
       <div class="col-xs-4">
         <label for="ex3">Edad</label>
-        <input class="form-control" id="edad" type="number" name="edad" placeholder="edad" required>
+        <input class="form-control" id="edad" type="number" name="edad" placeholder="edad" >
       </div>
 
       <div class="col-xs-6">
@@ -153,7 +153,7 @@
 
       <div class="col-xs-6">
         <label for="ex3">Correo</label>
-        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
+        <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente">
       </div>
 
 

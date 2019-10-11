@@ -345,6 +345,46 @@ function editarp(id_paciente)
         
 	}
 
+function editarpac_planes(id_paciente_afiliado)
+{
+	$.post("../ajax/paciente.php?op=editarpac_planes",{id_paciente_afiliado : id_paciente_afiliado}, function(data, status)
+	{
+		data = JSON.parse(data);
+
+
+
+		   console.log(data);
+		
+
+		
+					$('#pacienteplanesModal').modal('show');
+
+					$('#nombres').val(data.nombre);
+					$('#dui').val(data.dui);
+					$('#tarjeta_n').val(data.tarjeta_n);
+					$('#correo').val(data.correo);	
+					/*$('#telefono').val(data.telefono);
+					$('#ocupacion').val(data.ocupacion);	
+					$('#empresa').val(data.empresa);
+					$('#edad').val(data.edad);*/		
+
+	                //$("#codigos").attr('disabled', 'disabled');
+					//$('#correo').val(data.correo);
+				
+                    //$('#id_paciente').val(data.id_paciente);
+
+					$('.modal-title').text("Editar Paciente");
+
+
+		      
+		
+				
+		});
+        
+        
+	}
+
+
     //Función Listar
 function listar_en_ventas(){
 

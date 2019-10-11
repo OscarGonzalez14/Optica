@@ -30,7 +30,8 @@
 
 		 public function set_names(){
 
-		 	return $this->dbh->query("SET NAMES 'utf8'");
+		 return $this->dbh->query("SET NAMES 'utf8'");
+
 		 }
 
 
@@ -41,7 +42,7 @@
 
 
 
-		   //Función para convertir fecha del mes de numero al nombre, ejemplo de 01 a enero
+		  //Función para convertir fecha del mes de numero al nombre, ejemplo de 01 a enero
 	      public static function convertir($string){
 
 	         $string = str_replace(

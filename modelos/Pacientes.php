@@ -176,6 +176,23 @@ public function eliminar_paciente($id_paciente)
 
         }
 
+ public function get_paciente_planes($id_paciente_afiliado){
+
+          $conectar= parent::conexion();
+
+          //$output = array();
+
+          $sql="select * from pacientes_afiliados where id_paciente_afiliado=?";
+
+                $sql=$conectar->prepare($sql);
+
+                $sql->bindValue(1, $id_paciente_afiliado);
+                $sql->execute();
+
+                return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        }        
+
 public function get_pacientes_auto(){
 
           $conectar=parent::conexion();

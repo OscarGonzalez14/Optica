@@ -20,6 +20,7 @@
    $ocupacion=isset($_POST["ocupacion"]);
    $empresa=isset($_POST["empresa"]);
    $correo=isset($_POST["correo"]);
+   $dui=isset($_POST["dui"]);
 
 
      switch($_GET["op"]){
@@ -175,6 +176,25 @@
 
 	 break;
 
+case 'editarpac_planes':
+    
+	$datos=$pacientes->get_paciente_planes($_POST["id_paciente_afiliado"]);
+
+    				foreach($datos as $row)
+    				{
+    					//$output["id_paciente"] = $row["id_paciente"];
+						$output["nombre"] = $row["nombre"];
+						$output["dui"] = $row["dui"];
+						$output["tarjeta_n"] = $row["tarjeta_n"];
+						$output["correo"] = $row["correo"];
+						
+    				}
+        
+         echo json_encode($output);
+
+
+	 break;
+
       case "activarydesactivar":
      
      //los parametros id_paciente y est vienen por via ajax
@@ -252,12 +272,12 @@
 				 $sub_array[] = $row["dui"];
 				 $sub_array[] = $row["tarjeta_n"];
 				 $sub_array[] = $row["celular"];
-				 
+				 $sub_array[] = $row["correo"];
             
           
 
-                 
-                 $sub_array[] = '<button type="button"  class="btn btn-edit btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';
+         $sub_array[] = '<button type="button" onClick="editarpac_planes('.$row["id_paciente_afiliado"].');" class="btn btn-edit btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';
+
 
 
                  

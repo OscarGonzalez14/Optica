@@ -375,7 +375,6 @@
                               $sql_detalle->bindValue(2, $permisos[$num_elementos]);
                               $sql_detalle->execute();
                               
-
                               //recorremos los permisos con este contador
                               $num_elementos=$num_elementos+1;
                           
