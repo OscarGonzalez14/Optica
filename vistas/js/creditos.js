@@ -1051,7 +1051,7 @@ var saldo = cancel[i].saldo = cancel[i].saldo_ant - cancel[i].saldo;
     "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onmouseout='setAbono(event, this, "+(i)+");' value='"+cancel[i].abono_act+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+cancel[i].saldo+"</span> </td>"+
     "<td align='center'>"+
-        "<select class='form-control' id='forma_pagos' name='forma_pagos'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
+    "<select class='form-control' id='forma_pagos' name='forma_pagos'><option value='0'>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option></select>"+
     "</td>"
     +"</tr>";
   }

@@ -33,7 +33,9 @@
      {
 
      ?>
-
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 
         <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -155,6 +157,17 @@ h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 //Lo ordenas a gusto.
 document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
  </script>
+
+ <script>
+  /*$('body').on('click', '.deleteDep', function() {
+   $(this).parents('tr').remove();  
+});*/
+
+  $(document).on('click', '.deleteDep', function (event) {
+    event.preventDefault();
+    $(this).closest('tr').remove();
+});
+</script>
   
   <!--FIN DE CONTENIDO-->
 

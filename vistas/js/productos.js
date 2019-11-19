@@ -419,7 +419,7 @@ function listar_en_compras(){
 
   	
 
-	 var filas = filas + "<tr><td>"+(i+1)+"</td> <td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='marca[]'>" +detalles[i].marca+"</td> <td name='color[]'>" +detalles[i].color+"</td><td>"+detalles[i].stock+"</td><td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td>  <button href='#' class='btn btn-danger btn-lg' role='button' onClick='eliminaProd(event, "+(i)+");' aria-pressed='true'><span class='glyphicon glyphicon-trash'></span> </button></td> </tr>";
+	 var filas = filas + "<tr><td>"+(i+1)+"</td> <td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='marca[]'>" +detalles[i].marca+"</td> <td name='color[]'>" +detalles[i].color+"</td><td>"+detalles[i].stock+"</td><td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td>  <button href='#' class='btn btn-danger btn-lg deleteDep' role='button' aria-pressed='true'><span class='glyphicon glyphicon-trash'></span> </button></td> </tr>";
 
 	}
 
@@ -440,19 +440,15 @@ function listar_en_compras(){
 
 
 
-
   //*******************************************************************
     /*IMPORTANTE:Event es el objeto del evento que los manejadores de eventos utilizan
 parseInt es una función para convertir un valor string a entero
 obj.value es el valor del campo de texto*/
-
- 	function  eliminaProd(event, idx){
-  		event.preventDefault();
-  		console.log('ELIMINAR Eyter');
-  		detalles[idx].estado = 0;
-
-
-  	    $("#cantidad_"+idx).val(1);
+function  eliminaProd(event, idx){
+  	event.preventDefault();
+  	console.log('ELIMINAR Eyter');
+  	detalles[idx].estado = 0;
+  	$("#cantidad_"+idx).val(1);
 
   		listarDetalles();
   	}

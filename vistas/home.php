@@ -37,10 +37,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1 align="center">
-        TRABAJO EN PROGRESO...
-      </h1>
-      <div align="center"><img src="../img/work.png" align="center"/></div>
+       <div align="center"><img src="../img/logooficial2.png" align="center"/></div>
     </section>
 
 <?php
