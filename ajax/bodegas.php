@@ -6,7 +6,7 @@ require_once("../config/conexion.php");
 require_once("../modelos/Productos.php");
 $productos = new Producto();
 
-switch ('op') {
+switch ($_GET["op"]) {
       case "listar_en_bodegas":
 
      $datos=$productos->get_productos();
@@ -17,27 +17,11 @@ switch ('op') {
     foreach($datos as $row)
 			{
 				$sub_array = array();
-				  //STOCK, si es mejor de 10 se pone rojo sino se pone verde
-				  $stock=""; 
-
-				  if($row["stock"]<=10){
-                      
-                     $stock = $row["stock"];
-                     $atributo = "badge bg-red-active";
-                            
-				 
-				  } else {
-
-				     $stock = $row["stock"];
-                     $atributo = "badge bg-green";
-                 
-                 }
-
-				
+				  
 				//$sub_array = array();
 				$sub_array[] = $row["modelo"];
-				$sub_array[] = '<span class="'.$atributo.'">'.$row["stock"].'</span>';
-				$sub_array[] = '<button type="button" name="" id="'.$row["id_producto"].'" onClick="agregarDetalleVenta('.$row["id_producto"].',\''.$row["modelo"].')"><i class="fa fa-plus"></i> Agregar</button>';  
+				$sub_array[] = $row["stock"];
+				$sub_array[] = '<button type="button" class="btn btn-dark name="" id="'.$row["id_producto"].'" onClick="agregarDetalleBodega('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agregar</button>';  
 			
 
 				$data[] = $sub_array;
@@ -54,4 +38,35 @@ switch ('op') {
 
 
      break;
-}
+
+      case "buscar_producto_bodega":
+          
+          $datos=$productos->get_producto_por_id($_POST["id_producto"]);
+
+            /*comprobamos que el producto esté activo, de lo contrario no lo agrega*/
+	      if(is_array($datos)==true) {
+
+				foreach($datos as $row)
+				{
+					$output["id_producto"] = $row["id_producto"];
+					$output["modelo"] = $row["modelo"];
+					$output["stock"] = $row["stock"];
+				}
+		
+		     
+
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                 $output["error"]="El producto seleccionado está inactivo, intenta con otro";
+
+	        }
+
+	        echo json_encode($output);
+
+     break;
+
+
+
+}//Fin Switch

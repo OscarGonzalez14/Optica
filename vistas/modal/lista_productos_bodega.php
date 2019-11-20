@@ -10,20 +10,19 @@
 
 <div class="modal-body">
 
-<table class="table table-bordered" id="lista_productos_bodegas_data">
+<table class="table table-bordered" id="lista_productos_bodegas_data" width="100%">
   <thead>
     <tr>
-      <th scope="col">Descripcion</th>
-      <th scope="col">Existencias</th>
-      <th scope="col">Eliminar</th>
+      <th class="all" style="white-space: nowrap;">Descripcion</th>
+      <th class="all" style="white-space: nowrap;">Existencias</th>
+      <th class="all" style="white-space: nowrap;">Eliminar</th>
     </tr>
-  </thead>
+  </thead>  
 </table>
 
 </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    <button type="button" class="btn btn-primary">Agregar</button>
   </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ function init(){
 
 function listar_en_bodegas(){
 
-	tabla_en_bodegas=$('#lista_productos_bodegas_data').dataTable(
+	tabla_en_bodegas = $('#lista_productos_bodegas_data').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -85,4 +85,123 @@ function listar_en_bodegas(){
 	}).DataTable();
 }
 
- init();
+var detalles = [];	
+function agregarDetalleBodega(id_producto){
+	$.ajax({
+	url:"../ajax/bodegas.php?op=buscar_producto_bodega",
+	method:"POST",
+	data:{id_producto:id_producto},
+	cache: false,
+	dataType:"json",
+
+	success:function(data){                       
+        if(data.id_producto){
+			if (typeof data == "string"){
+				data = $.parseJSON(data);
+		}
+		console.log(data);
+		                
+		var obj = {
+			cantidad : 1,
+			codProd  : id_producto,
+			stock    : data.stock,
+			modelo	 : data.modelo
+		};		                
+	
+	detalles.push(obj);
+	listarDetallesBodegas();
+
+	$('#lista_productos_bodegas_Modal').modal("hide");
+
+	}//if validacion id_producto
+
+        else {
+
+        	bootbox.alert(data.error);
+        }
+                  
+    }//fin success		
+
+	});//fin de ajax
+			
+}// fin de funcion
+
+function listarDetallesBodegas(){
+  	$('#listIngresoSA').html('');
+  	var filas = "";
+  	
+  	
+  	for(var i=0; i<detalles.length; i++){
+		            
+        var filas = filas + "<tr><td>"+(i+1)+"</td></td><td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='stock[]' id='stock[]'>"+detalles[i].stock+"</td> <td style='8px'> <input type='number' class='cantidad form-control' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td><td><i class='fa fa-trash fa-2x' style='color: red' aria-hidden='true' onclick='deleteRow(this)'></i></td> <td> <input type='hidden' name='cod_prod' id='cod_prod' value='"+detalles[i].codProd+"'></tr>";
+		
+	}//cierre for
+
+	
+	$('#listIngresoSA').html(filas);
+
+  }
+
+ 	function  eliminarProd(event, idx){
+  		event.preventDefault();
+  		console.log('ELIMINAR Eyter');
+  		detalles[idx].estado = 0;
+}
+
+function deleteRow(r) {
+  var i = r.parentNode.parentNode.rowIndex;
+  document.getElementById("tabla_bodegas").deleteRow(i);
+}
+
+
+function registrarIngreso(){
+
+    var sucursal = $("#sucursal").val();
+
+    if(sucursal!=""){
+    console.log('error.Oscar');
+    $.ajax({
+		url:"../ajax/bodegas.php?op=registrar_ingreso",
+		method:"POST",
+		data:{'arrayIngreso':JSON.stringify(detalles), 'modelo':modelo,'stock':stock,'cantidad':cantidad, 'cod_prod':cod_prod},
+		cache: false,
+		dataType:"html",
+		error:function(x,y,z){
+			console.log(x);
+			console.log(y);
+			console.log(z);
+		},
+         
+      
+			
+		success:function(data){
+        	alert('Se ha registrado el ingreso con éxito'); 
+          
+          //refresca la pagina, se llama a la funtion explode
+        setTimeout ("explode();", 2000); 
+         	
+		}
+
+	});	
+
+	 //cierre del condicional de validacion de los campos del cliente
+
+	 } else{
+
+	 	alert("Falta algun campo");
+	 	 return false;
+	 } 	
+	
+  }
+
+   
+
+  //*****************************************************************************
+   /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
+       function explode(){
+
+	    location.reload();
+}
+
+
+ init();  	
