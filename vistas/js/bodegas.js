@@ -102,7 +102,7 @@ function agregarDetalleBodega(id_producto){
 		console.log(data);
 		                
 		var obj = {
-			cantidad : 1,
+			cantidad : 2,
 			codProd  : id_producto,
 			stock    : data.stock,
 			modelo	 : data.modelo
@@ -130,16 +130,21 @@ function listarDetallesBodegas(){
   	$('#listIngresoSA').html('');
   	var filas = "";
   	
-  	
   	for(var i=0; i<detalles.length; i++){
 		            
-        var filas = filas + "<tr><td>"+(i+1)+"</td></td><td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='stock[]' id='stock[]'>"+detalles[i].stock+"</td> <td style='8px'> <input type='number' class='cantidad form-control' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td><td><i class='fa fa-trash fa-2x' style='color: red' aria-hidden='true' onclick='deleteRow(this)'></i></td> <td> <input type='hidden' name='cod_prod' id='cod_prod' value='"+detalles[i].codProd+"'></tr>";
+        var filas = filas + "<tr><td>"+(i+1)+"</td></td><td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='stock[]' id='stock[]'>"+detalles[i].stock+"</td> <td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td><i class='fa fa-trash fa-2x' style='color: red' aria-hidden='true' onclick='deleteRow(this)'></i></td> <td> <input type='text' name='cod_prod' id='cod_prod' value='"+detalles[i].codProd+"'></tr>";
 		
 	}//cierre for
 
 	
 	$('#listIngresoSA').html(filas);
 
+  }
+
+    function setCantidad(event, obj, idx){
+  	event.preventDefault();
+  	detalles[idx].cantidad = parseInt(obj.value);
+  	recalcular(idx);
   }
 
  	function  eliminarProd(event, idx){
@@ -157,25 +162,25 @@ function deleteRow(r) {
 function registrarIngreso(){
 
     var sucursal = $("#sucursal").val();
+    var id_producto =$('#cod_prod').val();
 
     if(sucursal!=""){
     console.log('error.Oscar');
     $.ajax({
-		url:"../ajax/bodegas.php?op=registrar_ingreso",
+		url:"../ajax/producto.php?op=registrar_ingreso",
 		method:"POST",
-		data:{'arrayIngreso':JSON.stringify(detalles), 'modelo':modelo,'stock':stock,'cantidad':cantidad, 'cod_prod':cod_prod},
+		data:{'arrayIngreso':JSON.stringify(detalles),'sucursal':sucursal, 'id_producto':id_producto},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
 			console.log(x);
 			console.log(y);
 			console.log(z);
-		},
-         
+	},      
       
 			
-		success:function(data){
-        	alert('Se ha registrado el ingreso con éxito'); 
+	success:function(data){
+        alert('Se ha registrado el ingreso con éxito'); 
           
           //refresca la pagina, se llama a la funtion explode
         setTimeout ("explode();", 2000); 

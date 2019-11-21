@@ -48,7 +48,7 @@
     <div class="form-group col-md-12">
       <label for="sucursal">Seleccionar Bodega</label>
       <select id="sucursal" class="form-control">
-        <option selected value="0">Seleccionar</option>
+        <option selected value="">Seleccionar</option>
         <option value="Metrocentro">Metrocentro</option>
         <option value="Santa Ana">Santa Ana</option>
         <option value="San Miguel">San Miguel</option>

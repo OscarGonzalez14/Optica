@@ -471,9 +471,127 @@
 
       }
 
-    
-   }
+//verificamos si existe el producto en bodega
+
+public function get_producto_por_id_suscursal($id_producto, $sucursal)
+{
+
+  $conectar= parent::conexion();
+  $sql="select * from existencias where id_producto=? and bodega=?";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1, $id_producto);
+  $sql->bindValue(2, $sucursal);
+  $sql->execute();
+
+  //echo $sql;
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
+public function agrega_detalle_existencia(){
+
+  $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayIngreso']);
+
+
+   
+   $conectar=parent::conexion();
+
+
+  foreach ($detalles as $k => $v) {
+    $modelo = $v->modelo;
+    $cantidad = $v->cantidad;
+
+    $sucursal = $_POST["sucursal"];
+    $id_producto = $_POST["id_producto"];
+    //$id_usuario = $_POST["id_usuario"];
+       
+    $sql3="select * from existencias where id_producto=? and bodega=?;";
+
+             //echo $sql3;
+             
+             $sql3=$conectar->prepare($sql3);
+
+             $sql3->bindValue(1,$id_producto);
+             $sql3->bindValue(2,$sucursal);
+             $sql3->execute();
+
+             $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
+
+                  foreach($resultado as $b=>$row){
+
+                    $re["existencia"] = $row["stock"];
+
+                  }
+
+                //la cantidad total es la suma de la cantidad más la cantidad actual
+                $cantidad_total = $cantidad + $row["stock"];
+
+             
+               //si existe el producto entonces actualiza el stock en producto
+              
+               if(is_array($resultado)==true and count($resultado)>0) {
+                     
+                  //actualiza el stock en la tabla producto
+
+                 $sql4 = "update existencias set 
+                      
+                      stock=?
+                      where 
+                      id_producto=? and bodega=?
+                 ";
+
+
+                $sql4 = $conectar->prepare($sql4);
+                $sql4->bindValue(1,$cantidad_total);
+                $sql4->bindValue(2,$id_producto);
+                $sql4->bindValue(3,$sucursal);
+                $sql4->execute();
+
+               } //cierre la condicional
+
+
+       }
+}
+
+public function insert_bodega(){
+
+  $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayIngreso']);
+
+
+   
+   $conectar=parent::conexion();
+
+
+  foreach ($detalles as $k => $v) {
+    $modelo = $v->modelo;
+    $cantidad = $v->cantidad;
+
+    $sucursal = $_POST["sucursal"];
+    $id_producto = $_POST["id_producto"];
+    //$id_usuario = $_POST["id_usuario"];
+       
+        $sql="insert existencias
+        values(null,?,?,?);";
+
+
+        $sql=$conectar->prepare($sql);
+
+        $sql->bindValue(1,$id_producto);
+        $sql->bindValue(2,$cantidad);
+        $sql->bindValue(3,$sucursal);
+       
+        $sql->execute();
+
+
+       }//cierre foreach
+      }      
+
+
+
+}
 
 ?>

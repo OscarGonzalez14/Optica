@@ -21,6 +21,7 @@
    $precio_venta=isset($_POST["precio_venta"]);
    $stock=isset($_POST["stock"]);
    $categoria=isset($_POST["categoria"]);
+   $sucursal=isset($_POST["sucursal"]);
 
         
 
@@ -709,8 +710,19 @@ case "eliminar_producto":
 
      break;
 
-       }
-  	
-     
+case "registrar_ingreso";
 
+	$verificar_ingreso=$productos->get_producto_por_id_suscursal($_POST["id_producto"],$_POST["sucursal"]);
+	if(is_array($verificar_ingreso)==true and count($verificar_ingreso)>0){
+
+	$productos->agrega_detalle_existencia();
+
+		}else {
+
+	$productos->insert_bodega();		   
+		}
+
+break;
+     
+}
 ?>
