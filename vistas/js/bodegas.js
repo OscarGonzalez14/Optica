@@ -102,7 +102,7 @@ function agregarDetalleBodega(id_producto){
 		console.log(data);
 		                
 		var obj = {
-			cantidad : 2,
+			cantidad : 1,
 			codProd  : id_producto,
 			stock    : data.stock,
 			modelo	 : data.modelo
@@ -132,7 +132,7 @@ function listarDetallesBodegas(){
   	
   	for(var i=0; i<detalles.length; i++){
 		            
-        var filas = filas + "<tr><td>"+(i+1)+"</td></td><td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='stock[]' id='stock[]'>"+detalles[i].stock+"</td> <td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td><i class='fa fa-trash fa-2x' style='color: red' aria-hidden='true' onclick='deleteRow(this)'></i></td> <td> <input type='text' name='cod_prod' id='cod_prod' value='"+detalles[i].codProd+"'></tr>";
+        var filas = filas + "<tr><td>"+(i+1)+"</td></td><td name='modelo[]'>"+detalles[i].modelo+"</td> <td name='stock[]' id='stock[]'>"+detalles[i].stock+"</td> <td><input type='number' class='cantidad input-group-sm' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'></td> <td><i class='fa fa-trash fa-2x' style='color: red' aria-hidden='true' onclick='deleteRow(this)'></i></td> <td> <input type='hidden' name='cod_prod' id='cod_prod' value='"+detalles[i].codProd+"'></tr>";
 		
 	}//cierre for
 
@@ -193,7 +193,7 @@ function registrarIngreso(){
 
 	 } else{
 
-	 	alert("Falta algun campo");
+	 	alert("Debe seleccionar bodega");
 	 	 return false;
 	 } 	
 	

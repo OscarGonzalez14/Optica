@@ -603,6 +603,20 @@
 
      break;
 
+         case "registrar_venta2";
+
+        //se llama al modelo Ventas.php
+
+        require_once('../modelos/Ventas.php');
+
+	    $venta = new Ventas();
+
+	    $venta->agrega_detalle_venta2();
+
+
+
+     break;
+
     case "registrar_cargo";
 
         //se llama al modelo Ventas.php

@@ -262,7 +262,7 @@ public function agrega_detalle_venta(){
     $medidas = $v->medidas;
 		$precio_venta = $v->precio_venta; 
 		$dscto = $v->dscto;
-		$importe = $v->importe;
+		//$importe = $v->importe;
   	//$estado = $v->estado;
 
 		//echo "***************";
@@ -272,7 +272,7 @@ public function agrega_detalle_venta(){
 		   $cod_pac = ["cod_pac"];
 		   //$paciente_nombre = $_POST["nombre"];
 		   $nombre_pac = $_POST["nombre_pac"];
-		   $tipo_pago = $_POST["tipo_pago"];
+		   $tipo_pago ="Cargo Automatico";
 		   $subtotal = $_POST["subtotal"];
 		   $usuario = $_POST["usuario"];
        $sucursal = $_POST["sucursal"];
@@ -280,6 +280,8 @@ public function agrega_detalle_venta(){
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
        $plazo = $_POST["plazo"];
+       $descripcion = $_POST["descripcion"];
+       $importe = $_POST["importe"];
 		   
 
         $sql="insert into detalle_ventas
@@ -291,8 +293,8 @@ public function agrega_detalle_venta(){
         $sql->bindValue(1,$numero_venta);
         //$sql->bindValue(2,$cod_pac);
         $sql->bindValue(2,$codProd);
-        $sql->bindValue(3,$modelo);
-        $sql->bindValue(4,$precio_venta);
+        $sql->bindValue(3,$descripcion);
+        $sql->bindValue(4,$importe);
         $sql->bindValue(5,$cantidad);
         $sql->bindValue(6,$dscto);
         $sql->bindValue(7,$importe);
@@ -349,34 +351,7 @@ public function agrega_detalle_venta(){
 	     }//cierre del foreach
 
 	
-        /*$sql5="select sum(importe) as total from detalle_ventas where numero_venta=?";
-      
-         $sql5=$conectar->prepare($sql5);
-
-         $sql5->bindValue(1,$numero_venta);
-
-         $sql5->execute();
-
-         $resultado2 = $sql5->fetchAll();
-
-             foreach($resultado2 as $c=>$d){
-
-                $row["total"]=$d["total"];
-               
-             }
-
-             $subtotal=$d["total"];
-
-              //REALIZO EL CALCULO A REGISTRAR
-		      $iva= 13/100;
-		      $total_iv=$subtotal*$iva;
-		      $total_iva=round($total_iv);
-		      $tot=$subtotal+$total_iva;
-		      $total=round($tot);*/
-
-        //IMPORTANTE: hay que sacar la consulta INSERT INTO VENTAS fuera del foreach sino se repetiria el registro en la tabla ventas
-
-	    
+   
 
            $sql2="insert into ventas 
            values(null,now(),?,?,?,?,?,?,?,?,?);";
@@ -388,7 +363,7 @@ public function agrega_detalle_venta(){
            $sql2->bindValue(1,$numero_venta);
            $sql2->bindValue(2,$nombre_pac);
            $sql2->bindValue(3,$usuario);       
-           $sql2->bindValue(4,$subtotal);
+           $sql2->bindValue(4,$importe);
            $sql2->bindValue(5,$tipo_pago);
            $sql2->bindValue(6,$tipo_venta);          
            $sql2->bindValue(7,$id_usuario);
@@ -401,9 +376,9 @@ public function agrega_detalle_venta(){
 
            $sql7=$conectar->prepare($sql7);
 
-           $sql7->bindValue(1,$subtotal);
+           $sql7->bindValue(1,$importe);
            $sql7->bindValue(2,$plazo);
-           $sql7->bindValue(3,$subtotal);
+           $sql7->bindValue(3,$importe);
            $sql7->bindValue(4,$tipo_pago);
            $sql7->bindValue(5,$numero_venta);
            $sql7->bindValue(6,$id_paciente);
@@ -413,6 +388,155 @@ public function agrega_detalle_venta(){
           
   	  }
 
+public function agrega_detalle_venta2(){
+
+       
+  //echo json_encode($_POST['arrayCompra']);
+  $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayVenta']);
+
+
+   
+   $conectar=parent::conexion();
+
+
+  foreach ($detalles as $k => $v) {
+    //echo $v->codProd;
+    //IMPORTANTE:estas variables son del array detalles
+    $cantidad = $v->cantidad;
+    //$codProd = $v->codProd;
+    $modelo = $v->modelo;
+    //$marca = $v->marca;
+    //$color = $v->color;
+    //$medidas = $v->medidas;
+    //$precio_venta = $v->precio_venta; 
+    //$dscto = $v->dscto;
+    //$importe = $v->importe;
+    //$estado = $v->estado;
+
+    //echo "***************";
+    //echo "Cant: ".$cantidad." codProd: ".$codProd. " Producto: ". $producto. " moneda: ".$moneda. " precio: ".$precio. " descuento: ".$dscto. " estado: ".$estado;
+
+       $numero_venta = $_POST["numero_venta"];
+       $cod_pac = ["cod_pac"];
+       //$paciente_nombre = $_POST["nombre"];
+       $nombre_pac = $_POST["nombre_pac"];
+       $tipo_pago ="Cargo Automatico";
+       $subtotal = $_POST["subtotal"];
+       $usuario = $_POST["usuario"];
+       $sucursal = $_POST["sucursal"];
+       $tipo_venta = $_POST["tipo_venta"];
+       $id_usuario = $_POST["id_usuario"];
+       $id_paciente = $_POST["id_paciente"];
+       $plazo = $_POST["plazo"];
+       $descripcion = $_POST["descripcion"];
+       $importe = $_POST["importe"];
+       
+
+        $sql="insert into detalle_ventas
+        values(null,?,?,?,?,?,?,?,now(),?,?);";
+
+
+        $sql=$conectar->prepare($sql);
+
+        $sql->bindValue(1,$numero_venta);
+        //$sql->bindValue(2,$cod_pac);
+        $sql->bindValue(2,$codProd);
+        $sql->bindValue(3,$descripcion);
+        $sql->bindValue(4,$importe);
+        $sql->bindValue(5,$cantidad);
+        $sql->bindValue(6,$dscto);
+        $sql->bindValue(7,$importe);
+        $sql->bindValue(8,$id_usuario);
+        $sql->bindValue(9,$id_paciente);
+
+       
+       
+        $sql->execute();
+         
+        $sql3="select * from producto where id_producto=?;";
+
+
+             
+             $sql3=$conectar->prepare($sql3);
+
+             $sql3->bindValue(1,$codProd);
+             $sql3->execute();
+
+             $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
+
+                  foreach($resultado as $b=>$row){
+
+                    $re["existencia"] = $row["stock"];
+
+                  }
+
+                //la cantidad total es la resta del stock menos la cantidad de productos vendido
+                $cantidad_total = $row["stock"] - $cantidad;
+
+             
+               //si existe el producto entonces actualiza el stock en producto
+              
+               if(is_array($resultado)==true and count($resultado)>0) {
+                     
+                  //actualiza el stock en la tabla producto
+
+                 $sql4 = "update producto set 
+                      
+                      stock=?
+                      where 
+                      id_producto=?
+                 ";
+
+
+                $sql4 = $conectar->prepare($sql4);
+                $sql4->bindValue(1,$cantidad_total);
+                $sql4->bindValue(2,$codProd);
+                $sql4->execute();
+
+               } //cierre la condicional
+
+
+       }//cierre del foreach
+
+  
+   
+
+           $sql2="insert into ventas 
+           values(null,now(),?,?,?,?,?,?,?,?,?);";
+
+
+           $sql2=$conectar->prepare($sql2);
+           
+          
+           $sql2->bindValue(1,$numero_venta);
+           $sql2->bindValue(2,$nombre_pac);
+           $sql2->bindValue(3,$usuario);       
+           $sql2->bindValue(4,$importe);
+           $sql2->bindValue(5,$tipo_pago);
+           $sql2->bindValue(6,$tipo_venta);          
+           $sql2->bindValue(7,$id_usuario);
+           $sql2->bindValue(8,$id_paciente);
+           $sql2->bindValue(9,$sucursal);
+           $sql2->execute();
+
+           //INSERTAR EN LA TABLA CREDITOS
+           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,now());";
+
+           $sql7=$conectar->prepare($sql7);
+
+           $sql7->bindValue(1,$importe);
+           $sql7->bindValue(2,$plazo);
+           $sql7->bindValue(3,$importe);
+           $sql7->bindValue(4,$tipo_pago);
+           $sql7->bindValue(5,$numero_venta);
+           $sql7->bindValue(6,$id_paciente);
+           $sql7->bindValue(7,$id_usuario);
+           $sql7->execute();
+
+          
+      }
 
 //////////////////////////REGISTRAR CARGOS AUTOMATICOS
 

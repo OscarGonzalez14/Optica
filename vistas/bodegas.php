@@ -23,9 +23,13 @@
 <body>
 <?php require_once("modal/lista_productos_bodega.php");?>
 <div id="tabla-planes">
-    <h3 class="header-planes" style="color:white"> GESTIÓN DE BODEGAS</h3>
-
-<div class="tabla-planes">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="productos.php">Regresar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Bodegas</li>
+  </ol>
+</nav>
+   <div class="tabla-planes">
 
     <div class="col-p">
       <div class="table-plan" id="sa">
@@ -45,13 +49,13 @@
 
 <div class="tabla-planes"><!--Items Productos-->
   <form>
-    <div class="form-group col-md-12">
+    <div class="form-group has-success col-md-12">
       <label for="sucursal">Seleccionar Bodega</label>
-      <select id="sucursal" class="form-control">
+      <select id="sucursal" class="form-control form-control-success" style="border-color: #5bc0de; border: solid 2px #5bc0de">
         <option selected value="">Seleccionar</option>
         <option value="Metrocentro">Metrocentro</option>
         <option value="Santa Ana">Santa Ana</option>
-        <option value="San Miguel">San Miguel</option>
+        <option value="Bodega Central">Bodega Central</option>
       </select>
     </div>
   <div style="overflow-x:auto;">

@@ -13,6 +13,7 @@
 <table class="table table-bordered" id="lista_productos_bodegas_data" width="100%">
   <thead>
     <tr>
+      <th class="all" style="white-space: nowrap;">id</th>
       <th class="all" style="white-space: nowrap;">Descripcion</th>
       <th class="all" style="white-space: nowrap;">Existencias</th>
       <th class="all" style="white-space: nowrap;">Eliminar</th>

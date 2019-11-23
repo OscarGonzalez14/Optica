@@ -74,15 +74,12 @@
   <div>
       <nav class="navbar navbar-inverse">
 
-      <ul class="nav navbar-nav">
-          <li class="active"><a href="#">MODULO DE VENTAS</a></li>
-          <li><a href="#">Creditos y Pagos</a></li>
-          <li><a href="consultar_ventas.php">Reportes General de Ventas</a></li>
-
+      <ul class="nav navbar-nav" style="background-color: red">
+          <li class="active" style="background-color: red; color:white"><a href="abonos.php">Realizar Abono</a></li>
       </ul>
       </div>
     </nav>        
-<div id="factheader"><h4 align="center">Ventas</h4></div>
+<div id="factheader"><h4 align="center">ACTUALIZA CARGOS AUTOMATICOS</h4></div>
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
   
@@ -186,27 +183,11 @@
 
     <div class="form-group row">
 
-<div class="col-xs-3">
-   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Agregar Cargo</button>
-  </div>
+    <div class="col-xs-3">
+      <button class="btn btn-dark btn-block" type="button" onclick="agregarCargoAuto()"><span class="glyphicon glyphicon-plus"></span> Agregar Cargo</button>
+    </div>
 
-  <div class="col-xs-2">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_lentes_ventas_Modal"><span class="glyphicon glyphicon-sunglasses"></span>  Lentes</button>  
-  </div> 
-
-    <div class="col-xs-2">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_acc_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Accesorios</button>  
-  </div>
-
-      <div class="col-xs-2">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_ar_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Tipo AR</button>  
-  </div>
-
-  <div class="col-xs-3">
-    <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_photo_ventas_Modal"><span class="glyphicon glyphicon-tasks"></span>  Photosensible</button>  
-  </div>
-
-  </div><!--form-group-->
+</div><!--form-group-->
     </div> 
 
 </div><!--Fin row 2-->
@@ -235,29 +216,17 @@
                 
             <th class="all">Item</th>
             <th>Cantidad</th>
-            <th width="30%">Descripcion</th>
-         
-            <th width="10%">Desc. %</th>
-            <th width="10%">P. Unitario</th>
-            <th >Subtotal</th>
+            <th width="30%">Descripcion</th>         
+            <th >Total</th>
             </tr>
           </thead>
                   
           <div id="resultados_ventas_ajax"></div>
                  
 
-                 <tbody id="listProdVentas">
+                 <tbody id="listProdVentas2">
                   
                 </tbody>
-
-          <thead>            
-    <th class="all" colspan="3"><p align="center">SUMAS</p></th> 
-    <th class="all" colspan="2"><p align="right"></p></th>
-
-    <th style="background:white" class="all" colspan="2" ><h5 id="subtotal" name="subtotal" align="center">000.00</h5><input type="hidden"></th>
-                
-        </tr>
-        </thead>
 
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
@@ -265,8 +234,7 @@
 <input type="hidden" name="id_paciente" id="id_paciente"/>                
   </table>
  <div class="boton_registrar">
-<button type="button" onClick="registrarVenta()" class="btn btn-blue pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
-<button type="button" class="btn btn-dark pull-right btn-block abono_ini" onClick="abono_inicial()"><i class="fa fa-save" aria-hidden="true"></i>  Abono Inicial</button>
+<button type="button" onClick="registrarActualizacion()" class="btn btn-blue pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
 </div>
 
     </div> 
@@ -321,9 +289,8 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
     <!--AJAX PROVEEDORES-->
 <script type="text/javascript" src="js/paciente.js"></script>
 
-   <!--AJAX PRODUCTOS-->
-<script type="text/javascript" src="js/productos.js"></script>
-<script type="text/javascript" src="js/ventas.js"></script>
+<script type="text/javascript" src="js/update_cargos.js"></script>
+
 
 
 

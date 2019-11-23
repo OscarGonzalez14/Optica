@@ -1084,7 +1084,7 @@ else{
 	    
  	importe = detalles[i].importe = detalles[i].importe - (detalles[i].importe * detalles[i].dscto/100);
  	var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].marca+"-"+detalles[i].modelo+"- "+detalles[i].medidas+"<td><input min='0' max='20' type='number' name='descuento[]' id='descuento[]' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td> <td><input  name='descripcion' id='descripcion' type='text'></td><input min='0' max='20' type='number' name='descuento[]' id='descuento[]' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='0'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td><input  name='importe' id='importe' type='text'></tr>";
 	
     subtotal = subtotal + importe;
 
@@ -1307,6 +1307,8 @@ obj.value es el valor del campo de texto*/
     var id_usuario = $("#id_usuario").val();
     var id_paciente = $("#id_paciente").val();
     var plazo = $("#plazo").val();
+    var descripcion = $("#descripcion").val();
+    var importe = $("#importe").val();
 
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
@@ -1319,7 +1321,7 @@ obj.value es el valor del campo de texto*/
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){

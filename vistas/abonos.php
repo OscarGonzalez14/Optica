@@ -74,7 +74,7 @@
    </div>
 
 <div class="col-sm-2">
-<h3><button class="btn btn-danger" data-toggle="modal" data-target="#pacienteModal_auto"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><strong> C_Auto</button></strong></h3>
+<h3><a href="cargos_update.php"><button class="btn btn-danger"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><strong> C_Auto</button></a></strong></h3>
    </div>
 
 
