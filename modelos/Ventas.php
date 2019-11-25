@@ -420,7 +420,7 @@ public function agrega_detalle_venta2(){
 
        $numero_venta = $_POST["numero_venta"];
        $cod_pac = ["cod_pac"];
-       //$paciente_nombre = $_POST["nombre"];
+
        $nombre_pac = $_POST["nombre_pac"];
        $tipo_pago ="Cargo Automatico";
        $subtotal = $_POST["subtotal"];
