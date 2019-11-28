@@ -14,8 +14,8 @@
   <thead>
     <tr>
       <th class="all" style="white-space: nowrap;">id</th>
+      <th class="all" style="white-space: nowrap;">Marca</th>
       <th class="all" style="white-space: nowrap;">Descripcion</th>
-      <th class="all" style="white-space: nowrap;">Existencias</th>
       <th class="all" style="white-space: nowrap;">Eliminar</th>
     </tr>
   </thead>  

@@ -128,49 +128,58 @@
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Agregar Aros</h4>
-        </div>
-        <div class="modal-body">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Agregar Aros</h4>
+  </div>
+  <div class="modal-body">
 
     <form class="form-horizontal" method="post" id="producto_form" enctype="multipart/form-data">
     <div class="form-group row">
      
       <div class="col-xs-4">
         <label for="ex1">Marca</label>
-        <input class="form-control" id="marca" name="marca" type="text" placeholder="marca" required>
+        <input class="form-control" id="marca" name="marca" type="text" placeholder="marca" onkeyup="mayus(this);" required>
       </div>
       <div class="col-xs-4">
         <label for="ex3">Modelo</label>
-        <input class="form-control" id="modelo" type="text" name="modelo" placeholder="modelo">
+        <input class="form-control" id="modelo" type="text" name="modelo" placeholder="modelo" onkeyup="mayus(this);" required>
       </div>
 
       <div class="col-xs-4">
         <label for="ex2">Color</label>
-        <input class="form-control" id="color" type="text" name="color" placeholder="Color">
+        <input class="form-control" id="color" type="text" name="color" placeholder="Color" onkeyup="mayus(this);" required>
       </div>
 
-      <div class="col-xs-4">
+      <div class="col-xs-2">
         <label for="ex3">Medidas</label>
         <input class="form-control" id="medidas" type="text" name="medidas" placeholder="medidas" required>
       </div>
 
-      <div class="col-xs-4">
+      <div class="col-xs-2">
         <label for="ex3">Precio</label>
         <input class="form-control" id="precio_venta" type="text" name="precio_venta" placeholder="Precio">
       </div>
 
       <div class="col-xs-4">
-        <label for="ex3">Stock Inicial</label>
-        <input class="form-control" id="stock" type="text" name="stock" value="0" placeholder="0">
+        <label>Categoría</label>
+           <select class="form-control" id="categoria-u" name="categoriau" required>
+              <option value="">-- categoría --</option>
+              <option value="Acetato Mujer 1" selected>Acetato Mujer 1</option>
+              <option value="Metalicos Economicos">Metalicos Economicos</option>
+            </select>
       </div>
 
-     </div>
+      <div class="col-xs-4">
+        <label for="ex3">Imagen</label>
+          <input type="file" id="producto_imagen" name="producto_imagen"><span id="producto_uploaded_image"></span>
+      </div>      
+
+</div>
     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
     <input type="hidden" name="id_producto" id="id_producto"/>
-        <input type="hidden" name="categoria" id="categoria" value="aros"/>
+    <input type="hidden" name="categoria" id="categoria" value="aros"/>
 
     <button type="submit" id="agregar" name="agregar" class="btn btn-blue btn-block"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 Guardar</button>
@@ -198,6 +207,11 @@ h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 
 //Lo ordenas a gusto.
 document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+
+
+function mayus(e) {
+    e.value = e.value.toUpperCase();
+}
  </script>
 
 

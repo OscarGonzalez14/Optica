@@ -347,6 +347,48 @@ public function agrega_detalle_venta(){
 
                } //cierre la condicional
 
+    $sql11="select * from existencias where id_producto=? and bodega=?;";
+
+             //echo $sql3;
+             
+             $sql11=$conectar->prepare($sql3);
+
+             $sql11->bindValue(1,$codProd);
+             $sql11->bindValue(2,$sucursal);
+             $sql11->execute();
+
+             $resultados = $sql11->fetchAll(PDO::FETCH_ASSOC);
+
+                  foreach($resultados as $b=>$row){
+
+                    $re["existencias"] = $row["stock"];
+
+                  }
+
+                //la cantidad total es la suma de la cantidad más la cantidad actual
+                $cantidad_totales = $row["stock"] - $cantidad;
+
+             
+               //si existe el producto entonces actualiza el stock en producto
+              
+               if(is_array($resultados)==true and count($resultados)>0) {
+                     
+                  //actualiza el stock en la tabla producto
+
+                 $sql12 = "update existencias set 
+                      
+                      stock=?
+                      where 
+                      id_producto=? and bodega=?
+                 ";
+
+
+                $sql12 = $conectar->prepare($sql12);
+                $sql12->bindValue(1,$cantidad_total);
+                $sql12->bindValue(2,$codProd);
+                $sql12->bindValue(3,$sucursal);
+                $sql12->execute();               
+}
 
 	     }//cierre del foreach
 

@@ -47,7 +47,7 @@
 
                  
                  //validacion de password
-                 if($password1 == $password2){
+                 if($password1 !=""){
 
                      /*si el id no existe entonces lo registra
                        importante: se debe poner el $_POST sino no funciona*/

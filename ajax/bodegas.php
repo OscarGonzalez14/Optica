@@ -19,8 +19,9 @@ switch ($_GET["op"]) {
 				$sub_array = array();
 				  
 				$sub_array[] = $row["id_producto"];
-				$sub_array[] = $row["modelo"]." ".$row["marca"]." ".$row["color"]." ".$row["medidas"];
-				$sub_array[] = $row["stock"];
+				$sub_array[] = $row["marca"];
+				$sub_array[] = $row["modelo"]." ".$row["color"]." ".$row["medidas"];
+				//$sub_array[] = $row["stock"];
 				$sub_array[] = '<button type="button" class="btn btn-dark name="" id="'.$row["id_producto"].'" onClick="agregarDetalleBodega('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agregar</button>';  
 			
 
@@ -51,6 +52,7 @@ switch ($_GET["op"]) {
 					$output["id_producto"] = $row["id_producto"];
 					$output["modelo"] = $row["modelo"];
 					$output["stock"] = $row["stock"];
+					$output["categoriau"] = $row["categoriau"];
 				}
 		
 		     

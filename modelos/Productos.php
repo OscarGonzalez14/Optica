@@ -135,14 +135,14 @@
 
           //método para insertar registros
 
-        public function registrar_producto($modelo,$marca,$color,$precio_venta,$stock,$id_usuario,$medidas,$categoria){
+        public function registrar_producto($modelo,$marca,$color,$precio_venta,$stock,$id_usuario,$medidas,$categoria,$categoriau){
 
 
             $conectar=parent::conexion();
             parent::set_names();
            
             $sql="insert into producto
-            values(null,?,?,?,?,?,?,?,?);";
+            values(null,?,?,?,?,?,?,?,?,?);";
 
 
             $sql=$conectar->prepare($sql);
@@ -155,6 +155,7 @@
             $sql->bindValue(6, $_POST["id_usuario"]);
             $sql->bindValue(7, $_POST["medidas"]);
             $sql->bindValue(8, $_POST["categoria"]);
+            $sql->bindValue(9, $_POST["categoriau"]);
             $sql->execute();
 
            
@@ -502,6 +503,7 @@ public function agrega_detalle_existencia(){
   foreach ($detalles as $k => $v) {
     $modelo = $v->modelo;
     $cantidad = $v->cantidad;
+    $codProd = $v->codProd;
 
     $sucursal = $_POST["sucursal"];
     $id_producto = $_POST["id_producto"];
@@ -513,7 +515,7 @@ public function agrega_detalle_existencia(){
              
              $sql3=$conectar->prepare($sql3);
 
-             $sql3->bindValue(1,$id_producto);
+             $sql3->bindValue(1,$codProd);
              $sql3->bindValue(2,$sucursal);
              $sql3->execute();
 
@@ -545,7 +547,7 @@ public function agrega_detalle_existencia(){
 
                 $sql4 = $conectar->prepare($sql4);
                 $sql4->bindValue(1,$cantidad_total);
-                $sql4->bindValue(2,$id_producto);
+                $sql4->bindValue(2,$codProd);
                 $sql4->bindValue(3,$sucursal);
                 $sql4->execute();
 
@@ -569,21 +571,24 @@ public function insert_bodega(){
   foreach ($detalles as $k => $v) {
     $modelo = $v->modelo;
     $cantidad = $v->cantidad;
+    $ubicacionu = $v->ubicacionu;
+    $codProd = $v->codProd;
+
 
     $sucursal = $_POST["sucursal"];
     $id_producto = $_POST["id_producto"];
     //$id_usuario = $_POST["id_usuario"];
        
         $sql="insert existencias
-        values(null,?,?,?);";
+        values(null,?,?,?,?);";
 
 
         $sql=$conectar->prepare($sql);
 
-        $sql->bindValue(1,$id_producto);
+        $sql->bindValue(1,$codProd);
         $sql->bindValue(2,$cantidad);
         $sql->bindValue(3,$sucursal);
-       
+        $sql->bindValue(4,$ubicacionu);
         $sql->execute();
 
 

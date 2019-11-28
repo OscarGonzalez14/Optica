@@ -21,6 +21,7 @@
    $precio_venta=isset($_POST["precio_venta"]);
    $stock=isset($_POST["stock"]);
    $categoria=isset($_POST["categoria"]);
+   $categoriau=isset($_POST["categoriau"]);
    $sucursal=isset($_POST["sucursal"]);
 
         
@@ -29,30 +30,19 @@
 
         case "guardaryeditar":
 
-	    if(empty($_POST["id_producto"])){
-
         $datos = $productos->valida_ingreso($_POST["modelo"],$_POST["color"],$_POST["medidas"]);
 
 		if(is_array($datos)==true and count($datos)==0){
 
-			$productos->registrar_producto($modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria);
+			$productos->registrar_producto($modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria,$categoriau);
 			       	   	  $messages[]="El producto se registró correctamente";
 
-		}else {
+			}else {
 
 			   $errors[]="El producto ya existe";
 		}
 
-		}else {//fin del empty
-
-	     /*si ya existe entonces editamos el producto*/
-
-
-	    $productos->editar_producto($id_producto,$modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria);
-
-	    $messages[]="El producto se editó correctamente";
-	            	 
-        }    
+    
       
      //mensaje success
      if (isset($messages)){

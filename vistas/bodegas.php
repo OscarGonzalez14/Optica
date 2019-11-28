@@ -64,7 +64,6 @@
       <tr>                
         <th style="text-align: center; font-size:20px; font-family: 'Helvetica';">Item</th>
         <th style="text-align: center; font-size:20px; font-family: 'Helvetica';">Producto</th>
-        <th style="text-align: center; font-size:20px; font-family: 'Helvetica';">Stock</th>
         <th style="text-align: center; font-size:20px; font-family: 'Helvetica';">Cantidad</th>
         <th style="text-align: center; font-size:20px; font-family: 'Helvetica';">Eliminar</th>
       </tr>
