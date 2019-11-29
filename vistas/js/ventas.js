@@ -6,6 +6,8 @@ var tabla_ventas_mes;
 
 var tabla_corte_caja;
 
+var tabla_ventas_sucursal;
+
 //Función que se ejecuta al inicio
 function init(){
 	
@@ -882,6 +884,106 @@ function corte_recuperado()
          
   }).DataTable();
 }
+
+//LISTA PRODUCTOS EN VENTA POR SUSCURSAL
+$(document).on("click","#ventas_aros_suc", function(){
+	var sucursal= $("#sucursal").val();
+
+if(sucursal!=""){
+
+tabla_ventas_sucursal= $('#lista_productos_ventas_data').DataTable({
+
+	    
+	       "aProcessing": true,//Activamos el procesamiento del datatables
+	       "aServerSide": true,//Paginación y filtrado realizados por el servidor
+	      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+	      buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
+
+	         "ajax":{
+	            url:"../ajax/ventas.php?op=buscar_ventas_sucursal",
+                type : "post",
+				//dataType : "json",
+				data:{sucursal:sucursal},						
+				error: function(e){
+					console.log(e.responseText);
+
+				},
+
+	          
+	          },
+
+	            "bDestroy": true,
+				"responsive": true,
+				"bInfo":true,
+				"iDisplayLength": 10,//Por cada 10 registros hace una paginación
+			    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+	          "language": {
+ 
+			    "sProcessing":     "Procesando...",
+			 
+			    "sLengthMenu":     "Mostrar _MENU_ registros",
+			 
+			    "sZeroRecords":    "No se encontraron resultados",
+			 
+			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+			 
+			    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			 
+			    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			 
+			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			 
+			    "sInfoPostFix":    "",
+			 
+			    "sSearch":         "Buscar:",
+			 
+			    "sUrl":            "",
+			 
+			    "sInfoThousands":  ",",
+			 
+			    "sLoadingRecords": "Cargando...",
+			 
+			    "oPaginate": {
+			 
+			        "sFirst":    "Primero",
+			 
+			        "sLast":     "Último",
+			 
+			        "sNext":     "Siguiente",
+			 
+			        "sPrevious": "Anterior"
+			 
+			    },
+			 
+			    "oAria": {
+			 
+			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			 
+			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			 
+			    }
+
+			   }, //cerrando language
+
+			    //"scrollX": true
+
+
+
+	      });
+
+	        }else{
+	        	alert("Seleccione la Sucursal");
+	        }//cierre condicional 
+
+	    });
+
+      //****************************************************************
 
 
 $(document).ready( function () {

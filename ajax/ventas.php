@@ -670,4 +670,59 @@ case "ver_ultima_venta_lentes":
 
      break;
 
+      case "buscar_ventas_sucursal":
+          
+     $datos=$ventas->lista_busca_ventas_suc($_POST["sucursal"]);
+
+  $data= Array();
+
+    foreach($datos as $row)
+			{
+				$sub_array = array();
+
+
+
+
+				  //STOCK, si es mejor de 10 se pone rojo sino se pone verde
+				  $stock=""; 
+
+				  if($row["stock"]<=5){
+                      
+                     $stock = $row["stock"];
+                     $atributo = "badge bg-red-active";
+                            
+				 
+				  } else {
+
+				     $stock = $row["stock"];
+                     $atributo = "badge bg-green";
+                 
+                 }            
+
+				$sub_array[] = $row["modelo"];
+				$sub_array[] = $row["marca"];
+				$sub_array[] = $row["color"];
+				$sub_array[] = $row["medidas"];
+	      		$sub_array[] = $row["precio_venta"];
+				$sub_array[] = $row["bodega"];
+				$sub_array[] = '<span class="'.$atributo.'">'.$row["stock"].'
+                  </span>';
+      
+
+			$sub_array[] = '<button type="button" name="hola" id="'.$row["id_producto"].'" class="btn btn-primary btn-md " onClick="agregarDetalleVenta('.$row["id_producto"].')"><i class="fa fa-plus"></i> Agregar</button>';
+        
+			
+				$data[] = $sub_array;
+			 
+			 }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+     break;
+
 }

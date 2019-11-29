@@ -25,7 +25,8 @@
                     <th class="min-desktop">Color</th>
                     <th class="min-desktop">Medidas</th>
                     <th class="min-desktop">Precio Venta</th>
-                    <th class="min-desktop">StockS</th>
+                    <th class="min-desktop">Bodega</th>
+                    <th class="min-desktop">Stock</th>
                     <th class="min-desktop">Agregar</th>           
                     </tr>
                 </thead>

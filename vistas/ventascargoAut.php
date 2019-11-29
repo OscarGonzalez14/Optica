@@ -63,13 +63,13 @@
 </style>     
 <div class="content-wrapper">        
         <!-- Main content -->
-    <?php require_once("modal/lista_pacientes_modal.php");?>
+    
     <?php require_once("modal/lista_productos_ventas_modal.php");?>
     <?php require_once("modal/lista_lentes_ventas_modal.php");?>
     <?php require_once("modal/lista_acc_ventas_modal.php");?>
     <?php require_once("modal/lista_ar_ventas_modal.php");?>
     <?php require_once("modal/lista_photo_ventas_modal.php");?>
-
+    <?php require_once("modal/lista_pacientes_modal.php"); ?>
     <?php require_once("modal/abono_inicial.php");?>
   <div>
       <nav class="navbar navbar-inverse">
@@ -82,12 +82,14 @@
       </ul>
       </div>
     </nav>        
-<div id="factheader"><h4 align="center">Factura de Consumidor Final</h4></div>
+<div id="factheader"><h4 align="center">Ventas</h4></div>
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
+  
   <div class="col-sm-10 row1">
 
-   <div align="left"><strong><?php echo "Asesor: " . $_SESSION["cedula"]."<p align='right' id='date'></p>"; ?></strong></div>
+   <div align="left"><strong><?php echo "Asesor: " . $_SESSION["usuario"]."  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sucursal: ". $_SESSION["sucursal"]."<p align='right' id='date'></p>"; ?></strong></div>
+
 
     <div class="form-group row">
 
@@ -126,7 +128,7 @@
 
     <div class="form-group row">
 
-      <div class="col-xs-2">
+    <div class="col-xs-2">
       <label for="sel1">Tipo de Venta:</label>
         <select class="form-control" id="tipo_venta" name="tipo_venta">
             <option value="">Seleccione</option>
@@ -185,7 +187,7 @@
     <div class="form-group row">
 
 <div class="col-xs-3">
-   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal" id="ventas_aros_suc"><span class="glyphicon glyphicon-plus"></span> Aros</button>
+   <button class="btn btn-dark btn-block" type="button" data-toggle="modal" data-target="#lista_productos_ventas_Modal"><span class="glyphicon glyphicon-plus"></span> Agregar Cargo</button>
   </div>
 
   <div class="col-xs-2">
