@@ -168,7 +168,7 @@ function registrarIngreso(){
     if(sucursal!=""){
     console.log('error.Oscar');
     $.ajax({
-		url:"../ajax/producto.php?op=registrar_ingreso",
+		url:"../ajax/producto.php?op=update_warehouse",
 		method:"POST",
 		data:{'arrayIngreso':JSON.stringify(detalles),'sucursal':sucursal, 'id_producto':id_producto},
 		cache: false,

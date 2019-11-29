@@ -593,8 +593,75 @@ public function insert_bodega(){
 
 
        }//cierre foreach
-      }      
+      }
 
+public function agrega_detalle_warehouse(){
+
+  $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayIngreso']);
+
+
+   
+   $conectar=parent::conexion();
+
+
+  foreach ($detalles as $k => $v) {
+    $modelo = $v->modelo;
+    $cantidad = $v->cantidad;
+    $ubicacionu = $v->ubicacionu;
+    $codProd = $v->codProd;
+    $sucursal = $_POST["sucursal"];
+    //$id_producto = $_POST["id_producto"];
+    //$id_usuario = $_POST["id_usuario"];
+
+        
+      $sql3="select * from existencias where id_producto=? and bodega=?;";
+
+      $sql3=$conectar->prepare($sql3);
+      $sql3->bindValue(1,$codProd);
+      $sql3->bindValue(2,$sucursal);
+      $sql3->execute();
+      $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
+      
+      if(is_array($resultado)==true and count($resultado)>0){
+
+      foreach($resultado as $b=>$row){
+          $re["existencia"] = $row["stock"];
+        }
+      //la cantidad total es la suma de la cantidad más la cantidad actual
+      $cantidad_total = $cantidad + $row["stock"];             
+      //si existe el producto entonces actualiza el stock en producto
+            
+      if(is_array($resultado)==true and count($resultado)>0) {                     
+          //actualiza el stock en la tabla producto
+      $sql4 = "update existencias set                      
+        stock=?
+        where 
+        id_producto=? and bodega=?
+      ";
+      $sql4 = $conectar->prepare($sql4);
+      $sql4->bindValue(1,$cantidad_total);
+      $sql4->bindValue(2,$codProd);
+      $sql4->bindValue(3,$sucursal);
+      $sql4->execute();
+      }
+
+    }else{
+
+     $sql="insert into existencias values (null,?,?,?,?);";
+
+
+        $sql=$conectar->prepare($sql);
+
+        $sql->bindValue(1,$codProd);
+        $sql->bindValue(2,$cantidad);
+        $sql->bindValue(3,$sucursal);
+        $sql->bindValue(4,$ubicacionu);
+        $sql->execute();
+    } //cierre la condicional
+  }//cierre del foreach
+}//cierre del la funcion
 
 
 }

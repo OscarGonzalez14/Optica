@@ -40,24 +40,21 @@ switch ($_GET["op"]) {
 
      break;
 
-      case "buscar_producto_bodega":
+    case "buscar_producto_bodega":
           
-          $datos=$productos->get_producto_por_id($_POST["id_producto"]);
+    $datos=$productos->get_producto_por_id($_POST["id_producto"]);
+        /*comprobamos que el producto esté activo, de lo contrario no lo agrega*/
+	    if(is_array($datos)==true) {
 
-            /*comprobamos que el producto esté activo, de lo contrario no lo agrega*/
-	      if(is_array($datos)==true) {
-
-				foreach($datos as $row)
-				{
-					$output["id_producto"] = $row["id_producto"];
-					$output["modelo"] = $row["modelo"];
-					$output["stock"] = $row["stock"];
-					$output["categoriau"] = $row["categoriau"];
-				}
+			foreach($datos as $row)
+			{
+				$output["id_producto"] = $row["id_producto"];
+				$output["modelo"] = $row["modelo"];
+				$output["stock"] = $row["stock"];
+				$output["categoriau"] = $row["categoriau"];
+			}
 		
 		     
-
-
 	        } else {
                  
                  //si no existe el registro entonces no recorre el array

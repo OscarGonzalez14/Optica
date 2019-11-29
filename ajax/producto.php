@@ -727,6 +727,10 @@ case "registrar_ingreso";
 		}
 
 break;
+
+case 'update_warehouse':
+	$productos->agrega_detalle_warehouse();
+	break;
      
 }
 ?>
