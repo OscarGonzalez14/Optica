@@ -889,7 +889,7 @@ function corte_recuperado()
 $(document).on("click","#ventas_aros_suc", function(){
 	var sucursal= $("#sucursal").val();
 
-if(sucursal!=""){
+if(sucursal != ""){
 
 tabla_ventas_sucursal= $('#lista_productos_ventas_data').DataTable({
 
@@ -979,6 +979,7 @@ tabla_ventas_sucursal= $('#lista_productos_ventas_data').DataTable({
 
 	        }else{
 	        	alert("Seleccione la Sucursal");
+	        	return false;
 	        }//cierre condicional 
 
 	    });

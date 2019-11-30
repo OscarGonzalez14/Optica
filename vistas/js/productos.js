@@ -18,7 +18,7 @@ function init(){
 
 
 	//llama la lista de productos en ventana modal en ventas.php
-	listar_en_ventas();
+	//listar_en_ventas();
 	listar_lentes_en_ventas();
 	listar_acc_en_ventas();
 	listar_ar_en_ventas()
@@ -521,87 +521,6 @@ function  eliminaProd(event, idx){
 
 /********VENTAS***********************************************/
 
- //BUSCA LOS PRODUCTOS EN VENTANA MODAL EN VENTAS
-  
-function listar_en_ventas(){
-
-	tabla_en_ventas=$('#lista_productos_ventas_data').dataTable(
-	{
-		"aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
-	    buttons: [		          
-		            'copyHtml5',
-		            'excelHtml5',
-		            'csvHtml5',
-		            'pdf'
-		        ],
-		"ajax":
-				{
-					url: '../ajax/producto.php?op=listar_en_ventas',
-					type : "get",
-					dataType : "json",						
-					error: function(e){
-						console.log(e.responseText);	
-					}
-				},
-		"bDestroy": true,
-		"responsive": true,
-		"bInfo":true,
-		"iDisplayLength": 10,//Por cada 10 registros hace una paginación
-	    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
-	    
-	    "language": {
- 
-			    "sProcessing":     "Procesando...",
-			 
-			    "sLengthMenu":     "Mostrar _MENU_ registros",
-			 
-			    "sZeroRecords":    "No se encontraron resultados",
-			 
-			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-			 
-			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
-			 
-			    "sInfoEmpty":      "Mostrando un total de 0 registros",
-			 
-			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			 
-			    "sInfoPostFix":    "",
-			 
-			    "sSearch":         "Buscar:",
-			 
-			    "sUrl":            "",
-			 
-			    "sInfoThousands":  ",",
-			 
-			    "sLoadingRecords": "Cargando...",
-			 
-			    "oPaginate": {
-			 
-			        "sFirst":    "Primero",
-			 
-			        "sLast":     "Último",
-			 
-			        "sNext":     "Siguiente",
-			 
-			        "sPrevious": "Anterior"
-			 
-			    },
-			 
-			    "oAria": {
-			 
-			        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-			 
-			        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			 
-			    }
-
-			   }//cerrando language
-	       
-	}).DataTable();
-}
-
 function listar_lentes_en_ventas(){
 
 	tabla_lentes_ventas=$('#lista_lentes_ventas_data').dataTable(
@@ -1084,7 +1003,7 @@ else{
 	    
  	importe = detalles[i].importe = detalles[i].importe - (detalles[i].importe * detalles[i].dscto/100);
  	var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td> <td><input  name='descripcion' id='descripcion' type='text'></td><input min='0' max='20' type='number' name='descuento[]' id='descuento[]' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='0'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td><input  name='importe' id='importe' type='text'></tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].marca+" Mod.: "+detalles[i].modelo+" Color: "+detalles[i].color+" Med.: "+detalles[i].medidas+"<td><input min='1' max='20' type='number' name='descuento[]' id='descuento[]' onKeyUp='setDescuento(event, this, "+(i)+");'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td><td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td>  </tr>";
 	
     subtotal = subtotal + importe;
 

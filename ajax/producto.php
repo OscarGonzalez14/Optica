@@ -23,6 +23,7 @@
    $categoria=isset($_POST["categoria"]);
    $categoriau=isset($_POST["categoriau"]);
    $sucursal=isset($_POST["sucursal"]);
+   $imagen = isset($_POST["hidden_producto_imagen"]);
 
         
 
@@ -34,7 +35,7 @@
 
 		if(is_array($datos)==true and count($datos)==0){
 
-			$productos->registrar_producto($modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria,$categoriau);
+			$productos->registrar_producto($modelo,$marca,$color,$medidas,$precio_venta,$stock,$id_usuario,$categoria,$categoriau,$imagen);
 			       	   	  $messages[]="El producto se registró correctamente";
 
 			}else {

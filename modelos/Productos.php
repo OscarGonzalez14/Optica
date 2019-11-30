@@ -135,14 +135,26 @@
 
           //método para insertar registros
 
-        public function registrar_producto($modelo,$marca,$color,$precio_venta,$stock,$id_usuario,$medidas,$categoria,$categoriau){
+        public function registrar_producto($modelo,$marca,$color,$precio_venta,$stock,$id_usuario,$medidas,$categoria,$categoriau,$imagen){
 
 
             $conectar=parent::conexion();
             parent::set_names();
+
+            require_once("Productos.php");
+
+
+            $imagen_producto = new Producto();
+
+                  
+            $image = '';
+            if($_FILES["producto_imagen"]["name"] != '')
+            {
+              $image = $imagen_producto->upload_image();
+            }
            
             $sql="insert into producto
-            values(null,?,?,?,?,?,?,?,?,?);";
+            values(null,?,?,?,?,?,?,?,?,?,?);";
 
 
             $sql=$conectar->prepare($sql);
@@ -156,6 +168,8 @@
             $sql->bindValue(7, $_POST["medidas"]);
             $sql->bindValue(8, $_POST["categoria"]);
             $sql->bindValue(9, $_POST["categoriau"]);
+            $sql->bindValue(10, $image);
+
             $sql->execute();
 
            

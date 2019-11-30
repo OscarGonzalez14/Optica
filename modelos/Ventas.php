@@ -1686,20 +1686,9 @@ public function reporte_diario_ventas(){
 
 public function lista_busca_ventas_suc($sucursal){
 
-          $conectar= parent::conexion();
-
-
-          //variables que vienen por POST VIA AJAX
-             $mes=$_POST["sucursal"];
-
-            
-      
-            
-           //$fecha= ($ano."-".$mes."%");
-
-           //la consulta debe hacerse asi para seleccionar el mes/ano
-
-           /*importante: explicacion de cuando se pone el like y % en una consulta: like sirve para buscar una palabra en especifica dentro de la columna, por ejemplo buscar 09 dentro de 2017-09-04. Los %% se ocupan para indicar en que parte se quiere buscar, si se pone like '%queBusco' significa que lo buscas al final de una cadena, si pones 'queBusco%' significa que se busca al principio de la cadena y si pones '%queBusco%' significa que lo busca en medio, asi la imprimo la consulta en phpmyadmin SELECT * FROM ventas WHERE fecha_venta like '2017-09%'*/
+  $conectar= parent::conexion();
+  //variables que vienen por POST VIA AJAX
+  $suscursal=$_POST["sucursal"];
 
       
           $sql= "select p.id_producto,p.modelo, p.marca,p.color,p.medidas,p.precio_venta,b.categoriaub,b.stock,b.bodega from producto as p inner join existencias as b on p.id_producto=b.id_producto where b.bodega=? and b.stock>0";
@@ -1709,6 +1698,5 @@ public function lista_busca_ventas_suc($sucursal){
             $sql->execute();
             return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-
-        }      
+}      
    }

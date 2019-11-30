@@ -82,7 +82,6 @@
       </ul>
       </div>
     </nav>        
-<div id="factheader"><h4 align="center">Factura de Consumidor Final</h4></div>
 <div class="row"><!--Row 1-->
   <div class="col-sm-1"></div>
   <div class="col-sm-10 row1">
@@ -159,17 +158,10 @@
       <label for="sel1">Sucursal:</label>                
       <select class="form-control" name="sucursal" id="sucursal" required>
           <option  value="">Seleccione una sucursal</option>
-            <?php
-                for($i=0; $i<sizeof($cat);$i++){                             
-                  ?>
-                  <option value="<?php echo $cat[$i]["categoria"]?>"><?php echo $cat[$i]["categoria"];?></option>
-                  <?php
-                }
-             ?>                      
-          </select>
-      </div>
-
- 
+          <option  value="Metrocentro">Metrocentro</option>
+          <option  value="Santa Ana">Santa Ana</option>                     
+      </select>
+    </div> 
   </div>
 </div> 
 
@@ -219,43 +211,32 @@
 
 <table id="detalles" class="table table-striped">
 
+  <thead>
+    <tr class="bg-primary" id="line1">               
+      <th class="all" colspan="6"></th>               
+    </tr>
+  </thead>               
 
-      <thead>
-        <tr class="bg-primary" id="line1">               
-          <th class="all" colspan="6"></th> 
-               
-        </tr>
-      </thead>               
+    <thead>
+      <tr class="bg-success">            
+      <th class="all">Item</th>
+      <th>Cantidad</th>
+      <th width="30%">Descripcion</th>         
+      <th width="10%">Desc. %</th>
+      <th width="10%">P. Unitario</th>
+      <th >Subtotal</th>
+      </tr>
+    </thead>
+  
+  <div id="resultados_ventas_ajax"></div>
+  
+  <tbody id="listProdVentas"></tbody>
 
-          <thead>
-           <tr class="bg-success">
-                  
-                
-            <th class="all">Item</th>
-            <th>Cantidad</th>
-            <th width="30%">Descripcion</th>
-         
-            <th width="10%">Desc. %</th>
-            <th width="10%">P. Unitario</th>
-            <th >Subtotal</th>
-            </tr>
-          </thead>
-                  
-          <div id="resultados_ventas_ajax"></div>
-                 
-
-                 <tbody id="listProdVentas">
-                  
-                </tbody>
-
-          <thead>            
+  <thead>            
     <th class="all" colspan="3"><p align="center">SUMAS</p></th> 
     <th class="all" colspan="2"><p align="right"></p></th>
-
     <th style="background:white" class="all" colspan="2" ><h5 id="subtotal" name="subtotal" align="center">000.00</h5><input type="hidden"></th>
-                
-        </tr>
-        </thead>
+  </thead>
 
 <input type="hidden" name="grabar" value="si">
 <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
