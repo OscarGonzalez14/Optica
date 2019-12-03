@@ -305,53 +305,12 @@ public function agrega_detalle_venta(){
        
         $sql->execute();
          
-        $sql3="select * from producto where id_producto=?;";
-
-
-             
-             $sql3=$conectar->prepare($sql3);
-
-             $sql3->bindValue(1,$codProd);
-             $sql3->execute();
-
-             $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
-
-                  foreach($resultado as $b=>$row){
-
-                  	$re["existencia"] = $row["stock"];
-
-                  }
-
-                //la cantidad total es la resta del stock menos la cantidad de productos vendido
-                $cantidad_total = $row["stock"] - $cantidad;
-
-             
-               //si existe el producto entonces actualiza el stock en producto
-              
-               if(is_array($resultado)==true and count($resultado)>0) {
-                     
-                  //actualiza el stock en la tabla producto
-
-             	   $sql4 = "update producto set 
-                      
-                      stock=?
-                      where 
-                      id_producto=?
-             	   ";
-
-
-             	  $sql4 = $conectar->prepare($sql4);
-             	  $sql4->bindValue(1,$cantidad_total);
-             	  $sql4->bindValue(2,$codProd);
-             	  $sql4->execute();
-
-               } //cierre la condicional
 
     $sql11="select * from existencias where id_producto=? and bodega=?;";
 
              //echo $sql3;
              
-             $sql11=$conectar->prepare($sql3);
+             $sql11=$conectar->prepare($sql11);
 
              $sql11->bindValue(1,$codProd);
              $sql11->bindValue(2,$sucursal);
@@ -361,7 +320,7 @@ public function agrega_detalle_venta(){
 
                   foreach($resultados as $b=>$row){
 
-                    $re["existencias"] = $row["stock"];
+                    $re["existencia"] = $row["stock"];
 
                   }
 
@@ -384,7 +343,7 @@ public function agrega_detalle_venta(){
 
 
                 $sql12 = $conectar->prepare($sql12);
-                $sql12->bindValue(1,$cantidad_total);
+                $sql12->bindValue(1,$cantidad_totales);
                 $sql12->bindValue(2,$codProd);
                 $sql12->bindValue(3,$sucursal);
                 $sql12->execute();               

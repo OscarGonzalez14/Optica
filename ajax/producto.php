@@ -171,6 +171,7 @@
 				$sub_array[] = '<span class="'.$atributo.'">'.$row["stock"].'
                   </span>';
 				$sub_array[] = $row["medidas"];
+				$sub_array[] = $row["categoriau"];
 
 
 				$sub_array[] = '<button type="button" onClick="mostrar('.$row["id_producto"].');" id="'.$row["id_producto"].'" class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';

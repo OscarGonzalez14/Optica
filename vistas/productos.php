@@ -93,11 +93,9 @@
                                 <th width="5%">Precio de Venta</th>
                                 <th width="10%">Stock</th>
                                 <th width="10%">Medidas</th>
-                                
-                               
+                                <th width="10%">Categoria</th>                             
                                 <th width="10%">Editar</th>
-                                <th width="10%">Eliminar</th>
-                                
+                                <th width="10%">Eliminar</th>                            
 
 
 

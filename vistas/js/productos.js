@@ -983,7 +983,7 @@ else if(detalles[i].categoria=='accesorios'){
 	    
 	importe = detalles[i].importe = detalles[i].importe - 0;
  	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" h"+detalles[i].precio_venta+"</td> <td name='precio_venta[]'><input name='precio_venta[]' id='precio_venta[]'></span> </td></tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion' id='descripcion'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" h"+detalles[i].precio_venta+"</td> <td name='precio_venta[]'><input name='precio_venta[]' id='precio_venta[]'></span> </td></tr>";
 	
     subtotal = subtotal + importe;
 
@@ -1003,7 +1003,7 @@ else{
 	    
  	importe = detalles[i].importe = detalles[i].importe - (detalles[i].importe * detalles[i].dscto/100);
  	var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].marca+" Mod.: "+detalles[i].modelo+" Color: "+detalles[i].color+" Med.: "+detalles[i].medidas+"<td><input min='1' max='20' type='number' name='descuento[]' id='descuento[]' onKeyUp='setDescuento(event, this, "+(i)+");'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td><td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td>  </tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> <td name='descripcion[]'>"+detalles[i].marca+" - "+detalles[i].modelo+"</td><input min='0' max='20' type='number' name='descuento[]' id='descuento[]' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='0'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td><input  name='importe' id='importe' type='text'></tr>";
 	
     subtotal = subtotal + importe;
 
