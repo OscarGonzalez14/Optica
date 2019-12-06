@@ -45,7 +45,6 @@ function init(){
 		
 	  });
 
-	
 }
 
 
@@ -888,8 +887,6 @@ function agregarDetalleVenta(id_producto){
 
 
 //***********************************************************************
-
-
   function listarDetallesVentas(){
 
   	$('#listProdVentas').html('');
@@ -902,108 +899,11 @@ function agregarDetalleVenta(id_producto){
 
   	for(var i=0; i<detalles.length; i++){	
 
-	if(detalles[i].categoria=='lentes' ){   
-    var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
-	    
-	importe = detalles[i].importe = detalles[i].importe - 0;
- 	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
-	
-    subtotal = subtotal + importe;
-
-
-    subtotalFinal = subtotal;
-    subtotalFinal=subtotalFinal.toFixed(2);
-			var su = subtotal;
-			su=su.toFixed(2);
-            var or=parseFloat(su);
-            var total= Math.round(or+subtotal);
-
-    totalFinal =total;
-}else if(detalles[i].categoria=='accesorios'){
-    var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
-	    
-	importe = detalles[i].importe = detalles[i].importe - 0;
- 	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
-var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='0' max='20' type='number' name='descuento[]' id='descuento[]' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
-
-    subtotal = subtotal + importe;
-
-    subtotalFinal = subtotal.toFixed(2 );
-
-			var su = subtotal;
-			su=su.toFixed(2);
-            var or=parseFloat(su);
-            var total= Math.round(or+subtotal);
-
-    totalFinal =total;
-}
-
-else if(detalles[i].categoria=='anti-reflejantes'){
-
 	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
 	    
-	importe = detalles[i].importe = detalles[i].importe - 0;
+ 	importe = detalles[i].importe = detalles[i].importe - (detalles[i].dscto);
  	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
-	
-    subtotal = subtotal + importe;
-
-    subtotalFinal = subtotal.toFixed(2 );
-
-			var su = subtotal;
-			su=su.toFixed(2);
-            var or=parseFloat(su);
-            var total= Math.round(or+subtotal);
-
-    totalFinal =total;
-}
-else if(detalles[i].categoria=='photosensibles'){
-
-	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
-	    
-	importe = detalles[i].importe = detalles[i].importe - 0;
- 	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='modelo[]'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
-	
-    subtotal = subtotal + importe;
-
-    subtotalFinal = subtotal.toFixed(2 );
-
-			var su = subtotal;
-			su=su.toFixed(2);
-            var or=parseFloat(su);
-            var total= Math.round(or+subtotal);
-
-    totalFinal =total;
-}
-else if(detalles[i].categoria=='accesorios'){
-
-    var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
-	    
-	importe = detalles[i].importe = detalles[i].importe - 0;
- 	//var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion' id='descripcion'>"+detalles[i].modelo+"<td><input min='1' max='20' type='number' value='0' readonly name='descuento[]' id='descuento[]'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" h"+detalles[i].precio_venta+"</td> <td name='precio_venta[]'><input name='precio_venta[]' id='precio_venta[]'></span> </td></tr>";
-	
-    subtotal = subtotal + importe;
-
-
-    subtotalFinal = subtotal;
-    subtotalFinal=subtotalFinal.toFixed(2);
-			var su = subtotal;
-			su=su.toFixed(2);
-            var or=parseFloat(su);
-            var total= Math.round(or+subtotal);
-
-    totalFinal =total;
-}
-else{
-
-	var importe = detalles[i].importe = detalles[i].cantidad * detalles[i].precio_venta;
-	    
- 	importe = detalles[i].importe = detalles[i].importe - (detalles[i].importe * detalles[i].dscto/100);
- 	var descmoney = detalles[i].precio_venta-detalles[i].importe;
-	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> <td name='descripcion[]'>"+detalles[i].marca+" - "+detalles[i].modelo+"</td><input min='0' max='20' type='number' name='descuento[]' id='descuento[]' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='0'></td> <td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td><input  name='importe' id='importe' type='text'></tr>";
+	var filas = filas + "<tr><td>"+(i+1)+"</td></td><td> <input type='number' class='cantidad' name='cantidad[]' id=cantidad_"+i+" onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidadAjax(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'> </td>  <td name='descripcion[]' id='descripcion[]'>"+detalles[i].modelo+"<td><input type='text' name='descuento[]' id='descuento' onClick='setDescuento(event, this, "+(i)+");' onKeyUp='setDescuento(event, this, "+(i)+");' value='"+detalles[i].dscto+"'></td><td name='precio_venta[]'>"+detalles[i].moneda+" "+detalles[i].precio_venta+"</td> <td> <span name='importe[]' id=importe"+i+">"+detalles[i].moneda+" "+detalles[i].importe+"</span> </td></tr>";
 	
     subtotal = subtotal + importe;
 
@@ -1016,7 +916,6 @@ else{
 
     totalFinal =total;
 
-}//cierre del if
       
 }//cierre for
 
@@ -1033,7 +932,7 @@ else{
 
 
 
-  }
+  }//fin listar detalle_ventas
 
   /*IMPORTANTE:Event es el objeto del evento que los manejadores de eventos utilizan
 parseInt es una función para convertir un valor string a entero
@@ -1127,8 +1026,15 @@ obj.value es el valor del campo de texto*/
 
   function setDescuento(event, obj, idx){
   	event.preventDefault();
+  	var desc = document.getElementById("descuento").value;
+  	var desc_n = parseInt(desc);
+  	 if(desc_n>20){
+  	 	alert("Descuento No autorizado");
+  	 	document.getElementById("descuento").value="";
+  	 }else{	
   	detalles[idx].dscto = parseFloat(obj.value);
   	recalcular(idx);
+  }
   }
   	
   function recalcular(idx){
@@ -1137,7 +1043,7 @@ obj.value es el valor del campo de texto*/
   	console.log((detalles[idx].cantidad * detalles[idx].precio_venta));
 
     var importe =detalles[idx].importe = detalles[idx].cantidad * detalles[idx].precio_venta;
-	importe = detalles[idx].importe = detalles[idx].importe - (detalles[idx].importe * detalles[idx].dscto/100);
+	importe = detalles[idx].importe = detalles[idx].importe - (detalles[idx].dscto);
 
  	importeFinal = detalles[idx].moneda+" "+importe;	    
     $('#importe'+idx).html(importeFinal);
@@ -1161,7 +1067,7 @@ obj.value es el valor del campo de texto*/
 
 for(var i=0; i<detalles.length; i++){
 
-	subtotal = subtotal + (detalles[i].cantidad * detalles[i].precio_venta) - (detalles[i].cantidad*detalles[i].precio_venta*detalles[i].dscto/100);
+	subtotal = subtotal + (detalles[i].cantidad * detalles[i].precio_venta) - (detalles[i].dscto);
 
           subtotalFinal = subtotal;
 
@@ -1278,7 +1184,7 @@ obj.value es el valor del campo de texto*/
 	
   }
 
-   
+  
 
   //*****************************************************************************
    /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/

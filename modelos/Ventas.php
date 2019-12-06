@@ -262,6 +262,7 @@ public function agrega_detalle_venta(){
     $medidas = $v->medidas;
 		$precio_venta = $v->precio_venta; 
 		$dscto = $v->dscto;
+    $importe = $v->importe;
 		//$importe = $v->importe;
   	//$estado = $v->estado;
 
@@ -280,8 +281,8 @@ public function agrega_detalle_venta(){
        $id_usuario = $_POST["id_usuario"];
        $id_paciente = $_POST["id_paciente"];
        $plazo = $_POST["plazo"];
-       $descripcion = $_POST["descripcion"];
-       $importe = $_POST["importe"];
+       //$descripcion = $_POST["descripcion"];
+       //$importe = $_POST["importe"];
 		   
 
         $sql="insert into detalle_ventas
@@ -293,7 +294,7 @@ public function agrega_detalle_venta(){
         $sql->bindValue(1,$numero_venta);
         //$sql->bindValue(2,$cod_pac);
         $sql->bindValue(2,$codProd);
-        $sql->bindValue(3,$descripcion);
+        $sql->bindValue(3,$modelo);
         $sql->bindValue(4,$importe);
         $sql->bindValue(5,$cantidad);
         $sql->bindValue(6,$dscto);

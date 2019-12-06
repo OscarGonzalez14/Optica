@@ -209,6 +209,15 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 
 function mayus(e) {
     e.value = e.value.toUpperCase();
+
+    var marca = document.getElementById('marca').value;
+
+    if(marca =='CANDIES'){
+      document.getElementById("precio_venta").value="60";
+    }else{
+   document.getElementById("precio_venta").value="";
+ 
+    }
 }
  </script>
 
