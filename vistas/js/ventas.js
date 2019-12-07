@@ -189,7 +189,7 @@ function listarAbono(){
     "<td name='monto[]'>"+"<p align='center'>"+abonoi[i].moneda+" "+abonoi[i].monto+"</p>"+"</td>"+
     "<td name='abono_ant[]' align='center'>"+abonoi[i].abono_ant+"</td>"+
     "<td name='saldo_ant[]' align='center'>"+abonoi[i].saldo_ant+"</td>"+
-    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id=abono"+i+" onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
+    "<td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id='abono_uno' onkeyup='setAbono(event, this, "+(i)+");' value='"+abonoi[i].abono+"'></td>"+
     "<td align='center'><span name='saldo[]' id=saldo"+i+">"+abonoi[i].saldo+"</span> </td>"+
     "<td align='center'>"+
         "<select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select>"+
@@ -323,6 +323,8 @@ if(forma_pago!="" && num_recibo != 0){
 				$("#c_numeros").html(data.monto);
 				$("#id_paciente").val(data.id_paciente);
 				$("#id_credito").val(data.id_credito);
+				$("#monto").val(data.monto);
+
 
                  
                  //puse el alert para ver el error, sin necesidad de hacer echo en la consulta ni nada

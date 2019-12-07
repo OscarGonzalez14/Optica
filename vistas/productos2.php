@@ -1,346 +1,187 @@
-<?php
-
-   require_once("../config/conexion.php");
-
-    if(isset($_SESSION["id_usuario"])){
-
-       require_once("../modelos/Categorias.php");
-
-       $categoria = new Categoria();
-
-       $cat = $categoria->get_categorias();
-       
-       
-?>
-
-
-
-<?php
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Convertir numeros a letras</title>
  
-  require_once("header.php");
-
-?>
-
-
-    <?php if($_SESSION["productos"]==1)
-     {
-
-     ?>
-
-  <!--Contenido-->
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">        
-        <!-- Main content -->
-        <section class="content">
-             
-             <div id="resultados_ajax"></div>
-
-             <h2>Listado de Productos</h2>
-
-            <div class="row">
-              <div class="col-md-12">
-                  <div class="box">
-                    <div class="box-header with-border">
-                          <h1 class="box-title">
-                            <button class="btn btn-primary btn-lg" id="add_button" onclick="limpiar()" data-toggle="modal" data-target="#productoModal"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Producto</button></h1>
-                        <div class="box-tools pull-right">
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <!-- centro -->
-                    <div class="panel-body table-responsive">
-                          
-                          <table id="producto_data" class="table table-bordered table-striped">
-
-                            <thead>
-                              
-                                <tr>
-                                  
-                                <th width="10%">Categoría</th>
-                                <th width="12%">Producto</th>
-                                <th width="10%">Presentación</th>
-                                <th width="5%">Unid. Medida</th>
-                                <th width="10%">Precio Compra</th>
-                                <th width="10%">Precio Venta</th>
-                                <th width="5%">Stock</th>
-                                <th width="10%">Estado</th>
-                                <th width="10%">Editar</th>
-                                <th width="10%">Eliminar</th>
-                                <th>Ver Foto </th>
-
-
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                              
-
-                            </tbody>
-
-
-                          </table>
-                     
-                    </div>
-                  
-                    <!--Fin centro -->
-                  </div><!-- /.box -->
-              </div><!-- /.col -->
-          </div><!-- /.row -->
-      </section><!-- /.content -->
-
-    </div><!-- /.content-wrapper -->
-  <!--Fin-Contenido-->
-    
- <!--FORMULARIO VENTANA MODAL-->
-  
-<div id="productoModal" class="modal fade">
-  <div class="modal-dialog tamanoModal">
-    <form class="form-horizontal" method="post" id="producto_form" enctype="multipart/form-data">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Agregar Producto</h4>
-        </div>
-        <div class="modal-body">
-
-           <section class="formulario-agregar_producto">
-
-
-                 <div class="row">
-       
-        <!--PRIMERA COLUMNA-->
-        <!--column-12 -->
-        <div class="col-lg-6">
-          <!-- Horizontal Form -->
-          <div class="box">
-
-              <div class="box-body">
-
-               <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Categoría</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-                    <!--<input type="text" class="form-control" id="categoria" name="categoria" placeholder="Categoria">-->
-
-                    <select class="form-control" name="categoria" id="categoria">
-
-                      <option  value="0">Seleccione</option>
-
-                        <?php
-
-                           for($i=0; $i<sizeof($cat);$i++){
-                             
-                             ?>
-                              <option value="<?php echo $cat[$i]["id_categoria"]?>"><?php echo $cat[$i]["categoria"];?></option>
-                             <?php
-                           }
-                        ?>
-                      
-                    </select>
-                  </div>
-              </div>
-
-
-              <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Producto</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-
-    
-                   <input type="text" class="form-control" id="producto" name="producto" placeholder="Descripción Producto" required pattern="^[a-zA-Z_áéíóúñ\s]{0,30}$">
-           
-
-
-                  </div>
-              </div>
-
-               <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Presentación</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-
-                    <select class="form-control" name="presentacion" id="presentacion">
-
-                      <option value="0">Seleccione</option>
-
-                          <option value="Saco">Saco</option>
-                          <option value="Caja">Caja</option>
-                      
-                    </select>
-                  </div>
-              </div>
-
-               <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Unid. Medida</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-                  
-                     <select class="selectpicker form-control" id="unidad" name="unidad" required>
-                      <option value="">-- Seleccione unidad --</option>
-                      <option value="kilo">kilo</option>
-                      <option value="Gramo">Gramo</option>
-
-                    </select>
-
-
-                  </div>
-              </div>
-
-              <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Precio Compra</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-
-
-                    <select class="selectpicker form-control" id="moneda" name="moneda" required>
-                      <option value="">-- Seleccione moneda --</option>
-                      <option value="USD$">USD$</option>
-                      <option value="EUR">EUR€</option>
-
-                    </select>
-
-                    <input type="text" class="form-control" id="precio_compra" name="precio_compra" placeholder="Precio Compra" required pattern="[0-9]{0,15}">
-
-                  </div>
-              </div>
-
-               <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Precio Venta</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-
-                    <input type="text" class="form-control" id="precio_venta" name="precio_venta" placeholder="Precio Venta" required pattern="[0-9]{0,15}">
-
-                  </div>
-              </div>
-
-               <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Stock</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-                    <input type="text" class="form-control" id="stock" name="stock"  disabled>
-                  </div>
-              </div>
-
-               <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Estado</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-                          
-                    <select class="form-control" id="estado" name="estado" required>
-                      <option value="">-- Selecciona estado --</option>
-                      <option value="1" selected>Activo</option>
-                      <option value="0">Inactivo</option>
-                    </select>
-                  </div>
-              </div>
-
-              <div class="form-group">
-                  <label for="" class="col-lg-1 control-label">Fecha Vencimiento</label>
-
-                  <div class="col-lg-9 col-lg-offset-1">
-                    <input type="text" class="form-control" id="datepicker" name="datepicker" placeholder="Fecha Vencimiento">
-                  </div>
-              </div>
-               
-             </div>
-              <!-- /.box-body -->
-          </div>
-          <!--/box-->
-
-        </div>
-        <!--/.col (6) -->
-
-
-        <!--SEGUNDA COLUMNA-->
-        <!--column-12 -->
-        <div class="col-lg-4">
-         
-            
-               <div class="form-group">
-
-              <div class="col-sm-7 col-lg-offset-3 col-sm-offset-3">
-
-              <!--producto_imagen-->
-
-     
-
-      <input type="file" id="producto_imagen" name="producto_imagen">
-
+    <style>
+    #numero {padding:10px;text-align:right;}
+    </style>
+</head>
+<body>
  
 
-              <span id="producto_uploaded_image"></span>
-
-              </div>
-
-              </div>
-              <!--/form-group-->
-         
-              
-
-        </div>
-        <!--/.col (4) -->
-      </div>
-      <!-- /.row -->
-
-
-      </section>
-      <!--section formulario - agregar- producto -->
-
-          
-          </div>
-                 <!--modal-body-->
-
-           <div class="row">
-          
-               <div class="col-lg-4 col-lg-offset-3 col-sm-8"> 
-
-          <div class="modal-footer">
-   <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
-          <input type="hidden" name="id_producto" id="id_producto"/>
-          
-          <button type="submit" name="action" id="#" class="btn btn-success pull-left" value="Add"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar </button>
-
-          <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Cerrar</button>
-           </div><!--modal-footer-->
-
-        </div>
-       </div><!--row-->
-
-      </div>
-      </form>
-  </div>
-</div>
- <!--FIN FORMULARIO VENTANA MODAL-->
-
-  
-  <?php  } else {
-
-       require_once("noacceso.php");
+ 
+    <input type="text" id="numero" placeholder="introduce un numero">
+     <input type="text" id="texto" placeholder="introduce un numero">
+    
+ 
+</body>
+</html>
+ 
+<script>
+document.getElementById("numero").addEventListener("keyup",function(e){
+    document.getElementById("texto").value=NumeroALetras(this.value);
+});
+ 
+ 
+function Unidades(num){
+ 
+  switch(num)
+  {
+    case 1: return "UN";
+    case 2: return "DOS";
+    case 3: return "TRES";
+    case 4: return "CUATRO";
+    case 5: return "CINCO";
+    case 6: return "SEIS";
+    case 7: return "SIETE";
+    case 8: return "OCHO";
+    case 9: return "NUEVE";
   }
-   
-  ?><!--CIERRE DE SESSION DE PERMISO -->
-
-
-<?php
-
-  require_once("footer.php");
-?>
-
-<script type="text/javascript" src="js/productos.js"></script>
-
-
-
-<?php
-   
-  } else {
-
-        header("Location:".Conectar::ruta()."vistas/index.php");
-
+ 
+  return "";
+}
+ 
+function Decenas(num){
+ 
+  decena = Math.floor(num/10);
+  unidad = num - (decena * 10);
+ 
+  switch(decena)
+  {
+    case 1:
+      switch(unidad)
+      {
+        case 0: return "DIEZ";
+        case 1: return "ONCE";
+        case 2: return "DOCE";
+        case 3: return "TRECE";
+        case 4: return "CATORCE";
+        case 5: return "QUINCE";
+        default: return "DIECI" + Unidades(unidad);
+      }
+    case 2:
+      switch(unidad)
+      {
+        case 0: return "VEINTE";
+        default: return "VEINTI" + Unidades(unidad);
+      }
+    case 3: return DecenasY("TREINTA", unidad);
+    case 4: return DecenasY("CUARENTA", unidad);
+    case 5: return DecenasY("CINCUENTA", unidad);
+    case 6: return DecenasY("SESENTA", unidad);
+    case 7: return DecenasY("SETENTA", unidad);
+    case 8: return DecenasY("OCHENTA", unidad);
+    case 9: return DecenasY("NOVENTA", unidad);
+    case 0: return Unidades(unidad);
   }
-
-  
-
-?>
-
+}//Unidades()
+ 
+function DecenasY(strSin, numUnidades){
+  if (numUnidades > 0)
+    return strSin + " Y " + Unidades(numUnidades)
+ 
+  return strSin;
+}//DecenasY()
+ 
+function Centenas(num){
+ 
+  centenas = Math.floor(num / 100);
+  decenas = num - (centenas * 100);
+ 
+  switch(centenas)
+  {
+    case 1:
+      if (decenas > 0)
+        return "CIENTO " + Decenas(decenas);
+      return "CIEN";
+    case 2: return "DOSCIENTOS " + Decenas(decenas);
+    case 3: return "TRESCIENTOS " + Decenas(decenas);
+    case 4: return "CUATROCIENTOS " + Decenas(decenas);
+    case 5: return "QUINIENTOS " + Decenas(decenas);
+    case 6: return "SEISCIENTOS " + Decenas(decenas);
+    case 7: return "SETECIENTOS " + Decenas(decenas);
+    case 8: return "OCHOCIENTOS " + Decenas(decenas);
+    case 9: return "NOVECIENTOS " + Decenas(decenas);
+  }
+ 
+  return Decenas(decenas);
+}//Centenas()
+ 
+function Seccion(num, divisor, strSingular, strPlural){
+  cientos = Math.floor(num / divisor)
+  resto = num - (cientos * divisor)
+ 
+  letras = "";
+ 
+  if (cientos > 0)
+    if (cientos > 1)
+      letras = Centenas(cientos) + " " + strPlural;
+    else
+      letras = strSingular;
+ 
+  if (resto > 0)
+    letras += "";
+ 
+  return letras;
+}//Seccion()
+ 
+function Miles(num){
+  divisor = 1000;
+  cientos = Math.floor(num / divisor)
+  resto = num - (cientos * divisor)
+ 
+  strMiles = Seccion(num, divisor, "MIL", "MIL");
+  strCentenas = Centenas(resto);
+ 
+  if(strMiles == "")
+    return strCentenas;
+ 
+  return strMiles + " " + strCentenas;
+ 
+  //return Seccion(num, divisor, "UN MIL", "MIL") + " " + Centenas(resto);
+}//Miles()
+ 
+function Millones(num){
+  divisor = 1000000;
+  cientos = Math.floor(num / divisor)
+  resto = num - (cientos * divisor)
+ 
+  strMillones = Seccion(num, divisor, "UN MILLON", "MILLONES");
+  strMiles = Miles(resto);
+ 
+  if(strMillones == "")
+    return strMiles;
+ 
+  return strMillones + " " + strMiles;
+ 
+  //return Seccion(num, divisor, "UN MILLON", "MILLONES") + " " + Miles(resto);
+}//Millones()
+ 
+function NumeroALetras(num,centavos){
+  var data = {
+    numero: num,
+    enteros: Math.floor(num),
+    centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
+    letrasCentavos: "",
+  };
+  if(centavos == undefined || centavos==false) {
+    data.letrasMonedaPlural="DOLARES";
+    data.letrasMonedaSingular="DOLAR";
+  }else{
+    data.letrasMonedaPlural="CENTAVOS";
+    data.letrasMonedaSingular="CENTAVOS";
+  }
+ 
+  if (data.centavos > 0)
+    data.letrasCentavos = "CON " + NumeroALetras(data.centavos,true);
+ 
+  if(data.enteros == 0)
+    return "CERO " + data.letrasMonedaPlural + " " + data.letrasCentavos;
+  if (data.enteros == 1)
+    return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
+  else
+    return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
+}//NumeroALetras()
+</script>

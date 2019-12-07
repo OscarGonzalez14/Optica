@@ -1028,7 +1028,7 @@ obj.value es el valor del campo de texto*/
   	event.preventDefault();
   	var desc = document.getElementById("descuento").value;
   	var desc_n = parseInt(desc);
-  	 if(desc_n>20){
+  	 if(desc_n>50){
   	 	alert("Descuento No autorizado");
   	 	document.getElementById("descuento").value="";
   	 }else{	
@@ -1358,6 +1358,11 @@ function listarDetalleEnvios(){
 	 }	
 	
   }
+
+
+  /////////////////////////////////////CONVERSOR DE PALABRAS
+
+
 
  init();
 
