@@ -40,7 +40,7 @@
           <td align="center"> <h5 id="nombres"></h5><input type="hidden" name="nombres" id="nombres"/></td>
           <td align="center"> <h5 id="empresa"></h5><input type="hidden" name="empresa" id="empresa"></td>
           <td align="center" colspan="4" id="cant_letras"><input type="text" class="form-control" id="texto"></td>
-          <td align="center"><input type="text" name="num_recibo" id="texto" value="0" class="form-control"> </td>
+          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" readonly> </td>
         </tbody>
       </table>
 
@@ -59,11 +59,11 @@
         </thead>
 
         <tbody id="listarAbon">
-          <td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id="monto"></td>
-          <td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id="numero" onkeyup="nuevo_saldo()"></td>
-          <td align='center'><input class='form-control' size='4' type='text' class='abono' name='abono' id="saldo"></td>
+          <td align='center'><input class='form-control' size='4' type='text' class='monto' name='monto' id="monto" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' size='4' type='text' class='numero' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' size='4' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;"></td>
           <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
-          <td><input type='date' class='form-control' id='datepicker' name='pr_abono'></td>
+          <td><input type='text' class='form-control' id='datepicker' name='pr_abono'></td>
 
         </tbody>
 
@@ -137,7 +137,7 @@ function nuevo_saldo(){
   document.getElementById("saldo").value = saldo;
 }
 
-document.getElementById("numero").addEventListener("keyup",function(e){
+    document.getElementById("numero").addEventListener("keyup",function(e){
     document.getElementById("texto").value = NumeroALetras(this.value);
 });
  

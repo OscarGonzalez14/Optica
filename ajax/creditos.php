@@ -688,5 +688,55 @@ case 'registrar_cargos_pacientes':
 	$creditos->agrega_cargo_abonos();
 
 	break;
+
+
+case "get_numero_recibo":
+
+    require_once('../modelos/Recibos.php');
+    $recibo = new Recibos();
+    $datos= $recibo->get_numero_recibo($_POST["sucursal"]);	
+
+            // si existe el proveedor entonces recorre el array
+	      if(is_array($datos)==true and count($datos)>0){
+
+				  foreach($datos as $row)
+				{
+					
+					$output["numero_rec"] = $row["numero_rec"];
+					
+									
+				}
+		      
+		          echo json_encode($output);
+
+
+	        } else {
+                 
+                 //si no existe el registro entonces no recorre el array
+                $errors[]="no existe";
+
+	        }
+
+
+	         //inicio de mensaje de error
+
+				if (isset($errors)){
+			
+					?>
+					<div class="alert alert-danger" role="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>Error!</strong> 
+							<?php
+								foreach ($errors as $error) {
+										echo $error;
+									}
+								?>
+					</div>
+					<?php
+			      }
+
+break;
+
+
 	
 }

@@ -16,8 +16,6 @@ function init(){
 	
 }
 
-//VALDAR TIPO DE PAGO
-
 //VALIDAR CUOTA
 $(document).ready(function(){
 	$("#tipo_pago").change(function () {
@@ -302,10 +300,12 @@ if(forma_pago!="" && num_recibo != 0){
 	    location.reload();
 }
 ///FIN REGISTRA ABONOS
-  	
+////DETALLES DE ABONO INICIAL DETALLE DE ULTIMA VENTA******************************
+
 ////DETALLES DE ABONO INICIAL******************************
  $(document).on('click', '.abono_ini', function(){
 	 	//toma el valor del id
+	 	$('#detalle_abonos').modal('show');	
 
 		$.ajax({
 			url:"../ajax/ventas.php?op=ver_ultima_venta",
@@ -323,7 +323,7 @@ if(forma_pago!="" && num_recibo != 0){
 				$("#c_numeros").html(data.monto);
 				$("#id_paciente").val(data.id_paciente);
 				$("#id_credito").val(data.id_credito);
-				$("#monto").val(data.monto);
+				//$("#monto").val(data.monto);
 
 
                  
@@ -387,7 +387,8 @@ if(forma_pago!="" && num_recibo != 0){
 			}
 		})
 	});
-	  //VER DETALLE paciente-VENTA
+
+//VER DETALLE paciente-VENTA
 	 $(document).on('click', '.detalle', function(){
 	 	//toma el valor del id
 		var numero_venta = $(this).attr("id");

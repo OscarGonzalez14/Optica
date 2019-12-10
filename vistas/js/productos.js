@@ -1134,11 +1134,12 @@ obj.value es el valor del campo de texto*/
     var plazo = $("#plazo").val();
     var descripcion = $("#descripcion").val();
     var importe = $("#importe").val();
+    var canal = $("#canal").val();
 
 
     //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
 
-    if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && tipo_pago!=""){
+    if(nombre_pac!="" && sucursal!="" && tipo_venta!="" && tipo_pago!="" && canal != ""){
 
     $("#descuento").attr('disabled', 'disabled');
      console.log('error!');
@@ -1146,7 +1147,7 @@ obj.value es el valor del campo de texto*/
     $.ajax({
 		url:"../ajax/producto.php?op=registrar_venta",
 		method:"POST",
-		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe},
+		data:{'arrayVenta':JSON.stringify(detalles), 'numero_venta':numero_venta,'nombre_pac':nombre_pac, 'tipo_pago':tipo_pago,'subtotal':subtotal,'tipo_venta':tipo_venta,'usuario':usuario,'sucursal':sucursal,'id_usuario':id_usuario,'id_paciente':id_paciente,'plazo':plazo,'descripcion':descripcion,'importe':importe,'canal':canal},
 		cache: false,
 		dataType:"html",
 		error:function(x,y,z){
@@ -1165,10 +1166,12 @@ obj.value es el valor del campo de texto*/
             $('#listProdVentas').html('');
             
               //muestra un mensaje de exito
-          setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
+          //setTimeout ("bootbox.alert('Se ha registrado la venta con éxito');", 100); 
           
           //refresca la pagina, se llama a la funtion explode
-          setTimeout ("explode();", 2000); 
+          //setTimeout ("explode();", 2000); 
+          setTimeout ("recibo_uno();", 1400);
+          //$('#detalle_abonos').modal("show");
          	
 		}
 
@@ -1193,6 +1196,23 @@ obj.value es el valor del campo de texto*/
 	    location.reload();
 }
 
+function recibo_uno(){
+$('#detalle_abonos').modal("show");
+ 	var sucursal = document.getElementById('sucursal').value;
+
+    $.ajax({
+      url:"../ajax/creditos.php?op=get_numero_recibo",
+      method:"POST",
+      data:{sucursal:sucursal},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#num_recibo").val(data.numero_rec);
+
+      }
+    });
+ }
 
  //ELIMINAR PRODUCTOS
 

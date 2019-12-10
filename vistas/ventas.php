@@ -5,9 +5,10 @@
 
     if(isset($_SESSION["id_usuario"])){
 
-     require_once("../modelos/Compras.php");
-     require_once("../modelos/Categorias.php");
-     require_once("../modelos/Usuarios.php");
+    require_once("../modelos/Compras.php");
+    require_once("../modelos/Categorias.php");
+    require_once("../modelos/Usuarios.php");
+    require_once("../modelos/Recibos.php");
 
       require_once("../modelos/Ventas.php");
      
@@ -16,8 +17,8 @@
      
       $compra = new Compras();
       $categoria = new Categoria();
-
       $cat = $categoria->get_categorias();
+      $numero_recibos = new Recibos();
     
 ?>
 
@@ -150,8 +151,15 @@
     </div>
 
       <div class="col-xs-2">
-        <label for="ex1">Monto Cuota</label>
-        <input class="form-control" id="monto_c" name="monto_c" type="text">
+        <label for="sel1">Canal de Venta:</label>                
+        <select class="form-control" name="canal" id="canal" required>
+          <option  value="">Seleccionar</option>
+          <option  value="Venta en sucursal">Venta en sucursal</option>
+          <option  value="Empresarial">Empresarial</option>
+          <option  value="Alianzas">Alianzas</option>          
+          <option  value="E-commerce">E-commerce</option>                     
+                     
+      </select>
       </div> 
 
     <div class="col-xs-3">
@@ -159,6 +167,7 @@
       <select class="form-control" name="sucursal" id="sucursal" required>
           <option  value="">Seleccione una sucursal</option>
           <option  value="Metrocentro">Metrocentro</option>
+           <option value="Empresarial">Empresarial</option>
           <option  value="Santa Ana">Santa Ana</option>                     
       </select>
     </div> 
@@ -245,7 +254,7 @@
   </table>
  <div class="boton_registrar">
 <button type="button" onClick="registrarVenta()" class="btn btn-blue pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
-<button type="button" class="btn btn-dark pull-right btn-block abono_ini" onClick="abono_inicial()"><i class="fa fa-save" aria-hidden="true"></i>  Abono Inicial</button>
+<button type="button" class="btn btn-dark pull-right btn-block abono_ini" id="recibo_ini"><i class="fa fa-save" aria-hidden="true"></i>  Abono Inicial</button>
 </div>
 
     </div> 
@@ -303,6 +312,8 @@ document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
    <!--AJAX PRODUCTOS-->
 <script type="text/javascript" src="js/productos.js"></script>
 <script type="text/javascript" src="js/ventas.js"></script>
+<script type="text/javascript" src="js/recibos.js"></script>
+
 
 
 

@@ -99,7 +99,6 @@ public function get_filas_venta(){
 
           $sql->execute();
           return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-
        
             
     }
@@ -239,17 +238,13 @@ $html.="<tr class='filas'>
 
 
 public function agrega_detalle_venta(){
-
-       
+      
 	//echo json_encode($_POST['arrayCompra']);
   $str = '';
 	$detalles = array();
 	$detalles = json_decode($_POST['arrayVenta']);
 
-
-   
-	 $conectar=parent::conexion();
-
+	$conectar=parent::conexion();
 
 	foreach ($detalles as $k => $v) {
 		//echo $v->codProd;
@@ -268,124 +263,101 @@ public function agrega_detalle_venta(){
 
 		//echo "***************";
 		//echo "Cant: ".$cantidad." codProd: ".$codProd. " Producto: ". $producto. " moneda: ".$moneda. " precio: ".$precio. " descuento: ".$dscto. " estado: ".$estado;
-
-		   $numero_venta = $_POST["numero_venta"];
-		   $cod_pac = ["cod_pac"];
-		   //$paciente_nombre = $_POST["nombre"];
-		   $nombre_pac = $_POST["nombre_pac"];
-		   $tipo_pago ="Cargo Automatico";
-		   $subtotal = $_POST["subtotal"];
-		   $usuario = $_POST["usuario"];
-       $sucursal = $_POST["sucursal"];
-		   $tipo_venta = $_POST["tipo_venta"];
-       $id_usuario = $_POST["id_usuario"];
-       $id_paciente = $_POST["id_paciente"];
-       $plazo = $_POST["plazo"];
+		$numero_venta = $_POST["numero_venta"];
+		$cod_pac = ["cod_pac"];
+		//$paciente_nombre = $_POST["nombre"];
+		$nombre_pac = $_POST["nombre_pac"];
+		$tipo_pago ="Cargo Automatico";
+		$subtotal = $_POST["subtotal"];
+		$usuario = $_POST["usuario"];
+    $sucursal = $_POST["sucursal"];
+		$tipo_venta = $_POST["tipo_venta"];
+    $id_usuario = $_POST["id_usuario"];
+    $id_paciente = $_POST["id_paciente"];
+    $plazo = $_POST["plazo"];
+    $canal = $_POST["canal"];
        //$descripcion = $_POST["descripcion"];
-       //$importe = $_POST["importe"];
-		   
+       //$importe = $_POST["importe"];  
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,now(),?,?);";
 
-        $sql="insert into detalle_ventas
-        values(null,?,?,?,?,?,?,?,now(),?,?);";
-
-
-        $sql=$conectar->prepare($sql);
-
-        $sql->bindValue(1,$numero_venta);
-        //$sql->bindValue(2,$cod_pac);
-        $sql->bindValue(2,$codProd);
-        $sql->bindValue(3,$modelo);
-        $sql->bindValue(4,$importe);
-        $sql->bindValue(5,$cantidad);
-        $sql->bindValue(6,$dscto);
-        $sql->bindValue(7,$importe);
-        $sql->bindValue(8,$id_usuario);
-        $sql->bindValue(9,$id_paciente);
-
-       
-       
-        $sql->execute();
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_venta);
+    //$sql->bindValue(2,$cod_pac);
+    $sql->bindValue(2,$codProd);
+    $sql->bindValue(3,$modelo);
+    $sql->bindValue(4,$importe);
+    $sql->bindValue(5,$cantidad);
+    $sql->bindValue(6,$dscto);
+    $sql->bindValue(7,$importe);
+    $sql->bindValue(8,$id_usuario);
+    $sql->bindValue(9,$id_paciente); 
+            
+    $sql->execute();
          
-
+    //BUSCA PRODUCTO QUE VIENE EN EL ARRAY PARA ACTUALIZAR EXISTENCIA (REGISTRAR DE BODEGA)
     $sql11="select * from existencias where id_producto=? and bodega=?;";
-
-             //echo $sql3;
              
-             $sql11=$conectar->prepare($sql11);
+    $sql11=$conectar->prepare($sql11);
+    $sql11->bindValue(1,$codProd);
+    $sql11->bindValue(2,$sucursal);
+    $sql11->execute();
 
-             $sql11->bindValue(1,$codProd);
-             $sql11->bindValue(2,$sucursal);
-             $sql11->execute();
+    $resultados = $sql11->fetchAll(PDO::FETCH_ASSOC);
+      foreach($resultados as $b=>$row){
+        $re["existencia"] = $row["stock"];
 
-             $resultados = $sql11->fetchAll(PDO::FETCH_ASSOC);
-
-                  foreach($resultados as $b=>$row){
-
-                    $re["existencia"] = $row["stock"];
-
-                  }
-
-                //la cantidad total es la suma de la cantidad más la cantidad actual
-                $cantidad_totales = $row["stock"] - $cantidad;
-
-             
-               //si existe el producto entonces actualiza el stock en producto
-              
-               if(is_array($resultados)==true and count($resultados)>0) {
-                     
+    }
+    //la cantidad total es la suma de la cantidad más la cantidad actual
+    $cantidad_totales = $row["stock"] - $cantidad;             
+    //si existe el producto entonces actualiza el stock en producto              
+      if(is_array($resultados)==true and count($resultados)>0) {                     
                   //actualiza el stock en la tabla producto
-
-                 $sql12 = "update existencias set 
-                      
-                      stock=?
-                      where 
-                      id_producto=? and bodega=?
-                 ";
-
-
-                $sql12 = $conectar->prepare($sql12);
-                $sql12->bindValue(1,$cantidad_totales);
-                $sql12->bindValue(2,$codProd);
-                $sql12->bindValue(3,$sucursal);
-                $sql12->execute();               
+        $sql12 = "update existencias set                       
+            stock=?
+            where 
+            id_producto=? and bodega=?
+        ";
+        $sql12 = $conectar->prepare($sql12);
+        $sql12->bindValue(1,$cantidad_totales);
+        $sql12->bindValue(2,$codProd);
+        $sql12->bindValue(3,$sucursal);
+        $sql12->execute();               
 }
 
-	     }//cierre del foreach
+	     }//cierre del foreach 
 
-	
-   
-
-           $sql2="insert into ventas 
-           values(null,now(),?,?,?,?,?,?,?,?,?);";
+  $sql2="insert into ventas 
+  values(null,now(),?,?,?,?,?,?,?,?,?,?);";
 
 
-           $sql2=$conectar->prepare($sql2);
+  $sql2=$conectar->prepare($sql2);
            
           
-           $sql2->bindValue(1,$numero_venta);
-           $sql2->bindValue(2,$nombre_pac);
-           $sql2->bindValue(3,$usuario);       
-           $sql2->bindValue(4,$importe);
-           $sql2->bindValue(5,$tipo_pago);
-           $sql2->bindValue(6,$tipo_venta);          
-           $sql2->bindValue(7,$id_usuario);
-           $sql2->bindValue(8,$id_paciente);
-           $sql2->bindValue(9,$sucursal);
-           $sql2->execute();
+  $sql2->bindValue(1,$numero_venta);
+  $sql2->bindValue(2,$nombre_pac);
+  $sql2->bindValue(3,$usuario);       
+  $sql2->bindValue(4,$importe);
+  $sql2->bindValue(5,$tipo_pago);
+  $sql2->bindValue(6,$tipo_venta);          
+  $sql2->bindValue(7,$id_usuario);
+  $sql2->bindValue(8,$id_paciente);
+  $sql2->bindValue(9,$sucursal);
+  $sql2->bindValue(10,$canal);
+  $sql2->execute();
 
-           //INSERTAR EN LA TABLA CREDITOS
-           $sql7="insert into creditos values(null,?,?,?,?,?,?,?,now());";
+ //INSERTAR EN LA TABLA CREDITOS
+ $sql7="insert into creditos values(null,?,?,?,?,?,?,?,now());";
 
-           $sql7=$conectar->prepare($sql7);
+  $sql7=$conectar->prepare($sql7);
 
-           $sql7->bindValue(1,$importe);
-           $sql7->bindValue(2,$plazo);
-           $sql7->bindValue(3,$importe);
-           $sql7->bindValue(4,$tipo_pago);
-           $sql7->bindValue(5,$numero_venta);
-           $sql7->bindValue(6,$id_paciente);
-           $sql7->bindValue(7,$id_usuario);
-           $sql7->execute();
+  $sql7->bindValue(1,$importe);
+  $sql7->bindValue(2,$plazo);
+  $sql7->bindValue(3,$importe);
+  $sql7->bindValue(4,$tipo_pago);
+  $sql7->bindValue(5,$numero_venta);
+  $sql7->bindValue(6,$id_paciente);
+  $sql7->bindValue(7,$id_usuario);
+  $sql7->execute();
 
           
   	  }
@@ -446,7 +418,7 @@ public function agrega_detalle_venta2(){
         //$sql->bindValue(2,$cod_pac);
         $sql->bindValue(2,$codProd);
         $sql->bindValue(3,$descripcion);
-        $sql->bindValue(4,$importe);
+        $sql->bindValue(4,$subtotal);
         $sql->bindValue(5,$cantidad);
         $sql->bindValue(6,$dscto);
         $sql->bindValue(7,$importe);
@@ -549,8 +521,7 @@ public function agrega_detalle_cargo(){
   $detalles = array();
   
 
-   $conectar=parent::conexion();   
-
+   $conectar=parent::conexion(); 
        
        $numero_venta = '04';
        $codigo_paciente = ["codigo_paciente"];
