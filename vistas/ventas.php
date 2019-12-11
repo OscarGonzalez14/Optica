@@ -254,7 +254,7 @@
   </table>
  <div class="boton_registrar">
 <button type="button" onClick="registrarVenta()" class="btn btn-blue pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Venta</button>
-<button type="button" class="btn btn-dark pull-right btn-block abono_ini" id="recibo_ini"><i class="fa fa-save" aria-hidden="true"></i>  Abono Inicial</button>
+<button type="button" class="btn btn-dark pull-right btn-block" id="recibo_ini"><i class="fa fa-save" aria-hidden="true"></i>  Abono Inicial</button>
 </div>
 
     </div> 

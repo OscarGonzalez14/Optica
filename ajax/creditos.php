@@ -696,45 +696,35 @@ case "get_numero_recibo":
     $recibo = new Recibos();
     $datos= $recibo->get_numero_recibo($_POST["sucursal"]);	
 
-            // si existe el proveedor entonces recorre el array
-	      if(is_array($datos)==true and count($datos)>0){
-
-				  foreach($datos as $row)
-				{
-					
-					$output["numero_rec"] = $row["numero_rec"];
-					
-									
-				}
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["numero_rec"] = $row["numero_rec"];								
+		}
 		      
-		          echo json_encode($output);
+	echo json_encode($output);
+		}
+break;
 
+case "get_datos_recibo_inicial":
 
-	        } else {
-                 
-                 //si no existe el registro entonces no recorre el array
-                $errors[]="no existe";
+    require_once('../modelos/Recibos.php');
+    $recibo = new Recibos();
+    $datos= $recibo->get_datos_pac_rec_ini($_POST["sucursal"]);	
 
-	        }
-
-
-	         //inicio de mensaje de error
-
-				if (isset($errors)){
-			
-					?>
-					<div class="alert alert-danger" role="alert">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>Error!</strong> 
-							<?php
-								foreach ($errors as $error) {
-										echo $error;
-									}
-								?>
-					</div>
-					<?php
-			      }
-
+    // si existe el proveedor entonces recorre el array
+	if(is_array($datos)==true and count($datos)>0){
+		foreach($datos as $row){					
+			$output["id_ventas"] = $row["id_ventas"];
+			$output["sucursal"] = $row["sucursal"];
+			$output["subtotal"] = $row["subtotal"];
+			$output["numero_venta"] = $row["numero_venta"];
+			$output["nombres"] = $row["nombres"];
+			$output["telefono"] = $row["telefono"];									
+		}
+		      
+	echo json_encode($output);
+		}
 break;
 
 

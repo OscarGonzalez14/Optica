@@ -66,24 +66,19 @@ public function get_filas_venta(){
             
 		}
 
-    public function get_det_ultima_venta(){
+public function get_det_ultima_venta(){
+  
+  $conectar=parent::conexion();
+  parent::set_names();
 
-       $conectar=parent::conexion();
-           parent::set_names();
-
-          $sql="select p.telefono,p.nombres, p.empresa, c.id_credito,c.monto,c.saldo,v.tipo_pago,p.id_paciente from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente join ventas as v where c.id_credito=(select max(id_credito) from creditos) and v.numero_venta=c.numero_venta;";
-
+  $sql="select p.telefono,p.nombres, p.empresa, c.id_credito,c.monto,c.saldo,v.tipo_pago,p.id_paciente from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente join ventas as v where c.id_credito=(select max(id_credito) from creditos) and v.numero_venta=c.numero_venta;";
 
           //echo $sql; exit();
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
-          $sql=$conectar->prepare($sql);
-
-          $sql->execute();
-          return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-
-       
-            
-    }
 
     public function get_det_ultima_venta_aros(){
 
@@ -336,7 +331,7 @@ public function agrega_detalle_venta(){
   $sql2->bindValue(1,$numero_venta);
   $sql2->bindValue(2,$nombre_pac);
   $sql2->bindValue(3,$usuario);       
-  $sql2->bindValue(4,$importe);
+  $sql2->bindValue(4,$subtotal);
   $sql2->bindValue(5,$tipo_pago);
   $sql2->bindValue(6,$tipo_venta);          
   $sql2->bindValue(7,$id_usuario);
@@ -350,7 +345,7 @@ public function agrega_detalle_venta(){
 
   $sql7=$conectar->prepare($sql7);
 
-  $sql7->bindValue(1,$importe);
+  $sql7->bindValue(1,$subtotal);
   $sql7->bindValue(2,$plazo);
   $sql7->bindValue(3,$importe);
   $sql7->bindValue(4,$tipo_pago);

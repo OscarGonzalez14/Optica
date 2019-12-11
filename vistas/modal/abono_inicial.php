@@ -25,22 +25,20 @@
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead>
           <tr>
-            <th><p align="center">Fechas</p></th>
-            <th><p align="center">Telefono</p></th>
-            <th><p align="center" p>Recibí de:</p></th>
-            <th> <p align="center">Empresa</p></th>
+            <th><p align="center">No. Venta</p></th>
+            <th><p align="center">Fecha</p></th>
+            <th><p align="center" p>Recibí de:</p></th>            
             <th colspan="4"><p align="center"> Cantidad en Letras</p></th>
             <th> <p align="center">No. Recibo</p></th>
           </tr>
         </thead>
 
         <tbody>
+        <td><input type='text' class='form-control' id='num_venta_rec_ini' name='num_venta_rec_ini'></td>
           <td align="center"> <h5 id="date"></h5><input type="hidden" name="date" id="date"></td>
-          <td align="center"> <h5 id="telefono"></h5><input type="hidden" name="telefono" id="telefono"></td>
-          <td align="center"> <h5 id="nombres"></h5><input type="hidden" name="nombres" id="nombres"/></td>
-          <td align="center"> <h5 id="empresa"></h5><input type="hidden" name="empresa" id="empresa"></td>
+          <td align="center"><input type="text" name="nombres_ini" id="nombres_ini" class='form-control'></td>
           <td align="center" colspan="4" id="cant_letras"><input type="text" class="form-control" id="texto"></td>
-          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" readonly> </td>
+          <td align="center"><input type="text" name="num_recibo" id="num_recibo" class="form-control" readonly style="text-align: right;"> </td>
         </tbody>
       </table>
 
@@ -59,9 +57,9 @@
         </thead>
 
         <tbody id="listarAbon">
-          <td align='center'><input class='form-control' size='4' type='text' class='monto' name='monto' id="monto" style="text-align: right;"></td>
-          <td align='center'><input class='form-control' size='4' type='text' class='numero' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;"></td>
-          <td align='center'><input class='form-control' size='4' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' type='text' class='monto' name='monto' id="monto" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' type='text' class='numero' name='numero' id="numero" onkeyup="nuevo_saldo()" style="text-align: right;"></td>
+          <td align='center'><input class='form-control' type='text' class='saldo' name='saldo' id="saldo" style="text-align: right;"></td>
           <td align='center'><select class='form-control' id='forma_pago' name='forma_pago'><option value=''>Seleccione</option><option value='Efectivo'>Efectivo</option><option value='Tarjeta de Credito'>Tarjeta de Credito</option><option value='Tarjeta de Debito'>Tarjeta de Debito</option><option value='Cargo Automatico'>Cargo Automatico</option><option value='Cheque'>Cheque</option></select></td>
           <td><input type='text' class='form-control' id='datepicker' name='pr_abono'></td>
 

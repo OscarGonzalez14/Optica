@@ -1198,7 +1198,7 @@ obj.value es el valor del campo de texto*/
 
 function recibo_uno(){
 $('#detalle_abonos').modal("show");
- 	var sucursal = document.getElementById('sucursal').value;
+var sucursal = document.getElementById('sucursal').value;
 
     $.ajax({
       url:"../ajax/creditos.php?op=get_numero_recibo",
@@ -1209,6 +1209,29 @@ $('#detalle_abonos').modal("show");
       success:function(data)
       {
         $("#num_recibo").val(data.numero_rec);
+
+      }
+    });
+
+    recibo_uno_datos_pac();
+ }
+
+function recibo_uno_datos_pac(){
+//$('#detalle_abonos').modal("show");
+var sucursal = document.getElementById('sucursal').value;
+
+    $.ajax({
+      url:"../ajax/creditos.php?op=get_datos_recibo_inicial",
+      method:"POST",
+      data:{sucursal:sucursal},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      {
+        $("#num_venta_rec_ini").val(data.numero_venta);
+        $("#monto").val(data.subtotal);
+        $("#telefono_ini").val(data.telefono);
+        $("#nombres_ini").val(data.nombres);
 
       }
     });
