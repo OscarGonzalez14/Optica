@@ -109,7 +109,7 @@
 
     <div class="col-xs-2">
       <label>Buscar Paciente</label>
-      <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#modalPaciente"><span class="glyphicon glyphicon-search"></span> </button>       
+      <button class="btn btn-blue btn-block" data-toggle="modal" data-target="#modalPaciente" id="search_pac"><span class="glyphicon glyphicon-search"></span> </button>       
     </div>
 
     </div> 

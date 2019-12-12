@@ -1,3 +1,17 @@
+public function get_numero_recibo($sucursal){
+
+
+          $conectar= parent::conexion();
+	       
+	      $sql= "select v.id_ventas,v.sucursal, v.subtotal, p.nombres from ventas as v join pacientes as p where p.id_paciente=v.id_paciente and v.id_ventas=(select max(id_ventas) from ventas) and v.sucursal=?;";
+
+           $sql=$conectar->prepare($sql);
+           $sql->bindValue(1, $sucursal);
+           $sql->execute();
+
+           return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
 <?php
 
   //llamo a la conexion de la base de datos 

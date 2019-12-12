@@ -1170,9 +1170,9 @@ obj.value es el valor del campo de texto*/
           
           //refresca la pagina, se llama a la funtion explode
           //setTimeout ("explode();", 2000); 
-          setTimeout ("recibo_uno();", 1400);
+          setTimeout ("recibo_uno();", 1500);
           //$('#detalle_abonos').modal("show");
-         	
+                   	
 		}
 
 	});	
@@ -1197,6 +1197,8 @@ obj.value es el valor del campo de texto*/
 }
 
 function recibo_uno(){
+document.getElementById('search_pac').style.display = 'none';
+document.getElementById('btn_enviar').style.display = 'none';
 $('#detalle_abonos').modal("show");
 var sucursal = document.getElementById('sucursal').value;
 
@@ -1232,6 +1234,8 @@ var sucursal = document.getElementById('sucursal').value;
         $("#monto").val(data.subtotal);
         $("#telefono_ini").val(data.telefono);
         $("#nombres_ini").val(data.nombres);
+        $("#id_paciente_ini").val(data.id_paciente);
+
 
       }
     });
@@ -1265,7 +1269,7 @@ var sucursal = document.getElementById('sucursal').value;
 
 
    }
-/////////////ENVIOS****************///////////
+/////////////ENVIOS***************
    //este es un arreglo vacio
 	var detallesE = [];
 

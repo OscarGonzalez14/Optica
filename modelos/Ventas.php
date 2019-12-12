@@ -594,91 +594,23 @@ public function agrega_detalle_cargo(){
 
 //////////////////////REGISTRAR ABONOS
 
-public function agrega_detalle_abono(){
+public function agrega_detalle_abono($id_usuario,$id_paciente,$monto,$num_venta,$num_recibo,$sucursal){
 
-       
-  //echo json_encode($_POST['arrayCompra']);
-  $str = '';
-  $abonoi = array();
-  $abonoi = json_decode($_POST['arrayAbonos']);
+  $conectar=parent::conexion();
 
+  $sql="insert into recibos values(null,?,?,?,now(),?,?,?);";
+  $sql=$conectar->prepare($sql);
 
-   
-   $conectar=parent::conexion();
-
-
-  foreach ($abonoi as $k => $v) {
-      
-       $abono = $v->abono;
-
-       $id_credito = $_POST["id_credito"];
-       $id_usuario = $_POST["id_usuario"];
-       $id_paciente = $_POST["id_paciente"];
-       $forma_pago = $_POST["forma_pago"];
-       $pr_abono = $_POST["pr_abono"];
-       $num_recibo = $_POST["num_recibo"];
-       
-
-      $sql="insert into abonos
-        values(null,?,?,now(),?,?,?,?,?);";
+  $sql->bindValue(1,$num_recibo);
+  $sql->bindValue(2,$num_venta);
+  $sql->bindValue(3,$monto);
+  $sql->bindValue(4,$sucursal);
+  $sql->bindValue(5,$id_paciente);
+  $sql->bindValue(6,$id_usuario);
+  $sql->execute();
 
 
-        $sql=$conectar->prepare($sql);
-
-        $sql->bindValue(1,$abono);
-        $sql->bindValue(2,$forma_pago);
-        $sql->bindValue(3,$pr_abono);
-        $sql->bindValue(4,$id_paciente);
-        $sql->bindValue(5,$id_usuario);
-        $sql->bindValue(6,$id_credito);
-        $sql->bindValue(7,$num_recibo);
-       
-        $sql->execute();
-         
-        $sql3="select * from creditos where id_credito=?;";
-
-
-             
-             $sql3=$conectar->prepare($sql3);
-
-             $sql3->bindValue(1,$id_credito);
-             $sql3->execute();
-
-             $resultado = $sql3->fetchAll(PDO::FETCH_ASSOC);
-
-                  foreach($resultado as $b=>$row){
-
-                    $re["saldo_act"] = $row["saldo"];
-
-                  }
-
-                //la cantidad total es la resta del stock menos la cantidad de productos vendido
-                $saldo_total = $row["saldo"] - $abono;
-
-             
-               //si existe el producto entonces actualiza el stock en producto
-              
-               if(is_array($resultado)==true and count($resultado)>0) {
-                     
-                  //actualiza el stock en la tabla producto
-
-                 $sql4 = "update creditos set 
-                      
-                      saldo=?
-                      where 
-                      id_credito=?
-                 ";
-
-
-                $sql4 = $conectar->prepare($sql4);
-                $sql4->bindValue(1,$saldo_total);
-                $sql4->bindValue(2,$id_credito);
-                $sql4->execute();
-
-               } //cierre la condicional
-
-
-       }//cierre del foreach
+ 
       
 }
 

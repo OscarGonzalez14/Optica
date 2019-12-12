@@ -373,7 +373,7 @@ case "ver_ultima_venta_lentes":
   	case "registrar_abono";
 
 
-	$ventas->agrega_detalle_abono();
+	$ventas->agrega_detalle_abono($_POST['id_usuario'],$_POST['id_paciente'],$_POST['monto'],$_POST['num_venta'],$_POST['num_recibo'],$_POST['sucursal']);
 
      break;
 

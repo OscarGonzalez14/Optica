@@ -720,7 +720,8 @@ case "get_datos_recibo_inicial":
 			$output["subtotal"] = $row["subtotal"];
 			$output["numero_venta"] = $row["numero_venta"];
 			$output["nombres"] = $row["nombres"];
-			$output["telefono"] = $row["telefono"];									
+			$output["telefono"] = $row["telefono"];
+			$output["id_paciente"] = $row["id_paciente"];										
 		}
 		      
 	echo json_encode($output);

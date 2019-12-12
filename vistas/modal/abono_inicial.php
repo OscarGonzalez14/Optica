@@ -51,7 +51,7 @@
           <th><p align="center">Abono Actual</p></th>
           <th><p align="center"> NuevoSaldo</p></th> 
           <th><p align="center">Forma de Pago</p></th>
-          <th><p align="center">Proximo Abono</p></th>
+          <th id="pr_abono_ini"><p align="center">Proximo Abono</p></th>
 
           </tr>
         </thead>
@@ -110,14 +110,14 @@
 </div>
 
 
-<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input id="id_credito" type="hidden" name="id_credito">
-<input id="id_paciente" type="hidden" name="id_paciente">
+<input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
 
 
       </div>
       <div class="modal-footer">
-    <button type="button" onClick="registrarAbono()" class="btn btn-dark pull-right btn-block" id="btn_enviar"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
+    <button type="button" onClick="registra_abono_inicial()" class="btn btn-dark pull-right btn-block" id="btn_enviar_ini"><i class="fa fa-save" aria-hidden="true"></i>  Registrar Abono</button>
       </div>
     </div>
 
@@ -133,6 +133,15 @@ function nuevo_saldo(){
   var saldo = monto-abono;
 
   document.getElementById("saldo").value = saldo;
+  if(saldo==0){
+    document.getElementById('datepicker').style.display = 'none';
+    document.getElementById('pr_abono_ini').style.display = 'none';
+  }else{
+    document.getElementById('datepicker').style.display = 'block';
+    document.getElementById('pr_abono_ini').style.display = 'block';
+
+  }
+
 }
 
     document.getElementById("numero").addEventListener("keyup",function(e){

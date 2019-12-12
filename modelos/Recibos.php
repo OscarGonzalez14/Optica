@@ -52,7 +52,7 @@ public function get_datos_pac_rec_ini($sucursal){
 
           $conectar= parent::conexion();
 	       
-	      $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? order by id_ventas DESC limit 1;";
+	      $sql= "select v.id_ventas,v.sucursal,v.subtotal,v.numero_venta,p.nombres,p.telefono,p.id_paciente from ventas as v join pacientes as p where p.id_paciente=v.id_paciente  and v.sucursal=? order by id_ventas DESC limit 1;";
 
            $sql=$conectar->prepare($sql);
            $sql->bindValue(1, $sucursal);

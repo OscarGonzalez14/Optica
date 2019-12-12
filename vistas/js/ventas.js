@@ -239,66 +239,7 @@ function listarAbono(){
   }
 ////REGiSTRAR ABONOS
 
-function registrarAbono(){
-    
-    /*IMPORTANTE: se declaran las variables ya que se usan en el data, sino da error*/
 
-    var id_usuario = $("#id_usuario").val();
-    var id_paciente = $("#id_paciente").val();
-    var id_credito =$("#id_credito").val();
-    var forma_pago =$("#forma_pago").val();
-    var pr_abono = $("#pr_abono").val();
-    var num_recibo=$("#num_recibo").val();
-
-    //validamos, si los campos(paciente) estan vacios entonces no se envia el formulario
-if(forma_pago!="" && num_recibo != 0){
-    $.ajax({
-		url:"../ajax/ventas.php?op=registrar_abono",
-		method:"POST",
-		data:{'arrayAbonos':JSON.stringify(abonoi),'id_usuario':id_usuario,'id_paciente':id_paciente,'id_credito':id_credito,'forma_pago':forma_pago,'pr_abono':pr_abono,'num_recibo':num_recibo},
-		cache: false,
-		dataType:"html",
-		error:function(x,y,z){
-			d_pacole.log(x);
-			console.log(y);
-			console.log(z);
-		},    
-      
-			
-		success:function(data){
-
-	    var nombre_pac = $("#saldo").val("");
-
-            
-            abonoi = [];
-            //$('#listProdVentas').html('');
-            
-              //muestra un mensaje de exito
-          setTimeout ("bootbox.alert('Se ha Realizado el Abono con exito');", 100); 
-          
-          //refresca la pagina, se llama a la funtion explode
-          setTimeout ("explode();", 2000); 
-         	
-		}
-
-	});	
-
-	}else{
-
-	} //cierre del condicional de validacion de los campos del paciente
-	
-	 	 bootbox.alert("Debe llenar todos los campos");
-	 	 return false;
-  }
-
-   
-
-  //*****************************************************************************
-   /*RESFRESCA LA PAGINA DESPUES DE REGISTRAR LA VENTA*/
-       function explode(){
-
-	    location.reload();
-}
 ///FIN REGISTRA ABONOS
 ////DETALLES DE ABONO INICIAL DETALLE DE ULTIMA VENTA******************************
 

@@ -124,7 +124,11 @@
           
         <label>Password</label>
           <input type="password" name="password1" id="password1" class="form-control" placeholder="Password" required/>
-         <br />                
+         <br />
+
+                   <label>Repita Password</label>
+          <input type="password" name="password2" id="password2" class="form-control" placeholder="Repita Password" required/>
+          <br />                
 
           <label>DUI</label>
           <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el DUI del usuario" required"/>
@@ -159,7 +163,10 @@
           <label>Correo</label>
           <input type="email" name="email" id="email" class="form-control" placeholder="Correo" required="required"/>
           <br />
-          
+          <label>Dirección</label>
+          <textarea cols="80" rows="3" id="direccion" name="direccion"  placeholder="Direccion ..." required pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$">
+          </textarea>
+          <br />
           <label>Estado</label>
            <select class="form-control" id="estado" name="estado" required>
               <option value="">-- Selecciona estado --</option>
