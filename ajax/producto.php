@@ -733,6 +733,49 @@ break;
 case 'update_warehouse':
 	$productos->agrega_detalle_warehouse();
 	break;
+
+case "listar_existencias":
+
+     $datos=$productos->get_existencias();
+
+     //Vamos a declarar un array
+ 	 $data= Array();
+
+     foreach($datos as $row)
+			{
+				$sub_array = array();
+			
+				//$sub_array = array();
+				$sub_array[] = $row["modelo"];
+				$sub_array[] = $row["marca"];
+				$sub_array[] = $row["medidas"];
+				$sub_array[] = $row["color"];
+				$sub_array[] = $row["stock"];
+				$sub_array[] = $row["bodega"];
+
+
+
+				/*$sub_array[] = '<button type="button" onClick="mostrar('.$row["id_producto"].');" id="'.$row["id_producto"].'" class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Editar</button>';				
+				$sub_array[] = '<button type="button" onClick="eliminar('.$row["id_producto"].');" id="'.$row["id_producto"].'" class="btn btn-dark btn-md"><i class="glyphicon glyphicon-edit"></i> Eliminar</button>';*/
+              
+         
+			
+
+				$data[] = $sub_array;
+			 
+			 }
+
+
+      $results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+
+     break;
+
      
 }
 ?>

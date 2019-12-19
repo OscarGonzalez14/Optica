@@ -163,6 +163,11 @@
 
              $sql=$conectar->prepare($sql);
 
+             $sql="insert into usuarios 
+             values(null,?,?,?,?,?,?,?,?,?,?,now(),?);";
+
+             $sql=$conectar->prepare($sql);
+
              $sql->bindValue(1, $_POST["nombre"]);
              $sql->bindValue(2, $_POST["apellido"]);
              $sql->bindValue(3, $_POST["cedula"]);
@@ -175,6 +180,7 @@
              $sql->bindValue(10, $_POST["password2"]);
              $sql->bindValue(11, $_POST["estado"]);
              $sql->execute();
+
 
               
                //obtenemos el valor del id del usuario

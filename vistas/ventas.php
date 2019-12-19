@@ -79,6 +79,8 @@
           <li class="active"><a href="#">MODULO DE VENTAS</a></li>
           <li><a href="#">Creditos y Pagos</a></li>
           <li><a href="consultar_ventas.php">Reportes General de Ventas</a></li>
+          <li><a href="ordenes.php" style="background:#034f84; color: white">Ordenes Lentes</a></li>
+         
 
       </ul>
       </div>

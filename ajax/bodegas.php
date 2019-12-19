@@ -50,6 +50,8 @@ switch ($_GET["op"]) {
 			{
 				$output["id_producto"] = $row["id_producto"];
 				$output["modelo"] = $row["modelo"];
+				$output["color"] = $row["color"];
+				$output["medidas"] = $row["medidas"];
 				$output["stock"] = $row["stock"];
 				$output["categoriau"] = $row["categoriau"];
 			}

@@ -678,6 +678,24 @@ public function agrega_detalle_warehouse(){
 }//cierre del la funcion
 
 
+public function get_existencias(){
+
+  $conectar= parent::conexion();
+       
+  $sql= "select p.modelo, p.marca,p.medidas,p.color, e.stock,e.bodega from producto as p inner join existencias as e on p.id_producto=e.id_producto;
+";
+
+      $sql=$conectar->prepare($sql);
+
+      $sql->execute();
+
+      return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+         
+      }
+
+
+
 }
 
 ?>

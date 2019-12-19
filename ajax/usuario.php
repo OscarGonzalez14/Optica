@@ -62,8 +62,7 @@
                                 
                                  //no existe el usuario por lo tanto hacemos el registros
 
-                                $usuarios->registrar_usuario($nombre,$apellido,$cedula,$telefono,$email,$direccion,$cargo,$usuario,$password1,$password2,$estado,$permisos);
-
+                    $usuarios->registrar_usuario($nombre,$apellido,$cedula,$telefono,$email,$direccion,$cargo,$usuario,$password1,$password2,$estado,$permisos);
                                  $messages[]="El usuario se registró correctamente";
 
                                  /*si ya exista el correo y la cedula entonces aparece el mensaje*/

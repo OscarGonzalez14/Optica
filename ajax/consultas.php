@@ -12,6 +12,67 @@ public function get_numero_recibo($sucursal){
            return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
+
+
+
+
+///////////////////////////////ordenes bd
+
+
+-- MySQL Workbench Synchronization
+-- Generated: 2019-12-14 13:48
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: oscar
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE TABLE IF NOT EXISTS `avplushost`.`ordenes` (
+  `id_orden` INT(11) NOT NULL AUTO_INCREMENT,
+  `optica` VARCHAR(45) NULL DEFAULT NULL,
+  `paciente` VARCHAR(100) NULL DEFAULT NULL,
+  `odesfera` VARCHAR(45) NULL DEFAULT NULL,
+  `odcilindro` VARCHAR(45) NULL DEFAULT NULL,
+  `odeje` VARCHAR(45) NULL DEFAULT NULL,
+  `oddicion` VARCHAR(45) NULL DEFAULT NULL,
+  `odprisma` VARCHAR(45) NULL DEFAULT NULL,
+  `oiesfera` VARCHAR(45) NULL DEFAULT NULL,
+  `oicilindros` VARCHAR(45) NULL DEFAULT NULL,
+  `oieje` VARCHAR(45) NULL DEFAULT NULL,
+  `oiadicion` VARCHAR(45) NULL DEFAULT NULL,
+  `oiprisma` VARCHAR(45) NULL DEFAULT NULL,
+  `policarbonato` VARCHAR(45) NULL DEFAULT NULL,
+  `antirreflejo` VARCHAR(45) NULL DEFAULT NULL,
+  `lentes` VARCHAR(45) NULL DEFAULT NULL,
+  `colorlente` VARCHAR(45) NULL DEFAULT NULL,
+  `base` VARCHAR(45) NULL DEFAULT NULL,
+  `odoblea` VARCHAR(45) NULL DEFAULT NULL,
+  `odpupilar` VARCHAR(45) NULL DEFAULT NULL,
+  `oddplejos` VARCHAR(45) NULL DEFAULT NULL,
+  `oddpcerca` VARCHAR(45) NULL DEFAULT NULL,
+  `oioblea` VARCHAR(45) NULL DEFAULT NULL,
+  `oipupilar` VARCHAR(45) NULL DEFAULT NULL,
+  `oidplejos` VARCHAR(45) NULL DEFAULT NULL,
+  `oidpcerca` VARCHAR(45) NULL DEFAULT NULL,
+  `aro` VARCHAR(45) NULL DEFAULT NULL,
+  `coloraro` VARCHAR(45) NULL DEFAULT NULL,
+  `observaciones` VARCHAR(45) NULL DEFAULT NULL,
+  `usuario` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_orden`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+ALTER TABLE `avplushost`.`ordenes` 
+ADD COLUMN `fecha` VARCHAR(45) NULL DEFAULT NULL AFTER `usuario`;
 <?php
 
   //llamo a la conexion de la base de datos 
