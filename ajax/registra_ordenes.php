@@ -37,12 +37,13 @@ $medida_lente_a = $_POST["medida_lente_a"];
 $medida_lente_b = $_POST["medida_lente_b"];
 $medida_lente_c = $_POST["medida_lente_c"];
 $medida_lente_d = $_POST["medida_lente_d"];
-$estado = $_POST["estado"];
-   
+$estado = "0";
+$n_orden = $_POST["numero_orden"];
+$sucursal = $_POST["sucursal"];   
 
 $conexion = new Conexion();
 $cnn = $conexion->getConexion();
-$sql = "INSERT INTO ordenes (optica,paciente,odesfera,odcilindro,odeje,oddicion,odprisma,oiesfera,oicilindros,oieje,oiadicion,oiprisma,policarbonato,antirreflejo,lentes,colorlente,base,odoblea,odpupilar,oddplejos,oddpcerca,oioblea,oipupilar,oidplejos,oidpcerca,aro,coloraro,observaciones,usuario,fecha,medidas_lente,medida_a,medida_b,medida_c,medida_d,estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+$sql = "INSERT INTO ordenes (optica,paciente,odesfera,odcilindro,odeje,oddicion,odprisma,oiesfera,oicilindros,oieje,oiadicion,oiprisma,policarbonato,antirreflejo,lentes,colorlente,base,odoblea,odpupilar,oddplejos,oddpcerca,oioblea,oipupilar,oidplejos,oidpcerca,aro,coloraro,observaciones,usuario,fecha,medidas_lente,medida_a,medida_b,medida_c,medida_d,estado,numero_orden,sucursal) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 $statement = $cnn->prepare( $sql );
 	//Enlazar los parámetros de la consulta con los valores del formulario
@@ -84,6 +85,9 @@ $statement->bindParam(33,$medida_lente_b,PDO::PARAM_STR );
 $statement->bindParam(34,$medida_lente_c,PDO::PARAM_STR );
 $statement->bindParam(35,$medida_lente_d,PDO::PARAM_STR );
 $statement->bindParam(36,$estado,PDO::PARAM_STR );
+$statement->bindParam(37,$n_orden,PDO::PARAM_STR );
+$statement->bindParam(38,$sucursal,PDO::PARAM_STR );
+//$statement->bindParam(39,$n_orden,PDO::PARAM_STR );
 //$statement->bindParam(36,$fecha,PDO::PARAM_STR );
 
 echo $statement->execute() ? header('Location: ../vistas/ordenes.php')

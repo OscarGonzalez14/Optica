@@ -30,6 +30,47 @@ public function numero_recibo(){
 		} 
 	}
 
+public function numero_orden(){
+
+		    $conectar=parent::conexion();
+		    parent::set_names();
+
+		 
+		    $sql="select numero_orden from ordenes;";
+
+		    $sql=$conectar->prepare($sql);
+
+		    $sql->execute();
+		    $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+		       //aqui selecciono solo un campo del array y lo recorro que es el campo numero_venta
+		       foreach($resultado as $k=>$v){
+
+		                 $numero_orden["numero"]=$v["numero_orden"];
+
+		               
+		          
+		             }
+		          //luego despues de tener seleccionado el numero_venta digo que si el campo numero_venta està vacio entonces se le asigna un F000001 de lo contrario ira sumando
+
+		        
+
+		                   if(empty($numero_orden["numero"]))
+		                {
+		                  echo 'AV001';
+		                }else
+		          
+		                  {
+		                    $num     = substr($numero_orden["numero"] , 2);
+		                    $dig     = $num + 1;
+		                    $fact = str_pad($dig, 6, "0", STR_PAD_LEFT);
+		                    echo 'AV'.$fact;
+		                    //echo 'F'.$new_cod;
+		                  } 
+
+		       //return $data;
+	}	
+
 public function get_numero_recibo($sucursal){
 
 

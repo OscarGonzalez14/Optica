@@ -4,6 +4,10 @@
 require_once("../config/conexion.php");
 
 if(isset($_SESSION["id_usuario"])){
+
+  require_once("../modelos/Recibos.php");
+     
+       $n_orden = new Recibos();
         
 
 ?>
@@ -83,14 +87,16 @@ if(isset($_SESSION["id_usuario"])){
       <table  class="table table-striped table-bordered table-condensed table-hover">
         <thead>
           <tr>
+            <th><p align="center">Sucursal</p></th>
             <th><p align="center">Nombre del Paciente</p></th>
             <th><p align="center">Seleccione Laboratorio</p></th>
           </tr>
         </thead>
 
         <tbody>
+         <td align="center"><select class='form-control' id='sucursal' name='sucursal'><option value=''>Seleccione Sucursal</option><option value='AVPLUS Metrocentro'>Metrocentro</option><option value='AVPLUS Arce'>Arce</option><option value='AVPLUS Sta. Ana'>Santa Ana</option></select></td></td>
         <td><input type='text' class='form-control' id='paciente' name='paciente'></td>
-          <td align="center"><select class='form-control' id='foptica' name='optica'><option value=''>Seleccione</option><option value='Lomed'>Lomed</option><option value='PrismaLab'>PrismaLab</option><option value='OptiProcesos'>OptiProcesos</option></select></td></td>
+          <td align="center"><select class='form-control' id='foptica' name='optica'><option value=''>Seleccione</option><option value='Lomed'>Lomed</option><option value='PrismaLab'>PrismaLab</option><option value='OptiProcesos'>OptiProcesos</option></select></td></td>        
         </tbody>
       </table>
 
@@ -132,8 +138,8 @@ if(isset($_SESSION["id_usuario"])){
       <tr>
         <td><strong>POLICARBONATO</strong></td>
         <td><input type="text" class="form-control" name="policarbonato" ></td>
-        <td><strong>AR</strong>&nbsp;&nbsp;&nbsp;<label class="checkbox-inline"><input type="checkbox" name="anti" value="Si">Si</label>
-        <label class="checkbox-inline"><input type="checkbox" value="No" name="anti">No</label></td>
+        <td><strong>AR</strong>&nbsp;&nbsp;&nbsp;<label class="checkbox-inline"><input type="checkbox" name="anti" value="Si" required>Si</label>
+        <label class="checkbox-inline"><input type="checkbox" value="No" name="anti" required>No</label></td>
         <td style="text-align:right"><strong>CLASE DE LENTES</strong></td>
         <td colspan="2"><input type="text" class="form-control" name="tipo_lentes" ></td>
       </tr>
@@ -209,11 +215,22 @@ if(isset($_SESSION["id_usuario"])){
   </div>
 </div>
 <br>
+
+<div class="row">
+  <div class="col-sm-6">
+    <label for="numero_orden">No. Orden:</label>
+    <input type="text" class="form-control" id="numero_orden" name="numero_orden" value="<?php $codigo=$n_orden->numero_orden();?>" readonly>
+  </div>
+  <div class="col-sm-6">
+    <label for="fecha">Fecha y Hora de Envio:</label>
+    <input id="fecha" type="text" name="fecha" class="form-control" readonly>
+  </div>
+
+</div> 
 <input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="estado" id="estado" value="Enviado de Optica a Laboratorio"/>
 <input id="id_credito" type="hidden" name="id_credito">
 <input id="id_paciente_ini" type="hidden" name="id_paciente_ini">
-<input id="fecha" type="text" name="fecha" class="form-control" readonly>
 
 
       </div>
