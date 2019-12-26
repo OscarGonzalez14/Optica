@@ -225,7 +225,7 @@ if(isset($_SESSION["id_usuario"])){
     <label for="fecha">Fecha y Hora de Envio:</label>
     <input id="fecha" type="text" name="fecha" class="form-control" readonly>
   </div>
-
+</div>
 </div> 
 <input type="hidden" name="id_usuario" id="id_usuario_ini" value="<?php echo $_SESSION["id_usuario"];?>"/>
 <input type="hidden" name="estado" id="estado" value="Enviado de Optica a Laboratorio"/>
