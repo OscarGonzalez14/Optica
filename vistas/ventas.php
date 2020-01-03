@@ -277,7 +277,7 @@ y = n.getFullYear();
 //Mes
 m = n.getMonth() + 1;
 //Día
-d = n.getDate();
+d = n.getDate();    
 
 h=n.getHours()+":"+n.getMinutes()+":"+n.getSeconds();
 

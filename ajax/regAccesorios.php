@@ -1,10 +1,13 @@
 <?php
-	include '../config/conn.php';
+include '../config/conn.php';
 
 $modelo = $_POST["modelo"];
 $precio = $_POST["precio"];
 $id_usuario = $_POST["id_usuario"];
 $categoria = $_POST["categoria"];
+$cat_acc = $_POST["cat_acc"];
+$marca = $_POST["marca"];
+$ubicacion = $_POST["ubicacion"];
 
 $conexion = new Conexion();
 $cnn = $conexion->getConexion();
@@ -17,7 +20,7 @@ $statement = $cnn->prepare( $sql );
 $statement->bindParam(1,$modelo, PDO::PARAM_STR );
 $statement->bindParam(2,$precio, PDO::PARAM_STR);
 $statement->bindParam(3,$id_usuario, PDO::PARAM_INT); 
-$statement->bindParam(4,$categoria, PDO::PARAM_INT);
+$statement->bindParam(4,$categoria, PDO::PARAM_STR);
 
 
 

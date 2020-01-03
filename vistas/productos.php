@@ -177,7 +177,7 @@
 </div>
     <input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
     <input type="hidden" name="id_producto" id="id_producto"/>
-    <input type="hidden" name="categoria" id="categoria" value="aros"/>
+    <input type="hidden" name="categoria" value="aros"/>
 
     <button type="submit" id="agregar" name="agregar" class="btn btn-blue btn-block"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
 Guardar</button>
